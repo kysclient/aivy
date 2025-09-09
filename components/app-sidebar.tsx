@@ -34,7 +34,7 @@ export function AppSidebar() {
                             <Link href={'/meal-plan'}
                                 className="rounded-full text-white px-[20px] py-[13px] gap-[8px] flex flex-row items-center bg-primary font-bold hover:bg-primary/90 transition duration-200"
                             >
-                                <FeatherIcon className="text-white w-5 h-5" />식단생성
+                                <FeatherIcon className="text-white w-5 h-5" />글쓰기
                             </Link>
                         </div>
                     )}

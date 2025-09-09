@@ -194,7 +194,7 @@ export default function MealPlanMain() {
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <Card>
+                            <Card className="bg-background">
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
                                         <Users className="w-6 h-6 text-primary" />

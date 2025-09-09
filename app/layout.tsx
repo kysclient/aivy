@@ -1,35 +1,36 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata } from 'next'
 import '@/styles/globals.css'
+import { ThemeProvider } from '@/providers/theme-provider'
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport = {
+  maximumScale: 1, // Disable auto-zoom on mobile Safari
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover'
+}
 
 export const metadata: Metadata = {
-  title: "Aivy - AI 자동식단생성",
-  description: "AI 기반 맞춤형 식단 계획 서비스",
-  generator: "aivy",
+  title: 'Aivy - AI 자동식단생성',
+  description: 'AI 기반 맞춤형 식단 계획 서비스',
+  generator: 'aivy'
 }
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body className={`antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
