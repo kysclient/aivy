@@ -41,7 +41,9 @@ export function AppBottomNav() {
                     ) : (
                         <div className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 left-0 bg-background flex flex-row items-center justify-between">
                             <div className="flex flex-row gap-1 items-center">
-                                <h1>Aivy</h1>
+                                <h1 className="font-serif text-5xl italic">
+                                    Aivy
+                                </h1>
                             </div>
                             <div className="flex flex-row gap-2 items-center">
                                 <Link href={'/register'}>

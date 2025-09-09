@@ -11,15 +11,22 @@ const buttonVariants = cva("cursor-pointer inline-flex items-center justify-cent
       outline: 'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground  dark:hover:bg-muted-hover',
       secondary: 'bg-muted text-description shadow-xs hover:bg-muted-hover/80',
       ghost: 'hover:bg-muted hover:text-accent-foreground',
-      link: 'text-primary underline-offset-4 hover:underline'
+      link: 'text-primary underline-offset-4 hover:underline',
+      iconButton:
+        "border border-border/50 hover:border-border/15 bg-primary disabled:bg-primary/40 hover:bg-primary backdrop-blur-sm disabled:text-primary-foreground/50 text-primary-foreground ring-1 ring-offset-transparent ring-transparent ring-offset-2 hover:ring-primary/15 hover:ring-offset-4 hover:ring-offset-black/20 shadow-button hover:shadow-button-hover",
     },
     size: {
       default: 'h-9 px-4 py-2 has-[>svg]:px-3',
       sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',
       lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
       xl: 'h-12 rounded-md px-8 has-[>svg]:px-4',
-      icon: 'size-9'
-    }
+      icon: 'size-9',
+      "icon-lg": "size-10",
+      "icon-xl": "size-11",
+    },
+    shine: {
+      true: "relative overflow-hidden after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:animate-shine after:pointer-events-none",
+    },
   },
   defaultVariants: {
     variant: 'default',

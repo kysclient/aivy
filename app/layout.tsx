@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import '@/styles/globals.css'
-import { Suspense } from "react"
-import { ThemeProvider } from "@/providers/theme-provider";
-import { Sidebar } from "@/components/sidebar";
-import { MobileNav } from "@/components/mobile-nav";
-import { MainLayout } from "@/layouts/main-layout";
-import { AppSidebar } from "@/components/app-sidebar";
-import { AppAside } from "@/components/app-aside";
-import { AppBottomNav } from "@/components/app-bottom-nav";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,17 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={null}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="w-full relative min-h-[100vh]">
-              <MainLayout>{children}</MainLayout>
-
-              <AppSidebar />
-              <AppAside />
-              <AppBottomNav />
-            </div>
-          </ThemeProvider>
-        </Suspense>
+        {children}
       </body>
     </html>
   );

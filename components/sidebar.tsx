@@ -24,7 +24,9 @@ export function Sidebar() {
                         <ChefHat className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-primary">Aivy</h1>
+                        <h1 className="font-serif text-5xl italic">
+                            Aivy
+                        </h1>
                         <p className="text-xs text-muted-foreground">AI 식단 생성</p>
                     </div>
                 </Link>
