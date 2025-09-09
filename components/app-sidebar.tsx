@@ -24,8 +24,8 @@ export function AppSidebar() {
 
             {user ? (
                 <>
-                    <h1 className='font-bold text-3xl p-2 mb-2'>Aivy</h1>
-                    {/* {user && <SidebarUserNav />} */}
+                    {/* <h1 className='font-bold text-3xl p-2 mb-2'>Aivy</h1> */}
+                    {user && <SidebarUserNav />}
 
                     <SidebarNavLinks />
 

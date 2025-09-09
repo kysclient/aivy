@@ -7,7 +7,7 @@ import { Posts } from "./posts";
 
 
 export default function HomeMain() {
-    const [selectedTab, setSelectedTab] = useState('recommend')
+    const [selectedTab, setSelectedTab] = useState('tips')
     const lastElementRef = useRef(null);
     return (
         <>
@@ -21,12 +21,12 @@ export default function HomeMain() {
 }
 const tabs = [
     {
-        label: '추천',
-        value: 'recommend'
+        label: '건강 Tips',
+        value: 'tips'
     },
     {
-        label: '팔로잉',
-        value: 'following'
+        label: '커뮤니티',
+        value: 'community'
     }
 ]
 

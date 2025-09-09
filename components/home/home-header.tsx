@@ -46,7 +46,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
                         flex: '1 1 0%'
                     }}
                 >
-                    <h1>Aivy</h1>
+                    <h1 className='font-extrabold text-3xl'>Aivy</h1>
                 </div>
                 <div className="w-[34px]"></div>
             </div>
@@ -92,7 +92,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
                             flex: '1 1 0%'
                         }}
                     >
-                        <h1>Aivy</h1>
+                    <h1 className='font-extrabold text-3xl'>Aivy</h1>
                     </div>
                     <div className="w-[34px] text-description">
                         <Link href={'/notifications'}>

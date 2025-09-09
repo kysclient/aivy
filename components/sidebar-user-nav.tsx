@@ -8,13 +8,12 @@ import { MoreHorizontal } from 'lucide-react'
 export function SidebarUserNav() {
     const screenSize = useScreenSize()
     const user = {
-        profile_image: '/placeholder-user.jpg',
+        profile_image: '/placeholder.svg',
         nickname: 'admin',
         email: 'admin@aivy.com'
     }
     return (
         <div className="w-full my-[12px] items-start">
-             <h1 className='font-bold text-3xl p-2 mb-2'>Aivy</h1>
             <Popover>
                 <PopoverTrigger asChild>
                     {screenSize.isDesktop ? (

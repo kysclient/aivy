@@ -99,14 +99,8 @@ export default function ProductsMain() {
     return (
         <div className="p-4 md:p-6 max-w-6xl mx-auto">
             <div className="space-y-6">
-                {/* Header */}
-                <div className="text-center">
-                    <h1 className="text-3xl font-bold mb-2">상품 추천</h1>
-                    <p className="text-muted-foreground">AI가 추천하는 건강한 식재료를 만나보세요</p>
-                </div>
-
                 {/* Search and Filters */}
-                <Card>
+                <Card className="bg-background">
                     <CardContent className="p-4">
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 relative">
@@ -145,7 +139,7 @@ export default function ProductsMain() {
                 </Card>
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {filteredProducts.map((product, index) => (
                         <motion.div
                             key={product.id}
@@ -153,7 +147,7 @@ export default function ProductsMain() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <Card className="h-full hover:shadow-lg transition-shadow">
+                            <Card className="bg-background h-full hover:shadow-lg transition-shadow">
                                 <CardContent className="p-4">
                                     <div className="aspect-square bg-muted rounded-lg mb-4 overflow-hidden">
                                         <img
@@ -163,11 +157,11 @@ export default function ProductsMain() {
                                         />
                                     </div>
                                     <div className="space-y-3">
-                                        <Badge variant="secondary" className="text-xs">
+                                        <Badge variant="outline" className="text-xs">
                                             {product.category}
                                         </Badge>
-                                        <h3 className="font-semibold">{product.name}</h3>
-                                        <p className="text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+                                        <h3 className="font-semibold text-foreground">{product.name}</h3>
+                                        <p className="text-sm text-description line-clamp-2">{product.description}</p>
                                         <div className="flex items-center gap-1">
                                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                             <span className="text-sm font-medium">{product.rating}</span>
