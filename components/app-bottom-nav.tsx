@@ -1,5 +1,5 @@
 'use client'
-import { BellFilledIcon, BellIcon, ChatFilledIcon, ChatIcon, ExploreFilledIcon, ExploreIcon, HomeFilledIcon, HomeIcon, LiveFilledIcon, LiveIcon, SearchIcon, SettingFilledIcon, SettingIcon, TiktokLogo, UserFilledIcon, UserIcon } from './icons'
+import { AiFilledIcon, AiIcon, BellFilledIcon, BellIcon, ChatFilledIcon, ChatIcon, ExploreFilledIcon, ExploreIcon, HomeFilledIcon, HomeIcon, LiveFilledIcon, LiveIcon, SearchIcon, SettingFilledIcon, SettingIcon, TiktokLogo, UserFilledIcon, UserIcon } from './icons'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -29,7 +29,7 @@ export function AppBottomNav() {
                                     const icon = isActive ? link.iconFilled(26) : link.icon(26)
                                     return (
                                         <div key={`${link.href}_${idx}`} className="flex justify-center items-center w-full">
-                                            <Link href={path} className={cn('relative text-foreground', pathname === link.href && 'font-bold')}>
+                                            <Link href={path} className={cn('relative text-foreground hover:bg-muted rounded-xl p-2', pathname === link.href && 'font-bold')}>
                                                 {link.href === '/messages' && <MessageBadge className="top-1 right-0" />}
                                                 {icon}
                                             </Link>
@@ -76,8 +76,8 @@ export const mobileNavLinks = [
     },
     {
         title: '식단생성',
-        icon: (size: number) => <LiveIcon size={size} />,
-        iconFilled: (size: number) => <LiveFilledIcon size={size} />,
+        icon: (size: number) => <AiIcon size={size} />,
+        iconFilled: (size: number) => <AiFilledIcon size={size} />,
         href: '/meal-plan'
     },
     {

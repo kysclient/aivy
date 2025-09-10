@@ -52,7 +52,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
       </div>
 
       <div
-        className="w-full"
+        className="w-full sticky top-0 bg-background z-50"
         style={{
           display: screenSize.isMobile ? 'none' : 'block'
         }}
@@ -77,7 +77,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
         >
           <div className="justify-center">
             <Sheet key={'mobile-sidebar'}>
-              <SheetTrigger asChild>
+              <SheetTrigger asChild className='hover:bg-muted rounded-xl'>
                 <Menu className="w-[28px] h-[28px] text-description" />
               </SheetTrigger>
               <SheetContent side={'left'}>
@@ -95,7 +95,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
             <h1 className="font-serif text-5xl italic">Aivy</h1>
           </div>
           <div className="w-[34px] text-description">
-            <Link href={'/notifications'}>
+            <Link className=''  href={'/notifications'}>
               <BellIcon size={24} />
             </Link>
           </div>

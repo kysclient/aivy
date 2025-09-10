@@ -15,7 +15,7 @@ const BackButton = ({ className }: { className?: string }) => {
         }
     }, [router])
     return (
-        <button onClick={handleBack} className={cn('hover:bg-muted-hover p-1 rounded-md', className)}>
+        <button onClick={handleBack} className={cn('hover:bg-muted p-1 rounded-md', className)}>
             <ArrowLeftIcon size={24} />
         </button>
     )

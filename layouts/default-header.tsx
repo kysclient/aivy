@@ -10,7 +10,9 @@ export function DefaultHeader({ title, showBackButton = true }: { title: string;
                 className="flex flex-row items-center gap-2 border-b border-border w-full"
             >
                 {showBackButton && <BackButton />}
-                <div className="text-foreground text-lg font-bold">{title}</div>
+                <div className="text-foreground text-lg font-bold truncate whitespace-nowrap overflow-hidden flex-1">
+                    {title}
+                </div>
             </div>
         </div>
     )

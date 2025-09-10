@@ -10,7 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, Zap } from "lucide-react"
+import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, Zap, TrendingUp, Calendar, Apple } from "lucide-react"
+import { mockMealPlans } from "@/lib/mock-meal-plan"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
 
 interface UserInfo {
     name: string
@@ -38,41 +40,7 @@ interface MealPlan {
     difficulty: "Easy" | "Medium" | "Hard"
 }
 
-const mockMealPlans: MealPlan[] = [
-    {
-        id: "1",
-        name: "그릴드 치킨 샐러드",
-        calories: 450,
-        protein: 35,
-        carbs: 15,
-        fat: 28,
-        ingredients: ["닭가슴살", "로메인 상추", "방울토마토", "아보카도", "올리브오일"],
-        cookingTime: 20,
-        difficulty: "Easy",
-    },
-    {
-        id: "2",
-        name: "연어 퀴노아 볼",
-        calories: 520,
-        protein: 32,
-        carbs: 45,
-        fat: 22,
-        ingredients: ["연어", "퀴노아", "브로콜리", "당근", "참깨"],
-        cookingTime: 25,
-        difficulty: "Medium",
-    },
-    {
-        id: "3",
-        name: "두부 스테이크",
-        calories: 380,
-        protein: 25,
-        carbs: 20,
-        fat: 18,
-        ingredients: ["두부", "버섯", "시금치", "마늘", "간장"],
-        cookingTime: 15,
-        difficulty: "Easy",
-    },
-]
+
 
 const steps = [
     { title: "기본 정보", icon: Users },
@@ -96,7 +64,7 @@ export default function MealPlanMain() {
         targetCalories: "",
         specialRequests: "",
     })
-    const [mealPlans, setMealPlans] = useState<MealPlan[]>([])
+    const [mealPlans, setMealPlans] = useState<any[]>([])
     const [isGenerating, setIsGenerating] = useState(false)
 
     const handleNext = () => {
@@ -115,6 +83,7 @@ export default function MealPlanMain() {
         setIsGenerating(true)
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 2000))
+        console.log('userInfo : ', userInfo)
         setMealPlans(mockMealPlans)
         setIsGenerating(false)
     }
@@ -297,7 +266,7 @@ export default function MealPlanMain() {
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <Card>
+                            <Card className="bg-background">
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
                                         <Target className="w-6 h-6 text-primary" />
@@ -361,7 +330,7 @@ export default function MealPlanMain() {
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <Card>
+                            <Card className="bg-background">
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
                                         <Heart className="w-6 h-6 text-primary" />
@@ -464,7 +433,7 @@ export default function MealPlanMain() {
                             transition={{ duration: 0.3 }}
                         >
                             {mealPlans.length === 0 ? (
-                                <Card className="text-center py-12">
+                                <Card className="text-center py-12 bg-background">
                                     <CardContent>
                                         <div className="flex flex-col items-center gap-4">
                                             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
@@ -493,86 +462,193 @@ export default function MealPlanMain() {
                                     </CardContent>
                                 </Card>
                             ) : (
-                                <div className="space-y-6">
-                                    <div className="text-center">
-                                        <h2 className="text-3xl font-bold mb-2">맞춤형 식단이 완성되었어요! 🎉</h2>
-                                        <p className="text-muted-foreground">{userInfo.name}님을 위한 건강한 식단을 확인해보세요</p>
+                                <div className="space-y-8">
+                                    {/* Header Section */}
+                                    <div className="text-center space-y-4">
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="relative inline-block"
+                                        >
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-lg blur opacity-75"></div>
+                                            <h2 className="relative text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                                                맞춤형 일주일 식단 완성
+                                            </h2>
+                                        </motion.div>
+                                        <p className="text-lg text-muted-foreground">
+                                            {userInfo.name}님을 위한 건강한 7일 식단이 준비되었습니다
+                                        </p>
+
+                                        {/* Weekly Summary */}
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: 0.2 }}
+                                            className="bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 border border-primary/20 rounded-2xl p-6 max-w-4xl mx-auto"
+                                        >
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                                <div className="text-center space-y-2">
+                                                    <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
+                                                        <TrendingUp className="w-6 h-6 text-emerald-600" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-2xl font-bold text-emerald-600">
+                                                            {Math.round(mockMealPlans.reduce((acc, day) => acc + day.totalCalories, 0) / 7)}
+                                                        </div>
+                                                        <div className="text-sm text-muted-foreground">평균 칼로리/일</div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-center space-y-2">
+                                                    <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
+                                                        <Zap className="w-6 h-6 text-blue-600" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-2xl font-bold text-blue-600">
+                                                            {Math.round(mealPlans.reduce((acc, day) => acc + day.dailyNutrients.protein, 0) / 7)}g
+                                                        </div>
+                                                        <div className="text-sm text-muted-foreground">평균 단백질</div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-center space-y-2">
+                                                    <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto">
+                                                        <Apple className="w-6 h-6 text-orange-600" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-2xl font-bold text-orange-600">
+                                                            {Math.round(mealPlans.reduce((acc, day) => acc + day.dailyNutrients.carbs, 0) / 7)}g
+                                                        </div>
+                                                        <div className="text-sm text-muted-foreground">평균 탄수화물</div>
+                                                    </div>
+                                                </div>
+                                                <div className="text-center space-y-2">
+                                                    <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto">
+                                                        <Heart className="w-6 h-6 text-purple-600" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-2xl font-bold text-purple-600">7일</div>
+                                                        <div className="text-sm text-muted-foreground">맞춤 식단</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </motion.div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {mealPlans.map((meal, index) => (
-                                            <motion.div
-                                                key={meal.id}
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: index * 0.1 }}
-                                            >
-                                                <Card className="h-full hover:shadow-lg transition-shadow">
-                                                    <CardHeader>
-                                                        <CardTitle className="text-lg">{meal.name}</CardTitle>
-                                                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                            <Clock className="w-4 h-4" />
-                                                            {meal.cookingTime}분
-                                                            <Badge
-                                                                variant={
-                                                                    meal.difficulty === "Easy"
-                                                                        ? "secondary"
-                                                                        : meal.difficulty === "Medium"
-                                                                            ? "default"
-                                                                            : "destructive"
-                                                                }
-                                                            >
-                                                                {meal.difficulty}
-                                                            </Badge>
-                                                        </div>
-                                                    </CardHeader>
-                                                    <CardContent className="space-y-4">
-                                                        <div className="grid grid-cols-2 gap-2 text-sm">
-                                                            <div className="bg-muted/50 p-2 rounded">
-                                                                <div className="font-medium">칼로리</div>
-                                                                <div className="text-primary font-bold">{meal.calories}kcal</div>
-                                                            </div>
-                                                            <div className="bg-muted/50 p-2 rounded">
-                                                                <div className="font-medium">단백질</div>
-                                                                <div className="text-primary font-bold">{meal.protein}g</div>
-                                                            </div>
-                                                            <div className="bg-muted/50 p-2 rounded">
-                                                                <div className="font-medium">탄수화물</div>
-                                                                <div className="text-primary font-bold">{meal.carbs}g</div>
-                                                            </div>
-                                                            <div className="bg-muted/50 p-2 rounded">
-                                                                <div className="font-medium">지방</div>
-                                                                <div className="text-primary font-bold">{meal.fat}g</div>
-                                                            </div>
-                                                        </div>
+                                    {/* Carousel Section */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.4 }}
+                                        className="relative"
+                                    >
+                                        <Carousel className="w-full max-w-7xl mx-auto">
+                                            <CarouselContent className="-ml-2 md:-ml-4">
+                                                {mealPlans.map((dayPlan, index) => {
+                                                    const dayNames = ['목요일', '금요일', '토요일', '일요일', '월요일', '화요일'];
+                                                    const dayName = dayNames[index];
 
-                                                        <div>
-                                                            <h4 className="font-medium mb-2">주요 재료</h4>
-                                                            <div className="flex flex-wrap gap-1">
-                                                                {meal.ingredients.map((ingredient, idx) => (
-                                                                    <Badge key={idx} variant="outline" className="text-xs">
-                                                                        {ingredient}
-                                                                    </Badge>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    </CardContent>
-                                                </Card>
-                                            </motion.div>
-                                        ))}
-                                    </div>
+                                                    return (
+                                                        <CarouselItem key={index} className="pl-2 basis-full">
+                                                            <Card className="h-full bg-gradient-to-br from-background via-background to-muted/30 border-2 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
+                                                                <CardHeader className="pb-4">
+                                                                    <div className="flex items-center justify-between">
+                                                                        <div>
+                                                                            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                                                                                {dayName}
+                                                                            </CardTitle>
+                                                                            <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                                                                                <Calendar className="w-4 h-4" />
+                                                                                {dayPlan.date}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="text-right">
+                                                                            <div className="text-2xl font-bold text-primary">
+                                                                                {dayPlan.totalCalories.toLocaleString()}
+                                                                            </div>
+                                                                            <div className="text-xs text-muted-foreground">kcal</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </CardHeader>
 
-                                    <Card className="bg-primary/5 border-primary/20">
-                                        <CardContent className="p-6 text-center">
-                                            <h3 className="text-xl font-bold mb-2">🎉 축하합니다!</h3>
-                                            <p className="text-muted-foreground mb-4">
-                                                {userInfo.name}님의 맞춤형 식단 계획이 완성되었습니다. 건강한 식습관으로 목표를 달성해보세요!
-                                            </p>
-                                            <Button onClick={() => setCurrentStep(0)} variant="outline">
-                                                새로운 식단 만들기
-                                            </Button>
-                                        </CardContent>
-                                    </Card>
+                                                                <CardContent className="space-y-4">
+                                                                    {/* Daily Nutrients */}
+                                                                    <div className="grid grid-cols-3 gap-2 mb-4">
+                                                                        <div className="bg-emerald-50 dark:bg-emerald-950/50 p-3 rounded-lg text-center border border-emerald-200 dark:border-emerald-800">
+                                                                            <div className="text-lg font-bold text-emerald-600">{dayPlan.dailyNutrients.protein}g</div>
+                                                                            <div className="text-xs text-emerald-600/80">단백질</div>
+                                                                        </div>
+                                                                        <div className="bg-blue-50 dark:bg-blue-950/50 p-3 rounded-lg text-center border border-blue-200 dark:border-blue-800">
+                                                                            <div className="text-lg font-bold text-blue-600">{dayPlan.dailyNutrients.carbs}g</div>
+                                                                            <div className="text-xs text-blue-600/80">탄수화물</div>
+                                                                        </div>
+                                                                        <div className="bg-orange-50 dark:bg-orange-950/50 p-3 rounded-lg text-center border border-orange-200 dark:border-orange-800">
+                                                                            <div className="text-lg font-bold text-orange-600">{dayPlan.dailyNutrients.fat}g</div>
+                                                                            <div className="text-xs text-orange-600/80">지방</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {/* Meals */}
+                                                                    <div className="space-y-3">
+                                                                        {[
+                                                                            { key: 'breakfast', name: '아침', icon: '🌅', color: 'bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800' },
+                                                                            { key: 'lunch', name: '점심', icon: '☀️', color: 'bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800' },
+                                                                            { key: 'dinner', name: '저녁', icon: '🌙', color: 'bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800' },
+                                                                            { key: 'snack', name: '간식', icon: '🍎', color: 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800' }
+                                                                        ].map(meal => (
+                                                                            <div key={meal.key} className={`p-3 rounded-lg border ${meal.color}`}>
+                                                                                <div className="flex items-center justify-between mb-2">
+                                                                                    <div className="flex items-center gap-2">
+                                                                                        <span className="text-lg">{meal.icon}</span>
+                                                                                        <span className="font-semibold text-sm">{meal.name}</span>
+                                                                                    </div>
+                                                                                    <Badge variant="secondary" className="text-xs">
+                                                                                        {dayPlan[meal.key as keyof typeof dayPlan]?.calories}kcal
+                                                                                    </Badge>
+                                                                                </div>
+                                                                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                                                                    {dayPlan[meal.key as keyof typeof dayPlan]?.menu}
+                                                                                </p>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+                                                                </CardContent>
+                                                            </Card>
+                                                        </CarouselItem>
+                                                    );
+                                                })}
+                                            </CarouselContent>
+                                            <CarouselPrevious className="hidden md:flex -left-12 bg-primary/10 border-primary/20 hover:bg-primary/20  z-20" />
+                                            <CarouselNext className="hidden md:flex -right-12 bg-primary/10 border-primary/20 hover:bg-primary/20 z-20" />
+                                        </Carousel>
+                                    </motion.div>
+
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.6 }}
+                                    >
+                                        <Card className="bg-gradient-to-r from-primary/5 via-purple-500/5 to-primary/5 border-primary/20 backdrop-blur-sm">
+                                            <CardContent className="p-8 text-center">
+                                                <div className="flex items-center justify-center gap-3 mb-4">
+                                                    <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                                        <Sparkles className="w-6 h-6 text-primary" />
+                                                    </div>
+                                                    <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                                                        식단이 완성되었습니다
+                                                    </h3>
+                                                </div>
+                                                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
+                                                    {userInfo.name}님의 목표인 <span className="font-semibold text-primary">{userInfo.goal === 'weight-loss' ? '체중 감량' : userInfo.goal === 'muscle-gain' ? '근육 증가' : '건강 관리'}</span>를 위한 7일 맞춤 식단입니다.
+                                                    균형 잡힌 영양소로 건강한 식습관을 만들어보세요.
+                                                </p>
+                                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                                    <Button onClick={() => setCurrentStep(0)} variant="outline" size="lg" className="gap-2">
+                                                        <ChefHat className="w-5 h-5" />
+                                                        새로운 식단 만들기
+                                                    </Button>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </motion.div>
                                 </div>
                             )}
                         </motion.div>

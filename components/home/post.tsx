@@ -43,7 +43,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
             {/* 댓글 트리 수직선: isChild일 때 상단에 표시 */}
             {isChild && <div className="absolute left-[41px] top-0 h-[16px] w-[2px] bg-border" />}
 
-            <div className={cn('flex flex-row px-[15px] py-[12px]', isOnPost && 'flex-col')}>
+            <div className={cn('flex flex-row px-[15px] pt-[12px]', isOnPost && 'flex-row')}>
                 {/* 프로필 이미지와 수직선 컨테이너 */}
                 <div className="relative flex flex-col items-center w-[50px] flex-shrink-0">
                     <button onClick={(e) => profileOnClick(e, post.user.name!)} className="relative z-10">
@@ -53,7 +53,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
                     </button>
 
                     {/* 부모 포스트일 때 하단 수직선 */}
-                    {isParent && <div className="absolute top-[42px] left-[26px] w-[2px] h-[calc(100%-28px)] bg-border" />}
+                    {isParent && <div className="absolute top-[42px] left-[26px] w-[2px] h-[calc(100%-0px)] bg-border" />}
                 </div>
 
                 {/* 포스트 본문 */}
@@ -68,7 +68,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
                     </div>
 
                     {/* 포스트 내용 */}
-                    <div className="text-foreground whitespace-pre-wrap">{post.title}</div>
+                    <div className="text-foreground whitespace-pre-wrap">{post.content}</div>
 
                     {/* 이미지 갤러리 및 잠금 콘텐츠 */}
                     <div
@@ -81,17 +81,18 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
                         <ImageGallery images={['/examples/image-1.png', '/examples/image-2.png', '/examples/image-3.png', '/examples/image-4.png']} onModalOpenChange={setOpenImageModal} />
                     </div>
 
-                    {/* 포스트 페이지에서만 표시되는 날짜 및 구분선 */}
-                    {isOnPost && (
-                        <>
-                            <span className="my-2 text-xs text-description">{formatKoreanDate(post.created_at)}</span>
-                            <Separator className="my-2" />
-                        </>
-                    )}
-
-                    <PostActions isOnPost={isOnPost} post={post} />
                 </div>
             </div>
+            <div className='w-full flex justify-end px-[15px]'>
+                <PostActions isOnPost={isOnPost} post={post} />
+            </div>
+
+            {
+                !isParent &&
+                <Separator />
+            }
+
+
         </div>
     )
 }

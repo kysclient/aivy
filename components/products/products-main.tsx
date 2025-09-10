@@ -97,11 +97,11 @@ export default function ProductsMain() {
         })
 
     return (
-        <div className="p-4 md:p-6 max-w-6xl mx-auto">
-            <div className="space-y-6">
+        <div className="p-4 max-w-6xl mx-auto">
+            <div className="space-y-4">
                 {/* Search and Filters */}
                 <Card className="bg-background">
-                    <CardContent className="p-4">
+                    <CardContent className="">
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -139,7 +139,7 @@ export default function ProductsMain() {
                 </Card>
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                     {filteredProducts.map((product, index) => (
                         <motion.div
                             key={product.id}
@@ -147,8 +147,8 @@ export default function ProductsMain() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <Card className="bg-background h-full hover:shadow-lg transition-shadow">
-                                <CardContent className="p-4">
+                            <Card className="bg-background h-full hover:shadow-lg transition-shadow sm:py-6 py-4">
+                                <CardContent className="sm:px-6 px-4">
                                     <div className="aspect-square bg-muted rounded-lg mb-4 overflow-hidden">
                                         <img
                                             src={product.image || "/placeholder.svg"}
@@ -167,7 +167,7 @@ export default function ProductsMain() {
                                             <span className="text-sm font-medium">{product.rating}</span>
                                             <span className="text-xs text-muted-foreground">(128)</span>
                                         </div>
-                                        <div className="flex items-center justify-between">
+                                        <div className="flex sm:items-center justify-between sm:flex-row flex-col gap-2">
                                             <span className="text-xl font-bold text-primary">{product.price.toLocaleString()}원</span>
                                             <Button size="sm" className="gap-2">
                                                 <ShoppingCart className="w-4 h-4" />
