@@ -2,7 +2,6 @@ import { User } from "./user"
 
 export type Post = {
     id: string
-    feed_list_id: string
     title: string
     content: string
     image: string | string[]
@@ -13,5 +12,6 @@ export type Post = {
     created_at: string
     likecnt: number
     commentcnt: number
+    comments: Post[]
     user: User
 }
