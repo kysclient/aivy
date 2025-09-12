@@ -33,7 +33,7 @@ export const PostActions = ({ isOnPost, post }: { isOnPost?: boolean; post: Post
                 setOpenMenu(true)
             }
             if (type === 'comment') {
-                router.push(`/post/${post.feed_list_id}`)
+                router.push(`/post/${post.id}`)
             }
         },
         [isLiked, openMenu]
