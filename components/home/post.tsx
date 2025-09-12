@@ -39,7 +39,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
     }
 
     return (
-        <div className={cn('relative', !isOnPost && 'hover:bg-muted', !isChild && 'border-t border-border')} onClick={(e) => !isOnPost && postBodyOnClick(e, post.feed_list_id)}>
+        <div className={cn('relative', !isOnPost && 'hover:bg-muted', !isChild && 'border-t border-border')} onClick={(e) => !isOnPost && postBodyOnClick(e, post.id)}>
             {/* 댓글 트리 수직선: isChild일 때 상단에 표시 */}
             {isChild && <div className="absolute left-[41px] top-0 h-[16px] w-[2px] bg-border" />}
 
