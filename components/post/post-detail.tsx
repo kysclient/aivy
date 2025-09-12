@@ -51,6 +51,7 @@ const post = {
     is_audlt: 0,
     created_at: "2025-09-01T08:30:00Z",
     likecnt: 23,
+    comments: [],
     commentcnt: 5,
     user: { id: "u1", name: "홍길동", avatar: "https://randomuser.me/api/portraits/men/32.jpg" }
 }

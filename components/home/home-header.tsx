@@ -46,7 +46,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
             flex: '1 1 0%'
           }}
         >
-          <h1 className="font-serif text-5xl italic">Aivy</h1>
+          <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
         </div>
         <div className="w-[34px]"></div>
       </div>
@@ -78,7 +78,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
           <div className="justify-center">
             <Sheet key={'mobile-sidebar'}>
               <SheetTrigger asChild className='hover:bg-muted rounded-xl'>
-                <Menu className="w-[28px] h-[28px] text-description" />
+                <Menu className="w-6 h-6 text-description" />
               </SheetTrigger>
               <SheetContent side={'left'}>
                 <SheetTitle></SheetTitle>
@@ -92,11 +92,11 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
               flex: '1 1 0%'
             }}
           >
-            <h1 className="font-serif text-5xl italic">Aivy</h1>
+            <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
           </div>
           <div className="w-[34px] text-description">
-            <Link className=''  href={'/notifications'}>
-              <BellIcon size={24} />
+            <Link className='' href={'/notifications'}>
+              <BellIcon size={21} />
             </Link>
           </div>
         </div>

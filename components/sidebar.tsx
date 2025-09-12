@@ -11,6 +11,7 @@ export function Sidebar() {
     const menuItems = [
         { icon: Home, label: "홈", href: "/" },
         { icon: ChefHat, label: "식단 생성", href: "/meal-plan" },
+        { icon: ChefHat, label: "식단 생성", href: "/meal-plan" },
         { icon: ShoppingCart, label: "상품 추천", href: "/products" },
         { icon: Settings, label: "설정", href: "/settings" },
     ]
@@ -24,9 +25,8 @@ export function Sidebar() {
                         <ChefHat className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                        <h1 className="font-serif text-5xl italic">
-                            Aivy
-                        </h1>
+                        <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+
                         <p className="text-xs text-muted-foreground">AI 식단 생성</p>
                     </div>
                 </Link>

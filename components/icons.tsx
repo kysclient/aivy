@@ -356,7 +356,7 @@ export const DoorOutIcon = ({ size = 28 }: { size?: number }) => (
 
 export const AiIcon = ({ size = 16 }: { size?: number }) => {
   return (
-    <svg style={{ color: 'currentcolor' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  width={size} height={size}>
+    <svg style={{ color: 'currentcolor' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width={size} height={size}>
       <path fillRule="evenodd" d="m7.007 4.993-.813-2.847c-.056-.195-.332-.195-.388 0l-.813 2.847-2.847.813c-.195.056-.195.332 0 .388l2.847.813.813 2.847c.056.195.332.195.388 0l.813-2.847 2.847-.813c.195-.056.195-.332 0-.388zm9.296 1.79 1.415 1.414-2.122 2.121-1.414-1.414zm-3.535 3.535L4.99 18.096a1 1 0 1 0 1.414 1.414l7.778-7.778zm-9.193 6.364L16.303 3.954l4.243 4.243L7.818 20.925a3 3 0 1 1-4.243-4.243m15.046-1.59.508 1.779 1.78.508c.121.035.121.207 0 .242l-1.78.508-.508 1.78c-.035.121-.207.121-.242 0l-.508-1.78-1.78-.508c-.121-.035-.121-.207 0-.242l1.78-.508.508-1.78c.035-.121.207-.121.242 0" clipRule="evenodd"></path>
     </svg>
   )
@@ -367,6 +367,36 @@ export const AiFilledIcon = ({ size = 16 }: { size?: number }) => {
   return (
     <svg style={{ color: 'currentcolor' }} xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width={size} height={size}>
       <path fillRule="evenodd" d="m7.007 4.993-.813-2.847c-.056-.195-.332-.195-.388 0l-.813 2.847-2.847.813c-.195.056-.195.332 0 .388l2.847.813.813 2.847c.056.195.332.195.388 0l.813-2.847 2.847-.813c.195-.056.195-.332 0-.388zm5.76 5.325L4.99 18.096a1 1 0 1 0 1.414 1.414l7.778-7.778zm-9.192 6.364L16.303 3.954l4.243 4.243L7.818 20.925a3 3 0 1 1-4.243-4.243m15.046-1.59.508 1.779 1.78.508c.121.035.121.207 0 .242l-1.78.508-.508 1.78c-.035.121-.207.121-.242 0l-.508-1.78-1.78-.508c-.121-.035-.121-.207 0-.242l1.78-.508.508-1.78c.035-.121.207-.121.242 0" clipRule="evenodd"></path>
+    </svg>
+  )
+}
+
+
+export const PlanIcon = ({ size = 16 }: { size?: number }) => {
+  return (
+    <svg fill="currentColor" width={size} viewBox="0 0 24 24" height={size} aria-hidden="true" style={{ color: 'currentcolor' }}><path fillRule="evenodd" clipRule="evenodd" d="M9.7 16.895a4 4 0 0 1 4.6 0l3.7 2.6V6.5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v12.995l3.7-2.6Zm10.3 2.6c0 1.62-1.825 2.567-3.15 1.636l-3.7-2.6a2.001 2.001 0 0 0-2.3 0l-3.7 2.6C5.825 22.062 4 21.115 4 19.495V6.5a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v12.995Z"></path></svg>
+  )
+}
+
+
+export const PlanFilledIcon = ({ size = 16 }: { size?: number }) => {
+  return (
+    <svg fill="currentColor" width={size} viewBox="0 0 24 24" height={size} aria-hidden="true" style={{ color: 'currentcolor' }}><path fillRule="evenodd" clipRule="evenodd" d="M16 2.5a4 4 0 0 1 4 4v12.995c0 1.62-1.825 2.567-3.15 1.636l-3.7-2.6a2.001 2.001 0 0 0-2.3 0l-3.7 2.6C5.825 22.062 4 21.115 4 19.495V6.5a4 4 0 0 1 4-4h8Z"></path></svg>
+  )
+}
+
+export const AppLogo = ({ className = '' }: { className?: string }) => {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" role="img" aria-label="aivy logo">
+      <text x="20" y="100"
+        font-family="Poppins, Inter, system-ui, -apple-system, sans-serif"
+        font-weight="800"
+        font-size="92"
+        letter-spacing="-6"
+        fill="currentColor">
+        aivy
+      </text>
+      <circle cx="128" cy="40" r="9" fill="#2E8B57" />
     </svg>
   )
 }

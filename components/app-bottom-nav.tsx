@@ -1,5 +1,5 @@
 'use client'
-import { AiFilledIcon, AiIcon, BellFilledIcon, BellIcon, ChatFilledIcon, ChatIcon, ExploreFilledIcon, ExploreIcon, HomeFilledIcon, HomeIcon, LiveFilledIcon, LiveIcon, SearchIcon, SettingFilledIcon, SettingIcon, TiktokLogo, UserFilledIcon, UserIcon } from './icons'
+import { AiFilledIcon, AiIcon, BellFilledIcon, BellIcon, ChatFilledIcon, ChatIcon, ExploreFilledIcon, ExploreIcon, HomeFilledIcon, HomeIcon, LiveFilledIcon, LiveIcon, PlanFilledIcon, PlanIcon, SearchIcon, SettingFilledIcon, SettingIcon, TiktokLogo, UserFilledIcon, UserIcon } from './icons'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -22,7 +22,7 @@ export function AppBottomNav() {
                 <>
                     {user ? (
                         <nav role="navigation" className="w-full h-16 border-t border-border fixed bottom-0 left-0 bg-background z-50">
-                            <div className="grid grid-cols-4 h-full w-full">
+                            <div className="grid grid-cols-5 h-full w-full">
                                 {mobileNavLinks.map((link, idx) => {
                                     const path = user ? (link.href === '/profile' ? `${link.href}/${user?.nickname}` : link.href) : link.href
                                     const isActive = link.href === '/profile' ? pathname.includes('profile') : link.href === pathname
@@ -41,9 +41,8 @@ export function AppBottomNav() {
                     ) : (
                         <div className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 left-0 bg-background flex flex-row items-center justify-between">
                             <div className="flex flex-row gap-1 items-center">
-                                <h1 className="font-serif text-5xl italic">
-                                    Aivy
-                                </h1>
+                                <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+
                             </div>
                             <div className="flex flex-row gap-2 items-center">
                                 <Link href={'/register'}>
@@ -79,6 +78,12 @@ export const mobileNavLinks = [
         icon: (size: number) => <AiIcon size={size} />,
         iconFilled: (size: number) => <AiFilledIcon size={size} />,
         href: '/meal-plan'
+    },
+    {
+        title: '나만의 식단',
+        icon: (size: number) => <PlanIcon size={size} />,
+        iconFilled: (size: number) => <PlanFilledIcon size={size} />,
+        href: '/plans'
     },
     {
         title: '설정',

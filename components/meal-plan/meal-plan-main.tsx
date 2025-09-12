@@ -82,7 +82,7 @@ export default function MealPlanMain() {
     const generateMealPlan = async () => {
         setIsGenerating(true)
         // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 2000))
+        await new Promise((resolve) => setTimeout(resolve, 3000))
         console.log('userInfo : ', userInfo)
         setMealPlans(mockMealPlans)
         setIsGenerating(false)
@@ -432,7 +432,185 @@ export default function MealPlanMain() {
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.3 }}
                         >
-                            {mealPlans.length === 0 ? (
+                            {isGenerating ? (
+                                // 생성 중 상태
+                                <Card className="text-center py-12 bg-background">
+                                    <CardContent>
+                                        <div className="flex flex-col items-center gap-6">
+                                            <motion.div
+                                                initial={{ scale: 0.8 }}
+                                                animate={{ scale: 1 }}
+                                                transition={{ duration: 0.5 }}
+                                                className="relative"
+                                            >
+                                                <div className="w-20 h-20 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full flex items-center justify-center">
+                                                    <motion.div
+                                                        animate={{ rotate: 360 }}
+                                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                                        className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full"
+                                                    />
+                                                </div>
+                                                <motion.div
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: [0, 1.2, 1] }}
+                                                    transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+                                                    className="absolute -inset-2 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full"
+                                                />
+                                            </motion.div>
+
+                                            <div className="space-y-2">
+                                                <motion.h3
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
+                                                >
+                                                    AI가 맞춤형 식단을 생성 중입니다
+                                                </motion.h3>
+                                                <motion.p
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    transition={{ delay: 0.2 }}
+                                                    className="text-muted-foreground"
+                                                >
+                                                    {userInfo.name}님의 목표와 선호도를 분석하고 있어요
+                                                </motion.p>
+                                            </div>
+
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.5 }}
+                                                className="bg-muted/30 rounded-lg p-4 max-w-md"
+                                            >
+                                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                                                    영양소 균형 계산 중
+                                                </div>
+                                                <div className="flex items-center gap-3 text-sm text-muted-foreground mt-2">
+                                                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-200" />
+                                                    개인 맞춤 메뉴 선별 중
+                                                </div>
+                                                <div className="flex items-center gap-3 text-sm text-muted-foreground mt-2">
+                                                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse delay-500" />
+                                                    30일 식단 최적화 중
+                                                </div>
+                                            </motion.div>
+
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 1 }}
+                                                className="text-center space-y-2"
+                                            >
+                                                <p className="text-sm text-primary font-medium">잠시만 기다려주세요</p>
+                                                <p className="text-xs text-muted-foreground">완성되면 알림으로 알려드릴게요</p>
+                                            </motion.div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ) : mealPlans.length > 0 ? (
+                                // 식단 생성 완료 후 알림 상태
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                >
+                                    <Card className="bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 dark:from-emerald-950/20 dark:via-blue-950/20 dark:to-purple-950/20 border-2 border-emerald-200 dark:border-emerald-800">
+                                        <CardContent className="p-8 text-center">
+                                            <motion.div
+                                                initial={{ scale: 0 }}
+                                                animate={{ scale: 1 }}
+                                                transition={{ duration: 0.6, type: "spring" }}
+                                                className="flex flex-col items-center gap-6"
+                                            >
+                                                <div className="relative">
+                                                    <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center">
+                                                        <motion.div
+                                                            initial={{ scale: 0 }}
+                                                            animate={{ scale: 1 }}
+                                                            transition={{ delay: 0.3 }}
+                                                        >
+                                                            <Sparkles className="w-8 h-8 text-white" />
+                                                        </motion.div>
+                                                    </div>
+                                                    <motion.div
+                                                        initial={{ scale: 0, opacity: 0 }}
+                                                        animate={{ scale: 1, opacity: 1 }}
+                                                        transition={{ delay: 0.5, duration: 0.8 }}
+                                                        className="absolute -inset-3 bg-gradient-to-r from-emerald-400/30 to-blue-400/30 rounded-full blur-md"
+                                                    />
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    <motion.h3
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ delay: 0.4 }}
+                                                        className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent"
+                                                    >
+                                                        맞춤형 식단이 완성되었습니다!
+                                                    </motion.h3>
+                                                    <motion.p
+                                                        initial={{ opacity: 0, y: 10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ delay: 0.6 }}
+                                                        className="text-lg text-muted-foreground max-w-md mx-auto"
+                                                    >
+                                                        {userInfo.name}님을 위한 건강한 30일 식단이 준비되었습니다
+                                                    </motion.p>
+                                                </div>
+
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 0.8 }}
+                                                    className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-white/50 dark:border-gray-700/50"
+                                                >
+                                                    <div className="grid grid-cols-3 gap-4 text-center">
+                                                        <div>
+                                                            <div className="text-2xl font-bold text-emerald-600">30일</div>
+                                                            <div className="text-xs text-muted-foreground">맞춤 식단</div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-2xl font-bold text-blue-600">2000</div>
+                                                            <div className="text-xs text-muted-foreground">평균 칼로리</div>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-2xl font-bold text-purple-600">100%</div>
+                                                            <div className="text-xs text-muted-foreground">영양 균형</div>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: 1 }}
+                                                    className="flex flex-col sm:flex-row gap-3"
+                                                >
+                                                    <Button
+                                                        onClick={() => window.location.href = '/plans'}
+                                                        size="lg"
+                                                        className="gap-2 bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+                                                    >
+                                                        <Calendar className="w-5 h-5" />
+                                                        나의 식단 보러가기
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() => setCurrentStep(0)}
+                                                        variant="outline"
+                                                        size="lg"
+                                                        className="gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800"
+                                                    >
+                                                        <ChefHat className="w-5 h-5" />
+                                                        새로운 식단 만들기
+                                                    </Button>
+                                                </motion.div>
+                                            </motion.div>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            ) : (
                                 <Card className="text-center py-12 bg-background">
                                     <CardContent>
                                         <div className="flex flex-col items-center gap-4">
@@ -446,210 +624,14 @@ export default function MealPlanMain() {
                                                 </p>
                                             </div>
                                             <Button onClick={generateMealPlan} disabled={isGenerating} size="lg" className="gap-2">
-                                                {isGenerating ? (
-                                                    <>
-                                                        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                                                        식단 생성 중...
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <Zap className="w-5 h-5" />
-                                                        AI 식단 생성하기
-                                                    </>
-                                                )}
+
+                                                <Zap className="w-5 h-5" />
+                                                AI 식단 생성하기
+
                                             </Button>
                                         </div>
                                     </CardContent>
                                 </Card>
-                            ) : (
-                                <div className="space-y-8">
-                                    {/* Header Section */}
-                                    <div className="text-center space-y-4">
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            className="relative inline-block"
-                                        >
-                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-lg blur opacity-75"></div>
-                                            <h2 className="relative text-4xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                                                맞춤형 일주일 식단 완성
-                                            </h2>
-                                        </motion.div>
-                                        <p className="text-lg text-muted-foreground">
-                                            {userInfo.name}님을 위한 건강한 7일 식단이 준비되었습니다
-                                        </p>
-
-                                        {/* Weekly Summary */}
-                                        <motion.div
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: 0.2 }}
-                                            className="bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-purple-500/10 border border-primary/20 rounded-2xl p-6 max-w-4xl mx-auto"
-                                        >
-                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                                <div className="text-center space-y-2">
-                                                    <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
-                                                        <TrendingUp className="w-6 h-6 text-emerald-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-2xl font-bold text-emerald-600">
-                                                            {Math.round(mockMealPlans.reduce((acc, day) => acc + day.totalCalories, 0) / 7)}
-                                                        </div>
-                                                        <div className="text-sm text-muted-foreground">평균 칼로리/일</div>
-                                                    </div>
-                                                </div>
-                                                <div className="text-center space-y-2">
-                                                    <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
-                                                        <Zap className="w-6 h-6 text-blue-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-2xl font-bold text-blue-600">
-                                                            {Math.round(mealPlans.reduce((acc, day) => acc + day.dailyNutrients.protein, 0) / 7)}g
-                                                        </div>
-                                                        <div className="text-sm text-muted-foreground">평균 단백질</div>
-                                                    </div>
-                                                </div>
-                                                <div className="text-center space-y-2">
-                                                    <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto">
-                                                        <Apple className="w-6 h-6 text-orange-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-2xl font-bold text-orange-600">
-                                                            {Math.round(mealPlans.reduce((acc, day) => acc + day.dailyNutrients.carbs, 0) / 7)}g
-                                                        </div>
-                                                        <div className="text-sm text-muted-foreground">평균 탄수화물</div>
-                                                    </div>
-                                                </div>
-                                                <div className="text-center space-y-2">
-                                                    <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto">
-                                                        <Heart className="w-6 h-6 text-purple-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-2xl font-bold text-purple-600">7일</div>
-                                                        <div className="text-sm text-muted-foreground">맞춤 식단</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-
-                                    {/* Carousel Section */}
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 30 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.4 }}
-                                        className="relative"
-                                    >
-                                        <Carousel className="w-full max-w-7xl mx-auto">
-                                            <CarouselContent className="-ml-2 md:-ml-4">
-                                                {mealPlans.map((dayPlan, index) => {
-                                                    const dayNames = ['목요일', '금요일', '토요일', '일요일', '월요일', '화요일'];
-                                                    const dayName = dayNames[index];
-
-                                                    return (
-                                                        <CarouselItem key={index} className="pl-2 basis-full">
-                                                            <Card className="h-full bg-gradient-to-br from-background via-background to-muted/30 border-2 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
-                                                                <CardHeader className="pb-4">
-                                                                    <div className="flex items-center justify-between">
-                                                                        <div>
-                                                                            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                                                                                {dayName}
-                                                                            </CardTitle>
-                                                                            <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
-                                                                                <Calendar className="w-4 h-4" />
-                                                                                {dayPlan.date}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="text-right">
-                                                                            <div className="text-2xl font-bold text-primary">
-                                                                                {dayPlan.totalCalories.toLocaleString()}
-                                                                            </div>
-                                                                            <div className="text-xs text-muted-foreground">kcal</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </CardHeader>
-
-                                                                <CardContent className="space-y-4">
-                                                                    {/* Daily Nutrients */}
-                                                                    <div className="grid grid-cols-3 gap-2 mb-4">
-                                                                        <div className="bg-emerald-50 dark:bg-emerald-950/50 p-3 rounded-lg text-center border border-emerald-200 dark:border-emerald-800">
-                                                                            <div className="text-lg font-bold text-emerald-600">{dayPlan.dailyNutrients.protein}g</div>
-                                                                            <div className="text-xs text-emerald-600/80">단백질</div>
-                                                                        </div>
-                                                                        <div className="bg-blue-50 dark:bg-blue-950/50 p-3 rounded-lg text-center border border-blue-200 dark:border-blue-800">
-                                                                            <div className="text-lg font-bold text-blue-600">{dayPlan.dailyNutrients.carbs}g</div>
-                                                                            <div className="text-xs text-blue-600/80">탄수화물</div>
-                                                                        </div>
-                                                                        <div className="bg-orange-50 dark:bg-orange-950/50 p-3 rounded-lg text-center border border-orange-200 dark:border-orange-800">
-                                                                            <div className="text-lg font-bold text-orange-600">{dayPlan.dailyNutrients.fat}g</div>
-                                                                            <div className="text-xs text-orange-600/80">지방</div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    {/* Meals */}
-                                                                    <div className="space-y-3">
-                                                                        {[
-                                                                            { key: 'breakfast', name: '아침', icon: '🌅', color: 'bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800' },
-                                                                            { key: 'lunch', name: '점심', icon: '☀️', color: 'bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800' },
-                                                                            { key: 'dinner', name: '저녁', icon: '🌙', color: 'bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800' },
-                                                                            { key: 'snack', name: '간식', icon: '🍎', color: 'bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800' }
-                                                                        ].map(meal => (
-                                                                            <div key={meal.key} className={`p-3 rounded-lg border ${meal.color}`}>
-                                                                                <div className="flex items-center justify-between mb-2">
-                                                                                    <div className="flex items-center gap-2">
-                                                                                        <span className="text-lg">{meal.icon}</span>
-                                                                                        <span className="font-semibold text-sm">{meal.name}</span>
-                                                                                    </div>
-                                                                                    <Badge variant="secondary" className="text-xs">
-                                                                                        {dayPlan[meal.key as keyof typeof dayPlan]?.calories}kcal
-                                                                                    </Badge>
-                                                                                </div>
-                                                                                <p className="text-xs text-muted-foreground leading-relaxed">
-                                                                                    {dayPlan[meal.key as keyof typeof dayPlan]?.menu}
-                                                                                </p>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                </CardContent>
-                                                            </Card>
-                                                        </CarouselItem>
-                                                    );
-                                                })}
-                                            </CarouselContent>
-                                            <CarouselPrevious className="hidden md:flex -left-12 bg-primary/10 border-primary/20 hover:bg-primary/20  z-20" />
-                                            <CarouselNext className="hidden md:flex -right-12 bg-primary/10 border-primary/20 hover:bg-primary/20 z-20" />
-                                        </Carousel>
-                                    </motion.div>
-
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.6 }}
-                                    >
-                                        <Card className="bg-gradient-to-r from-primary/5 via-purple-500/5 to-primary/5 border-primary/20 backdrop-blur-sm">
-                                            <CardContent className="p-8 text-center">
-                                                <div className="flex items-center justify-center gap-3 mb-4">
-                                                    <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
-                                                        <Sparkles className="w-6 h-6 text-primary" />
-                                                    </div>
-                                                    <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                                                        식단이 완성되었습니다
-                                                    </h3>
-                                                </div>
-                                                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
-                                                    {userInfo.name}님의 목표인 <span className="font-semibold text-primary">{userInfo.goal === 'weight-loss' ? '체중 감량' : userInfo.goal === 'muscle-gain' ? '근육 증가' : '건강 관리'}</span>를 위한 7일 맞춤 식단입니다.
-                                                    균형 잡힌 영양소로 건강한 식습관을 만들어보세요.
-                                                </p>
-                                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                                    <Button onClick={() => setCurrentStep(0)} variant="outline" size="lg" className="gap-2">
-                                                        <ChefHat className="w-5 h-5" />
-                                                        새로운 식단 만들기
-                                                    </Button>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    </motion.div>
-                                </div>
                             )}
                         </motion.div>
                     )}
@@ -683,6 +665,6 @@ export default function MealPlanMain() {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
