@@ -1,12 +1,11 @@
-import MealPlanMain from "@/components/meal-plan/meal-plan-main";
-import { DefaultHeader } from "@/layouts/default-header";
-
+import MealPlanMain from '@/components/meal-plan/meal-plan-main'
+import { MenuHeader } from '@/layouts/menu-header'
 
 export default function Page() {
-    return (
-        <>
-            <DefaultHeader title="AI 식단생성" />
-            <MealPlanMain />
-        </>
-    )
+  return (
+    <>
+      <MenuHeader title="AI 식단생성" />
+      <MealPlanMain />
+    </>
+  )
 }

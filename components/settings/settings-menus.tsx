@@ -14,7 +14,7 @@ export function SettingsMenus() {
     {
       title: '도움말',
       icon: (size: number) => <CircleHelp size={size} />,
-      href: '/404'
+      href: '/link'
     },
     {
       title: '정보',

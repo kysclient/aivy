@@ -83,7 +83,7 @@ export function AppMobileSidebar() {
                         <ChatIcon size={9} />
                         피드백
                     </Button>
-                    <Button variant={'outline'}>도움말</Button>
+                    <Link href={'/intro'}><Button  variant={'outline'}>도움말</Button></Link>
                 </div>
             </div>
         </nav>

@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator"
 import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, Zap, TrendingUp, Calendar, Apple } from "lucide-react"
 import { mockMealPlans } from "@/lib/mock-meal-plan"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
+import { AiIcon } from "../icons"
 
 interface UserInfo {
     name: string
@@ -46,7 +47,7 @@ const steps = [
     { title: "기본 정보", icon: Users },
     { title: "목표 설정", icon: Target },
     { title: "식단 선호도", icon: Heart },
-    { title: "식단 생성", icon: ChefHat },
+    { title: "식단 생성", icon: AiIcon },
 ]
 
 export default function MealPlanMain() {
@@ -123,15 +124,11 @@ export default function MealPlanMain() {
     return (
         <div className="p-4 md:p-6 max-w-4xl mx-auto">
             <div className="space-y-6">
-                {/* Header */}
-                <div className="text-center">
-                    <h1 className="text-3xl font-bold mb-2">AI 식단 생성</h1>
-                    <p className="text-muted-foreground">맞춤형 식단을 생성해보세요</p>
-                </div>
+          
 
                 {/* Progress Bar */}
                 <div className="bg-muted/30 py-4 rounded-lg">
-                    <div className="flex items-center justify-between mb-2 px-4">
+                    <div className="w-full flex items-center justify-between mb-2 px-4">
                         {steps.map((step, index) => (
                             <div key={index} className="flex items-center">
                                 <div
@@ -142,7 +139,7 @@ export default function MealPlanMain() {
                                 </div>
                                 {index < steps.length - 1 && (
                                     <div
-                                        className={`w-16 h-1 mx-2 transition-all duration-300 ${index < currentStep ? "bg-primary" : "bg-muted"
+                                        className={`w-9 sm:w-16 h-1 mx-2 transition-all duration-300 ${index < currentStep ? "bg-primary" : "bg-muted"
                                             }`}
                                     />
                                 )}

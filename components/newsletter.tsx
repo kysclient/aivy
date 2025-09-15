@@ -50,7 +50,7 @@ export const Newsletter = () => {
   return (
     <div className="flex overflow-hidden relative flex-col gap-4 justify-center items-center pt-10 w-full h-full short:lg:pt-10 pb-footer-safe-area 2xl:pt-footer-safe-area px-sides short:lg:gap-4 lg:gap-8">
       <motion.div layout="position" transition={{ duration: DURATION, ease: EASE_OUT }}>
-        <h1 className="font-serif text-5xl italic short:lg:text-8xl sm:text-8xl lg:text-9xl text-white">Aivy</h1>
+        <h1 className=" text-5xl short:lg:text-8xl sm:text-8xl lg:text-9xl text-white">aivy</h1>
       </motion.div>
 
       <div className="flex flex-col items-center min-h-0 shrink">
@@ -153,25 +153,10 @@ export const Newsletter = () => {
           )}
 
           <motion.div layout="position" transition={SPRING} key="button" className={isOpen ? 'my-6' : 'mt-6'}>
-            <Button className={cn('relative px-8 w-[100px]')} onClick={() => setIsOpen(!isOpen)} shine={!isOpen}>
-              <motion.span animate={{ x: isOpen ? -16 : 0 }} transition={{ duration: DURATION, ease: EASE_OUT }} className="inline-block font-semibold">
+            <Button className={cn('relative px-8 w-[100px]')} onClick={() => setIsOpen(!isOpen)}>
+              <motion.span  transition={{ duration: DURATION, ease: EASE_OUT }} className="inline-block font-semibold">
                 Manifesto
               </motion.span>
-
-              {isOpen && (
-                <motion.div
-                  className={cn(buttonVariants({ variant: 'iconButton', size: 'icon' }), 'absolute -top-px -right-px aspect-square')}
-                  initial={{ opacity: 0, scale: 0.8, rotate: -40 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  transition={{
-                    duration: DURATION,
-                    ease: EASE_OUT,
-                    delay: DELAY
-                  }}
-                >
-                  <Croissant className="size-5 text-primary-foreground" />
-                </motion.div>
-              )}
             </Button>
           </motion.div>
 
@@ -213,7 +198,7 @@ export const Newsletter = () => {
             </motion.div>
           )}
 
-          <Button className={cn('relative px-8 w-[100px] mt-4')} onClick={() => router.push('/')} shine={!isOpen}>
+          <Button className={cn('relative px-8 w-[100px] mt-4')} onClick={() => router.push('/')}>
             Home
           </Button>
         </AnimatePresenceGuard>

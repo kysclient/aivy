@@ -58,6 +58,6 @@ const footers = [
     },
     {
         title: '도움말',
-        href: '/'
+        href: '/intro'
     }
 ]

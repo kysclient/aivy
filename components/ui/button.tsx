@@ -24,9 +24,9 @@ const buttonVariants = cva("cursor-pointer inline-flex items-center justify-cent
       "icon-lg": "size-10",
       "icon-xl": "size-11",
     },
-    shine: {
-      true: "relative overflow-hidden after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:animate-shine after:pointer-events-none",
-    },
+    // shine: {
+    //   true: "relative overflow-hidden after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/20 after:to-transparent after:animate-shine after:pointer-events-none",
+    // },
   },
   defaultVariants: {
     variant: 'default',
