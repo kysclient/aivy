@@ -15,7 +15,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isProfile = pathname.startsWith('/profile')
   const paddingConfigs: PaddingConfig[] = [
-    { path: '/', className: 'pt-[108px]' },
+    { path: '/', className: 'pt-[104px]' },
     { path: '/live', className: 'pt-[113px]' }
   ]
 

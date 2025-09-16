@@ -14,6 +14,10 @@ import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, 
 import { mockMealPlans } from "@/lib/mock-meal-plan"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
 import { AiIcon } from "../icons"
+import { useSocket } from "@/providers/socket-provider"
+import { useMealPlanSocket } from "@/hooks/use-meal-plan-socket"
+import { mealPlanRepository } from "@/repositoires/RepositoryFactory"
+import { AuthModal } from "../modal/auth-modal"
 
 interface UserInfo {
     name: string
@@ -51,6 +55,11 @@ const steps = [
 ]
 
 export default function MealPlanMain() {
+    const { connect, disconnect, isConnected } = useSocket();
+    const { mealPlanStatus, lastUpdate, clearStatus } = useMealPlanSocket('test');
+    
+    console.log('connected : ', isConnected)
+
     const [currentStep, setCurrentStep] = useState(0)
     const [userInfo, setUserInfo] = useState<UserInfo>({
         name: "",
@@ -83,6 +92,7 @@ export default function MealPlanMain() {
     const generateMealPlan = async () => {
         setIsGenerating(true)
         // Simulate API call
+        // const response = await mealPlanRepository.generateMealPlan(userInfo)
         await new Promise((resolve) => setTimeout(resolve, 3000))
         console.log('userInfo : ', userInfo)
         setMealPlans(mockMealPlans)
@@ -124,7 +134,7 @@ export default function MealPlanMain() {
     return (
         <div className="p-4 md:p-6 max-w-4xl mx-auto">
             <div className="space-y-6">
-          
+
 
                 {/* Progress Bar */}
                 <div className="bg-muted/30 py-4 rounded-lg">
@@ -512,7 +522,7 @@ export default function MealPlanMain() {
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.5 }}
                                 >
-                                    <Card className="bg-gradient-to-r from-emerald-50 via-blue-50 to-purple-50 dark:from-emerald-950/20 dark:via-blue-950/20 dark:to-purple-950/20 border-2 border-emerald-200 dark:border-emerald-800">
+                                    <Card className="bg-background">
                                         <CardContent className="p-8 text-center">
                                             <motion.div
                                                 initial={{ scale: 0 }}
@@ -551,7 +561,7 @@ export default function MealPlanMain() {
                                                         initial={{ opacity: 0, y: 10 }}
                                                         animate={{ opacity: 1, y: 0 }}
                                                         transition={{ delay: 0.6 }}
-                                                        className="text-lg text-muted-foreground max-w-md mx-auto"
+                                                        className="text-lg text-muted-foreground max-w-md mx-auto font-semibold"
                                                     >
                                                         {userInfo.name}님을 위한 건강한 30일 식단이 준비되었습니다
                                                     </motion.p>
@@ -561,7 +571,7 @@ export default function MealPlanMain() {
                                                     initial={{ opacity: 0, y: 20 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: 0.8 }}
-                                                    className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-white/50 dark:border-gray-700/50"
+                                                    className="bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-border/50"
                                                 >
                                                     <div className="grid grid-cols-3 gap-4 text-center">
                                                         <div>
@@ -597,9 +607,9 @@ export default function MealPlanMain() {
                                                         onClick={() => setCurrentStep(0)}
                                                         variant="outline"
                                                         size="lg"
-                                                        className="gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800"
+                                                        className="gap-2  backdrop-blur-sm"
                                                     >
-                                                        <ChefHat className="w-5 h-5" />
+                                                        <AiIcon size={24} />
                                                         새로운 식단 만들기
                                                     </Button>
                                                 </motion.div>
@@ -620,6 +630,7 @@ export default function MealPlanMain() {
                                                     입력하신 정보를 바탕으로 맞춤형 식단을 생성해드릴게요
                                                 </p>
                                             </div>
+                                            <AuthModal />
                                             <Button onClick={generateMealPlan} disabled={isGenerating} size="lg" className="gap-2">
 
                                                 <Zap className="w-5 h-5" />

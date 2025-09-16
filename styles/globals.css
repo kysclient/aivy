@@ -3,6 +3,34 @@
 @import 'tw-animate-css';
 @custom-variant dark (&:is(.dark *));
 
+@layer base {
+
+  .themed-gradient-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-radius: var(--radius-xl);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-width: 2px;
+
+    color: var(--color-muted-foreground);
+    border-color: var(--color-primary);
+    background-image: linear-gradient(to right,
+        var(--gradient-start),
+        var(--gradient-via),
+        var(--gradient-end));
+  }
+
+  .themed-gradient-background {
+    border-color: var(--color-primary);
+    background-image: linear-gradient(to right,
+        var(--gradient-start),
+        var(--gradient-via),
+        var(--gradient-end));
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -49,6 +77,9 @@
 }
 
 :root {
+  --gradient-start: oklch(from var(--primary) l c h / 8%);
+  --gradient-via: oklch(from var(--chart-2) l c h / 8%);
+  --gradient-end: oklch(from var(--chart-3) l c h / 8%);
   --pretendard: 'Pretendard', sans-serif;
   --kakao: 'Kakao', sans-serif;
   --radius: 0.625rem;
@@ -89,6 +120,9 @@
 }
 
 .dark {
+  --gradient-start: oklch(from var(--primary) l c h / 15%);
+  --gradient-via: oklch(from var(--chart-2) l c h / 15%);
+  --gradient-end: oklch(from var(--chart-3) l c h / 15%);
   --pretendard: 'Pretendard', sans-serif;
   --kakao: 'Kakao', sans-serif;
   --background: oklch(23% 5% 253);
@@ -128,6 +162,9 @@
 }
 
 .deep-dark {
+  --gradient-start: oklch(from var(--primary) l c h / 12%);
+  --gradient-via: oklch(from var(--sidebar-primary) l c h / 12%);
+  --gradient-end: oklch(from var(--chart-4) l c h / 12%);
   --pretendard: 'Pretendard', sans-serif;
   --kakao: 'Kakao', sans-serif;
   --background: oklch(0.141 0.005 285.823);

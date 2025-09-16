@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { AivyStructuredData } from '@/components/seo/structured-data'
+import { Providers } from '@/providers/providers'
 
 // 모바일 및 앱 설정
 export const viewport = {
@@ -138,7 +139,9 @@ export default function RootLayout({
       </head>
       <body className={`antialiased`}>
         <ThemeProvider themes={['dark', 'light', 'deep-dark']} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
+          <Providers>
+            {children}
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

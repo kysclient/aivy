@@ -1,75 +1,93 @@
-// import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-// import { io, Socket } from 'socket.io-client';
-// import { useAuth } from './auth-context';
+'use client';
 
-// type SocketContextType = {
-//     socket: Socket | null;
-//     connected: boolean;
-//     joinMealPlan: (mealPlanId: string) => void;
-//     emitToServer: (event: string, data?: any) => void;
-// };
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { Socket } from 'socket.io-client';
+import { socketClient } from '@/lib/socket-client';
 
-// const SocketContext = createContext<SocketContextType | undefined>(undefined);
+interface SocketContextType {
+  socket: Socket | null;
+  isConnected: boolean;
+  connect: (token: string) => void;
+  disconnect: () => void;
+  joinMealPlan: (mealPlanId: string) => void;
+  leaveMealPlan: (mealPlanId: string) => void;
+}
 
-// export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//     const { isAuthenticated, token } = useAuth();
+const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
-//     const [socket, setSocket] = useState<Socket | null>(null);
-//     const [connected, setConnected] = useState(false);
+interface SocketProviderProps {
+  children: ReactNode;
+}
 
-//     useEffect(() => {
-//         if (!isAuthenticated) return;
+export function SocketProvider({ children }: SocketProviderProps) {
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
 
-//         const s = io(`localhost:8080/meal-plan`, {
-//             auth: {
-//                 token: token, 
-//             },
-//             withCredentials: true,
-//         });
+  const connect = (token: string) => {
+    const newSocket = socketClient.connect(token);
+    setSocket(newSocket);
 
-//         setSocket(s);
+    newSocket.on('connect', () => {
+      setIsConnected(true);
+      console.log('Connected to socket server');
+    });
 
-//         s.on('connect', () => {
-//             console.log('✅ Socket connected:', s.id);
-//             setConnected(true);
-//         });
+    newSocket.on('disconnect', () => {
+      setIsConnected(false);
+      console.log('Disconnected from socket server');
+    });
 
-//         s.on('disconnect', () => {
-//             console.log('❌ Socket disconnected');
-//             setConnected(false);
-//         });
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+      setIsConnected(false);
+    });
+  };
 
-//         // 서버에서 오는 기본 이벤트들
-//         s.on('meal-plan-status', (data) => {
-//             console.log('📡 Meal plan status:', data);
-//         });
+  const disconnect = () => {
+    socketClient.disconnect();
+    setSocket(null);
+    setIsConnected(false);
+  };
 
-//         s.on('meal-plan-updated', (data) => {
-//             console.log('📝 Meal plan updated:', data);
-//         });
+  const joinMealPlan = (mealPlanId: string) => {
+    if (socket?.connected) {
+      socket.emit('join-meal-plan', mealPlanId);
+    }
+  };
 
-//         return () => {
-//             s.disconnect();
-//         };
-//     }, [isAuthenticated]);
+  const leaveMealPlan = (mealPlanId: string) => {
+    if (socket?.connected) {
+      socket.emit('leave-meal-plan', mealPlanId);
+    }
+  };
 
-//     const joinMealPlan = useCallback((mealPlanId: string) => {
-//         socket?.emit('join-meal-plan', mealPlanId);
-//     }, [socket]);
+  useEffect(() => {
+    connect('');
+    return () => {
+      disconnect();
+    };
+  }, []);
 
-//     const emitToServer = useCallback((event: string, data?: any) => {
-//         socket?.emit(event, data);
-//     }, [socket]);
+  const value: SocketContextType = {
+    socket,
+    isConnected,
+    connect,
+    disconnect,
+    joinMealPlan,
+    leaveMealPlan,
+  };
 
-//     return (
-//         <SocketContext.Provider value={{ socket, connected, joinMealPlan, emitToServer }}>
-//             {children}
-//         </SocketContext.Provider>
-//     );
-// };
+  return (
+    <SocketContext.Provider value={value}>
+      {children}
+    </SocketContext.Provider>
+  );
+}
 
-// export const useSocket = () => {
-//     const context = useContext(SocketContext);
-//     if (!context) throw new Error('useSocket must be used within SocketProvider');
-//     return context;
-// };
+export function useSocket() {
+  const context = useContext(SocketContext);
+  if (context === undefined) {
+    throw new Error('useSocket must be used within a SocketProvider');
+  }
+  return context;
+}

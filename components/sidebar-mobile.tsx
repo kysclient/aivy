@@ -51,6 +51,7 @@ export function AppMobileSidebar() {
                             <Separator className="my-[12px] sm:my-[20px]" />
                         </>
                     )}
+
                     {!user && (
                         <div className="flex flex-col gap-[10px] w-full my-[12px]">
                             <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
@@ -67,6 +68,14 @@ export function AppMobileSidebar() {
                         </div>
                     )}
                     <SidebarNavLinks />
+                    <div className='flex flex-col gap-2 my-2'>
+                        <div className='rounded-xl overflow-hidden'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919936&template=banner&trackingCode=AF4080389&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
+                        <div className='rounded-xl overflow-hidden border border-border'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919934&template=carousel&trackingCode=AF4080389&subId=&width=328&height=120&tsource=" width="328" height="120" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
+                    </div>
                     <Separator className="my-[12px] sm:my-[20px]" />
                     <div className="flex flex-col gap-[10px]">
                         <Link href="/terms-of-service" className="hover:underline text-primary text-sm">
@@ -83,7 +92,7 @@ export function AppMobileSidebar() {
                         <ChatIcon size={9} />
                         피드백
                     </Button>
-                    <Link href={'/intro'}><Button  variant={'outline'}>도움말</Button></Link>
+                    <Link href={'/intro'}><Button variant={'outline'}>도움말</Button></Link>
                 </div>
             </div>
         </nav>

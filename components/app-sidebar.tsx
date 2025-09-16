@@ -21,7 +21,7 @@ export function AppSidebar() {
                 display: user ? (screenSize.isMobile ? 'none' : 'block') : screenSize.isDesktop ? 'block' : 'none'
             }}
         >
-
+        
             {user ? (
                 <>
                     {/* <h1 className='font-bold text-3xl p-2 mb-2'>Aivy</h1> */}

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const MOBILE_BREAKPOINT = 800
+const MOBILE_BREAKPOINT = 640
 const TABLET_BREAKPOINT = 1300
 
 export function useScreenSize() {
