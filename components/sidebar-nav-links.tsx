@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import { AiFilledIcon, AiIcon, BellFilledIcon, BellIcon, ChatFilledIcon, ChatIcon, ExploreFilledIcon, ExploreIcon, HomeFilledIcon, HomeIcon, LiveFilledIcon, LiveIcon, PlanFilledIcon, PlanIcon, SettingFilledIcon, SettingIcon, UserFilledIcon, UserIcon } from './icons'
 import { JSX, useEffect, useMemo, useState } from 'react'
+import { useAuth } from '@/providers/auth-provider'
 
 interface NavLink {
     title: string
@@ -20,7 +21,7 @@ export const navLinks: NavLink[] = [
     { title: '홈', icon: HomeIcon, iconFilled: HomeFilledIcon, href: '/', authRequired: false },
     { title: '상품추천', icon: ExploreIcon, iconFilled: ExploreFilledIcon, href: '/products', authRequired: false },
     { title: '식단생성', icon: AiIcon, iconFilled: AiFilledIcon, href: '/meal-plan', authRequired: false },
-    { title: '나만의 식단', icon: PlanIcon, iconFilled: PlanFilledIcon, href: '/plans', authRequired: false },
+    { title: '나만의 식단', icon: PlanIcon, iconFilled: PlanFilledIcon, href: '/plans', authRequired: true },
     //   { title: '알림', icon: BellIcon, iconFilled: BellFilledIcon, href: '/notifications', hasSubPaths: true, authRequired: true },
     //   { title: '메세지', icon: ChatIcon, iconFilled: ChatFilledIcon, href: '/messages', hasSubPaths: true, authRequired: true },
     //   { title: '프로필', icon: UserIcon, iconFilled: UserFilledIcon, href: '/profile', hasSubPaths: true, authRequired: true },
@@ -31,13 +32,14 @@ export function SidebarNavLinks() {
     const pathname = usePathname()
     const { isDesktop, isMobile, isTablet } = useScreenSize()
     const iconSize = useMemo(() => (isDesktop ? 24 : 26), [isDesktop])
+    const { user } = useAuth();
 
     return (
         <nav className="flex flex-col gap-2 w-full">
             {navLinks.map((link) => {
-                // if (link.authRequired && !user) {
-                //     return
-                // }
+                if (link.authRequired && !user) {
+                    return
+                }
                 // const path = user && link.href === '/profile' ? `${link.href}/${user?.nickname}` : link.href
                 const path = link.href
                 const isActive = link.hasSubPaths ? pathname.startsWith(link.href) : pathname === link.href

@@ -1,20 +1,34 @@
 import Image from 'next/image'
 import { Button } from './ui/button'
-import { ChatIcon, TiktokLogo } from './icons'
+import { ChatIcon, SignOutIcon, TiktokLogo } from './icons'
 import { Separator } from './ui/separator'
 import { SidebarNavLinks } from './sidebar-nav-links'
 import Link from 'next/link'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { userPopOverContents } from './sidebar-user-nav'
+import { useAuth } from '@/providers/auth-provider'
 
 export function AppMobileSidebar() {
-
+    const { logout } = useAuth()
     const user = {
         user_id: 1,
         profile_image: '/placeholder-user.jpg',
         nickname: 'admin',
         email: 'admin@aivy.com'
     }
+    const userPopOverContents = [
+        {
+            title: '로그아웃',
+            icon: (
+                <i>
+                    <SignOutIcon />
+                </i>
+            ),
+            action: () => {
+                logout()
+            }
+        }
+    ]
+
     return (
         <nav role="navigation" className="min-h-[100dvh] sm:min-h-screen  overflow-y-auto">
             <div className="p-4 flex flex-col justify-between h-full pb-8">

@@ -1,17 +1,8 @@
 import { apiClient } from '@/api/api-client';
 import { BaseRepository } from './base/BaseRepository';
 import { ApiResponse } from './base/IBaseRepository';
+import { User } from '@/types/user';
 
-export interface User {
-    id: string;
-    email: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    isActive: boolean;
-    createdAt: string;
-    updatedAt: string;
-}
 
 export interface CreateUserDto {
     email: string;

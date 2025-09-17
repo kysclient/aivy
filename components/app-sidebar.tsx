@@ -5,10 +5,11 @@ import Link from 'next/link'
 import { FeatherIcon } from './icons'
 import { SidebarUserNav } from './sidebar-user-nav'
 import SidebarNavLinks from './sidebar-nav-links'
+import { useAuth } from '@/providers/auth-provider'
 
 export function AppSidebar() {
+    const { user } = useAuth();
     const screenSize = useScreenSize()
-    const user = true;
     return (
         <nav
             role="navigation"
@@ -21,7 +22,7 @@ export function AppSidebar() {
                 display: user ? (screenSize.isMobile ? 'none' : 'block') : screenSize.isDesktop ? 'block' : 'none'
             }}
         >
-        
+
             {user ? (
                 <>
                     {/* <h1 className='font-bold text-3xl p-2 mb-2'>Aivy</h1> */}
@@ -43,12 +44,12 @@ export function AppSidebar() {
                 <div className="flex flex-col gap-[10px] w-full my-[12px]">
                     <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
 
-                    <h1 className="text-2xl font-bold">대화에 참여하기</h1>
+                    <h1 className="text-2xl font-bold">나만의 식단 생성하러가기</h1>
                     <div className="flex flex-row gap-2 items-center">
-                        <Link href={'/register'}>
+                        <Link href={'/auth'}>
                             <Button>가입하기</Button>
                         </Link>
-                        <Link href={'/login'}>
+                        <Link href={'/auth'}>
                             <Button variant={'secondary'}>로그인</Button>
                         </Link>
                     </div>

@@ -5,6 +5,7 @@ export type User = {
     updatedAt?: string
     email?: string
     name?: string
+    nickname?: string
     profileImage?: string
     role?: string
     gender?: string
@@ -13,4 +14,5 @@ export type User = {
     weight?: string
     isActive?: string
     lastLoginAt?: String
+    password?: string
 }

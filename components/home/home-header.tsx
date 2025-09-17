@@ -7,12 +7,13 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/s
 import { BellIcon, TiktokLogo } from '@/components/icons'
 import Link from 'next/link'
 import { AppMobileSidebar } from '../sidebar-mobile'
+import { useAuth } from '@/providers/auth-provider'
 
 export function HomeHeader({ children }: { children?: React.ReactNode }) {
   const screenSize = useScreenSize()
   const [headerVisible, setHeaderVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-
+  const { user } = useAuth();
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -32,24 +33,27 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
   return (
     <>
       {/* pc  */}
-      <div
-        className="flex flex-row items-center"
-        style={{
-          padding: '12px 20px 8px',
-          display: screenSize.isMobile ? 'none' : 'flex'
-        }}
-      >
-        <div className="w-[34px]"></div>
+      {
+        user &&
         <div
-          className="items-center justify-center flex"
+          className="flex flex-row items-center"
           style={{
-            flex: '1 1 0%'
+            padding: '12px 20px 8px',
+            display: screenSize.isMobile ? 'none' : 'flex'
           }}
         >
-          <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+          <div className="w-[34px]"></div>
+          <div
+            className="items-center justify-center flex"
+            style={{
+              flex: '1 1 0%'
+            }}
+          >
+            <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+          </div>
+          <div className="w-[34px]"></div>
         </div>
-        <div className="w-[34px]"></div>
-      </div>
+      }
 
       <div
         className="w-full sticky top-0 bg-background z-50"

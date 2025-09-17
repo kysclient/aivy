@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { AivyStructuredData } from '@/components/seo/structured-data'
-import { Providers } from '@/providers/providers'
+import { Toaster } from "@/components/ui/sonner"
+import { AuthProvider } from '@/providers/auth-provider'
 
 // 모바일 및 앱 설정
 export const viewport = {
@@ -139,10 +140,11 @@ export default function RootLayout({
       </head>
       <body className={`antialiased`}>
         <ThemeProvider themes={['dark', 'light', 'deep-dark']} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Providers>
+          <AuthProvider>
             {children}
-          </Providers>
+          </AuthProvider>
         </ThemeProvider>
+        <Toaster position='top-center' />
       </body>
     </html>
   )

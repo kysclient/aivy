@@ -4,14 +4,27 @@ import Image from 'next/image'
 import { SignOutIcon } from './icons'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import { MoreHorizontal } from 'lucide-react'
+import { useAuth } from '@/providers/auth-provider'
 
 export function SidebarUserNav() {
+    const { user, logout } = useAuth();
+
     const screenSize = useScreenSize()
-    const user = {
-        profile_image: '/placeholder.svg',
-        nickname: 'admin',
-        email: 'admin@aivy.com'
-    }
+
+    const userPopOverContents = [
+        {
+            title: '로그아웃',
+            icon: (
+                <i>
+                    <SignOutIcon />
+                </i>
+            ),
+            action: () => {
+                logout()
+            }
+        }
+    ]
+
     return (
         <div className="w-full my-[12px] items-start">
             <Popover>
@@ -20,11 +33,11 @@ export function SidebarUserNav() {
                         <button className="group flex items-center justify-between gap-2 transition-all duration-200 ease-in-out hover:bg-muted rounded-full p-1 w-full">
                             <div className="pl-[16px] group-hover:pl-0  flex flex-row items-center gap-2">
                                 <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
-                                    <Image src={user.profile_image || `https://avatar.vercel.sh/${user.nickname}`} alt={user.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
+                                    <Image src={user?.profileImage || `https://avatar.vercel.sh/${user?.name}`} alt={user?.name ?? user?.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
                                 </div>
                                 <div className="flex flex-col items-start opacity-0  group-hover:opacity-100">
-                                    <span className="text-sm font-bold text-foreground break-all line-clamp-1">{user.nickname}</span>
-                                    <span className="text-xs text-description break-all line-clamp-1">{user.email}</span>
+                                    <span className="text-sm font-bold text-foreground break-all line-clamp-1">{user?.name || user?.nickname}</span>
+                                    <span className="text-xs text-description break-all line-clamp-1">{user?.email}</span>
                                 </div>
                             </div>
 
@@ -35,7 +48,7 @@ export function SidebarUserNav() {
                     ) : (
                         <button className="p-1 group bg-muted rounded-full">
                             <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
-                                <Image src={user.profile_image || `https://avatar.vercel.sh/${user.nickname}`} alt={user.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
+                                <Image src={user?.profileImage || `https://avatar.vercel.sh/${user?.name}`} alt={user?.name ?? user?.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
                             </div>
                         </button>
                     )}
@@ -55,18 +68,4 @@ export function SidebarUserNav() {
     )
 }
 
-export const userPopOverContents = [
-    {
-        title: '로그아웃',
-        icon: (
-            <i>
-                <SignOutIcon />
-            </i>
-        ),
-        action: () => {
-            // signOut({
-            //     redirectTo: '/login'
-            // })
-        }
-    }
-]
+
