@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
-import { SocketEvent } from '@/types/socket'
 
 interface Props {
     className?: string
