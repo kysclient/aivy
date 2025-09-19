@@ -4,7 +4,7 @@ export const OrganizationSchema = () => {
   const organizationData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Aivy",
+    "name": "아이비",
     "alternateName": ["아이비", "AI 식단"],
     "url": "https://aivy.co.kr",
     "logo": "https://aivy.co.kr/logo.png",
@@ -33,7 +33,7 @@ export const OrganizationSchema = () => {
     ],
     "brand": {
       "@type": "Brand",
-      "name": "Aivy"
+      "name": "아이비"
     }
   }
 
@@ -51,7 +51,7 @@ export const WebSiteSchema = () => {
   const websiteData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Aivy - AI 맞춤 식단과 스마트 쇼핑",
+    "name": "아이비 - AI 맞춤 식단과 스마트 쇼핑",
     "url": "https://aivy.co.kr",
     "description": "AI가 추천하는 개인 맞춤 식단과 스마트 쇼핑 서비스",
     "inLanguage": "ko-KR",
@@ -65,7 +65,7 @@ export const WebSiteSchema = () => {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Aivy"
+      "name": "아이비"
     }
   }
 
@@ -83,7 +83,7 @@ export const MobileAppSchema = () => {
   const appData = {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
-    "name": "Aivy - AI 식단 쇼핑",
+    "name": "아이비 - AI 식단 쇼핑",
     "description": "AI 맞춤 식단 추천과 스마트 쇼핑을 한 번에",
     "applicationCategory": "HealthApplication",
     "applicationSubCategory": "DietApplication",
@@ -103,7 +103,7 @@ export const MobileAppSchema = () => {
     },
     "author": {
       "@type": "Organization",
-      "name": "Aivy"
+      "name": "아이비"
     },
     "downloadUrl": [
     ]
@@ -136,7 +136,7 @@ export const ServiceSchema = () => {
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Aivy 서비스 카탈로그",
+      "name": "아이비 서비스 카탈로그",
       "itemListElement": [
         {
           "@type": "Offer",
@@ -184,10 +184,10 @@ export const FAQSchema = () => {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Aivy는 어떤 서비스인가요?",
+        "name": "아이비는 어떤 서비스인가요?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Aivy는 AI 기술을 활용하여 개인의 건강 상태, 선호도, 목표에 맞는 맞춤형 식단을 추천하고, 해당 식단에 필요한 식재료를 쉽게 주문할 수 있는 스마트 쇼핑 서비스입니다."
+          "text": "아이비는 AI 기술을 활용하여 개인의 건강 상태, 선호도, 목표에 맞는 맞춤형 식단을 추천하고, 해당 식단에 필요한 식재료를 쉽게 주문할 수 있는 스마트 쇼핑 서비스입니다."
         }
       },
       {
@@ -208,7 +208,7 @@ export const FAQSchema = () => {
       },
       {
         "@type": "Question",
-        "name": "Aivy 서비스 이용료는 얼마인가요?",
+        "name": "아이비 서비스 이용료는 얼마인가요?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "기본 AI 식단 추천 서비스는 무료로 이용 가능하며, 프리미엄 기능과 식재료 주문 서비스는 별도 요금이 적용됩니다. 자세한 요금 정보는 앱에서 확인하실 수 있습니다."

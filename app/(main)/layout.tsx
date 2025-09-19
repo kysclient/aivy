@@ -4,7 +4,6 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { AppAside } from '@/components/app-aside'
 import { AppBottomNav } from '@/components/app-bottom-nav'
 import { PageLoading } from '@/components/page-loading'
-import { SocketProvider } from '@/providers/socket-provider'
 import { Providers } from '@/providers/providers'
 
 export default function Layout({

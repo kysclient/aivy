@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/api-client';
 import { BaseRepository } from './base/BaseRepository';
-import { ApiResponse } from './base/IBaseRepository';
+import { ApiResponse, PaginatedResponse } from './base/IBaseRepository';
 
 export interface MealPlan {
     id: string;
@@ -17,9 +17,9 @@ export interface MealPlan {
 }
 
 export enum MealPlanStatus {
-    GENERATING = 'GENERATING',
-    COMPLETED = 'COMPLETED',
-    FAILED = 'FAILED'
+    GENERATING = 'generating',
+    COMPLETED = 'completed',
+    FAILED = 'failed'
 }
 
 export interface MealPlanData {
@@ -58,9 +58,16 @@ export interface CreateMealPlanDto {
     name: string;
     startDate: string;
     endDate: string;
-    targetCalories?: number;
-    specialRequests?: string;
+    age: number | string;
+    gender: string;
+    height: number | string;
+    weight: number | string;
+    activityLevel: string;
+    goal: string;
+    allergies?: string[];
     excludeFoods?: string[];
+    targetCalories?: number | null;
+    specialRequests?: string;
 }
 
 export interface MealPlanStatusUpdate {
@@ -118,23 +125,13 @@ export class MealPlanRepository extends BaseRepository<MealPlan> {
         }
     }
 
-    async getUserMealPlans(page?: number, limit?: number): Promise<{
-        data: MealPlan[];
-        total: number;
-        page: number;
-        totalPages: number;
-    }> {
+    async getUserMealPlans(page?: number, limit?: number): Promise<any> {
         try {
             const params = new URLSearchParams();
             if (page) params.append('page', page.toString());
             if (limit) params.append('limit', limit.toString());
 
-            const response = await apiClient.get<ApiResponse<{
-                data: MealPlan[];
-                total: number;
-                page: number;
-                totalPages: number;
-            }>>(
+            const response = await apiClient.get<ApiResponse<any>>(
                 `${this.endpoint}?${params.toString()}`
             );
 
@@ -189,9 +186,9 @@ export class MealPlanRepository extends BaseRepository<MealPlan> {
         }
     }
 
-    async getMealPlansByStatus(status: MealPlanStatus): Promise<MealPlan[]> {
+    async getMealPlansByStatus(status: MealPlanStatus): Promise<any> {
         try {
-            const response = await apiClient.get<ApiResponse<MealPlan[]>>(
+            const response = await apiClient.get<any>(
                 `${this.endpoint}?status=${status}`
             );
 

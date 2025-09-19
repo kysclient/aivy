@@ -15,6 +15,7 @@ import { AuthResponse, CreateUserDto, LoginDto } from '@/repositoires/UserReposi
 import { userRepository } from '@/repositoires/RepositoryFactory'
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAuth } from '@/providers/auth-provider'
+import Link from 'next/link'
 
 interface FormErrors {
     [key: string]: string
@@ -310,7 +311,7 @@ export function AuthForm() {
             <div className="w-full max-w-md">
                 {/* Logo */}
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold">aivy</h1>
+                    <Link href={'/'}><h1 className="text-3xl font-bold">aivy</h1></Link>
                     <p className="text-muted-foreground mt-2">간편하게 시작하세요</p>
                 </div>
 
@@ -513,7 +514,7 @@ export function AuthForm() {
                 </Card>
 
                 {/* Social Login */}
-                <div className="mt-6">
+                {/* <div className="mt-6">
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-border"></div>
@@ -560,7 +561,7 @@ export function AuthForm() {
                             GitHub로 계속하기
                         </Button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

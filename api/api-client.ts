@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 class ApiClient {
     private client: AxiosInstance;
-    private baseURL = 'http://localhost:8080/api/v1';
+    private baseURL = `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1`;
 
     constructor() {
         this.client = axios.create({
@@ -22,9 +22,7 @@ class ApiClient {
         // Request Interceptor - 토큰 자동 추가
         this.client.interceptors.request.use(
             async (config) => {
-                // TokenManager를 통해 액세스 토큰 가져오기
                 const token = TokenManager.getAccessToken(true); // 두 스토리지 모두 확인
-                console.log('token : ', token)
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }

@@ -122,3 +122,29 @@ export const openCallWindow = (channelName: string, errorCallback = (message: st
     }, 100)
   }
 }
+
+
+/**
+ * 현재 날짜를 기준으로 startDate(오늘)와 endDate(한 달 뒤)를 반환하는 함수
+ * @returns {{ startDate: string, endDate: string }} YYYY-MM-DD 형식의 날짜 객체
+ */
+export function getMealPlanDates() {
+  const today = new Date();
+  const nextMonth = new Date();
+  nextMonth.setMonth(today.getMonth() + 1);
+
+  const formatDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const startDate = formatDate(today);
+  const endDate = formatDate(nextMonth);
+
+  return {
+    startDate,
+    endDate,
+  };
+}

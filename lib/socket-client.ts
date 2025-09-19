@@ -8,15 +8,13 @@ class SocketClient {
         if (this.socket?.connected) {
             return this.socket;
         }
-
-        this.token = token;
+        // this.token = token;
         this.socket = io(`${process.env.NEXT_PUBLIC_SOCKET_URL}/meal-plan`, {
             auth: {
                 token: token,
             },
             autoConnect: true,
         });
-        console.log('socket : ', this.socket)
 
         return this.socket;
     }

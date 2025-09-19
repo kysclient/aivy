@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/providers/theme-provider'
 import { AivyStructuredData } from '@/components/seo/structured-data'
 import { Toaster } from "@/components/ui/sonner"
 import { AuthProvider } from '@/providers/auth-provider'
+import { Analytics } from "@vercel/analytics/next"
 
 // 모바일 및 앱 설정
 export const viewport = {
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
   // 기본 메타데이터
   metadataBase: new URL('https://aivy.co.kr'),
   title: {
-    default: 'Aivy - AI 맞춤 식단과 스마트 쇼핑의 완벽한 만남',
-    template: '%s | Aivy - AI 식단 쇼핑앱'
+    default: '아이비 - AI 맞춤 식단과 스마트 쇼핑의 완벽한 만남',
+    template: '%s | 아이비 - AI 식단 쇼핑앱'
   },
   description: 'AI가 추천하는 개인 맞춤 식단으로 건강한 식생활을 시작하세요. 식단에 맞는 식재료와 상품을 한 번에 주문할 수 있는 스마트 쇼핑 서비스입니다.',
 
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
 
   // 작성자 및 생성기
   authors: [{ name: 'Aivy Team' }],
-  creator: 'Aivy',
-  publisher: 'Aivy',
+  creator: '아이비',
+  publisher: '아이비',
   generator: 'Kim Yu Shin',
 
   // 분류 및 카테고리
@@ -39,8 +40,8 @@ export const metadata: Metadata = {
   // Open Graph (소셜 미디어 공유)
   openGraph: {
     type: 'website',
-    siteName: 'Aivy',
-    title: 'Aivy - AI 맞춤 식단과 스마트 쇼핑의 완벽한 만남',
+    siteName: '아이비',
+    title: '아이비 - AI 맞춤 식단과 스마트 쇼핑의 완벽한 만남',
     description: 'AI가 분석한 개인 맞춤 식단으로 건강한 식생활을 시작하고, 필요한 식재료를 바로 주문하세요. 건강 관리가 이렇게 쉬워도 되나요?',
     url: 'https://aivy.co.kr', // 실제 도메인으로 변경
     locale: 'ko_KR',
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
         url: '/og-image.png', // 실제 이미지 경로로 변경
         width: 1200,
         height: 630,
-        alt: 'Aivy - AI 맞춤 식단 및 스마트 쇼핑 서비스',
+        alt: '아이비 - AI 맞춤 식단 및 스마트 쇼핑 서비스',
         type: 'image/png'
       }
     ]
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@aivy_official', // 실제 트위터 계정으로 변경
     creator: '@aivy_official',
-    title: 'Aivy - AI가 만드는 나만의 건강 식단',
+    title: '아이비 - AI가 만드는 나만의 건강 식단',
     description: 'AI 맞춤 식단 + 스마트 쇼핑으로 건강한 식생활을 쉽고 편리하게!',
     images: ['/default-placeholder.png'] // 실제 이미지 경로로 변경
   },
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Aivy - AI 식단 쇼핑'
+    title: '아이비 - AI 식단 쇼핑'
   },
 
   // 검색 로봇 설정
@@ -109,13 +110,13 @@ export const metadata: Metadata = {
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
 
     // 브랜드 색상
-    'theme-color': '#1eab53', // Aivy 브랜드 색상으로 변경
+    'theme-color': '#1eab53', 
     'msapplication-TileColor': '#1eab53',
 
     // 한국 서비스 특화
     'format-detection': 'telephone=no',
-    'application-name': 'Aivy',
-    'apple-mobile-web-app-title': 'Aivy'
+    'application-name': '아이비',
+    'apple-mobile-web-app-title': '아이비'
   },
 
   // 구조화된 데이터 (JSON-LD)
@@ -145,6 +146,7 @@ export default function RootLayout({
           </AuthProvider>
         </ThemeProvider>
         <Toaster position='top-center' />
+        <Analytics />
       </body>
     </html>
   )

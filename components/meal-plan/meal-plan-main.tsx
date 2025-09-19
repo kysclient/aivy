@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,12 +12,16 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, Zap, TrendingUp, Calendar, Apple } from "lucide-react"
 import { mockMealPlans } from "@/lib/mock-meal-plan"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
 import { AiIcon } from "../icons"
 import { useSocket } from "@/providers/socket-provider"
-import { useMealPlanSocket } from "@/hooks/use-meal-plan-socket"
 import { mealPlanRepository } from "@/repositoires/RepositoryFactory"
-import { AuthModal } from "../modal/auth-modal"
+import TokenManager from "@/lib/token-manager"
+import { MealPlan, MealPlanStatus, MealPlanStatusUpdate } from "@/repositoires/MealPlanRepository"
+import { toast } from "sonner"
+import { getMealPlanDates } from "@/lib/utils"
+import { useRouter } from "next/navigation"
+import { Progress } from "../ui/progress"
+import { useGeneratingMealPlans, useMealPlan } from "@/hooks/use-meal-plan"
 
 interface UserInfo {
     name: string
@@ -29,21 +33,11 @@ interface UserInfo {
     goal: string
     allergies: string[]
     excludeFoods: string[]
-    targetCalories: string
+    targetCalories: number | null
     specialRequests: string
 }
 
-interface MealPlan {
-    id: string
-    name: string
-    calories: number
-    protein: number
-    carbs: number
-    fat: number
-    ingredients: string[]
-    cookingTime: number
-    difficulty: "Easy" | "Medium" | "Hard"
-}
+
 
 
 
@@ -55,12 +49,20 @@ const steps = [
 ]
 
 export default function MealPlanMain() {
-    const { connect, disconnect, isConnected } = useSocket();
-    const { mealPlanStatus, lastUpdate, clearStatus } = useMealPlanSocket('test');
-    
-    console.log('connected : ', isConnected)
+    const {
+        generatingMealPlans,
+        isLoading,
+        error,
+        refresh,
+        count
+    } = useGeneratingMealPlans();
 
-    const [currentStep, setCurrentStep] = useState(0)
+    const { connect, disconnect, isConnected, socket } = useSocket();
+    const token = TokenManager.getAccessToken();
+    const [progress, setProgress] = useState(0);
+    const router = useRouter();
+    const [currentStep, setCurrentStep] = useState(0);
+    const [generateMealPlanId, setGenerateMealPlanId] = useState<string | null>(null);
     const [userInfo, setUserInfo] = useState<UserInfo>({
         name: "",
         age: "",
@@ -71,10 +73,10 @@ export default function MealPlanMain() {
         goal: "",
         allergies: [],
         excludeFoods: [],
-        targetCalories: "",
+        targetCalories: null,
         specialRequests: "",
     })
-    const [mealPlans, setMealPlans] = useState<any[]>([])
+    const [mealPlans, setMealPlans] = useState<MealPlan | null>(null)
     const [isGenerating, setIsGenerating] = useState(false)
 
     const handleNext = () => {
@@ -90,13 +92,30 @@ export default function MealPlanMain() {
     }
 
     const generateMealPlan = async () => {
+        if (!token) {
+            toast('로그인 후 이용해주세요.');
+            return
+        }
         setIsGenerating(true)
+        const { startDate, endDate } = getMealPlanDates();
         // Simulate API call
-        // const response = await mealPlanRepository.generateMealPlan(userInfo)
-        await new Promise((resolve) => setTimeout(resolve, 3000))
-        console.log('userInfo : ', userInfo)
-        setMealPlans(mockMealPlans)
-        setIsGenerating(false)
+        const bodyData = {
+            ...userInfo,
+            startDate,
+            endDate,
+            age: parseInt(userInfo.age),
+            gender: userInfo.gender,
+            height: parseInt(userInfo.height),
+            weight: parseInt(userInfo.weight),
+        }
+        try {
+
+            const response = await mealPlanRepository.generateMealPlan(bodyData)
+            setMealPlans(response)
+        } catch {
+            toast('식단 생성에 실패했습니다. 잠시 후 다시 시도해주세요.')
+            setIsGenerating(false)
+        }
     }
 
     const addAllergy = (allergy: string) => {
@@ -130,6 +149,69 @@ export default function MealPlanMain() {
             excludeFoods: prev.excludeFoods.filter((f) => f !== food),
         }))
     }
+
+    useEffect(() => {
+        if (!socket || !isConnected) return;
+
+        const handleStatusUpdate = (data: MealPlanStatusUpdate) => {
+            console.log('📡 Meal plan status update:', data);
+
+            if (data.progress !== undefined) {
+            }
+
+            if (data.message) {
+                toast.info(data.message)
+            }
+
+            switch (data.status) {
+                case MealPlanStatus.GENERATING:
+                    setProgress(data.progress || 0);
+                    setIsGenerating(true);
+                    break;
+
+                case MealPlanStatus.COMPLETED:
+                    setProgress(data.progress || 0);
+                    setIsGenerating(false);
+                    const { startDate, endDate } = getMealPlanDates();
+                    toast("맞춤 식단이 성공적으로 생성되었습니다. 🍽️", {
+                        description: `${startDate} ~ ${endDate}`,
+                        action: {
+                            label: "바로가기",
+                            onClick: () => router.push('/plans'),
+                        },
+                    })
+                    break;
+
+                case MealPlanStatus.FAILED:
+                    setProgress(0);
+                    setIsGenerating(false);
+                    toast.error('식단 생성에 실패했습니다.')
+                    break;
+            }
+        };
+
+        socket.on('meal-plan-status', handleStatusUpdate);
+
+        return () => {
+            socket.off('meal-plan-status', handleStatusUpdate);
+        };
+    }, [socket, isConnected]);
+
+
+    useEffect(() => {
+        if (count > 0) {
+            setMealPlans(generatingMealPlans[0])
+            setIsGenerating(true)
+            setCurrentStep(3);
+        } else {
+            setMealPlans(null);
+            setIsGenerating(false)
+            setCurrentStep(0);
+        }
+    }, [count])
+
+
+
 
     return (
         <div className="p-4 md:p-6 max-w-4xl mx-auto">
@@ -306,8 +388,8 @@ export default function MealPlanMain() {
                                         <Input
                                             id="targetCalories"
                                             type="number"
-                                            value={userInfo.targetCalories}
-                                            onChange={(e) => setUserInfo((prev) => ({ ...prev, targetCalories: e.target.value }))}
+                                            value={userInfo.targetCalories || 0}
+                                            onChange={(e) => setUserInfo((prev) => ({ ...prev, targetCalories: parseInt(e.target.value) }))}
                                             placeholder="2000"
                                         />
                                         <p className="text-sm text-muted-foreground">비워두시면 자동으로 계산해드려요</p>
@@ -512,10 +594,19 @@ export default function MealPlanMain() {
                                                 <p className="text-sm text-primary font-medium">잠시만 기다려주세요</p>
                                                 <p className="text-xs text-muted-foreground">완성되면 알림으로 알려드릴게요</p>
                                             </motion.div>
+
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 1.2 }}
+                                                className="w-full"
+                                            >
+                                                <Progress value={progress} />
+                                            </motion.div>
                                         </div>
                                     </CardContent>
                                 </Card>
-                            ) : mealPlans.length > 0 ? (
+                            ) : mealPlans ? (
                                 // 식단 생성 완료 후 알림 상태
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.9 }}
@@ -576,10 +667,10 @@ export default function MealPlanMain() {
                                                     <div className="grid grid-cols-3 gap-4 text-center">
                                                         <div>
                                                             <div className="text-2xl font-bold text-emerald-600">30일</div>
-                                                            <div className="text-xs text-muted-foreground">맞춤 식단</div>
+                                                            <div className="text-xs text-muted-foreground"> 맞춤 식단</div>
                                                         </div>
                                                         <div>
-                                                            <div className="text-2xl font-bold text-blue-600">2000</div>
+                                                            <div className="text-2xl font-bold text-blue-600">{mealPlans.dailyCalories}</div>
                                                             <div className="text-xs text-muted-foreground">평균 칼로리</div>
                                                         </div>
                                                         <div>
@@ -630,7 +721,6 @@ export default function MealPlanMain() {
                                                     입력하신 정보를 바탕으로 맞춤형 식단을 생성해드릴게요
                                                 </p>
                                             </div>
-                                            <AuthModal />
                                             <Button onClick={generateMealPlan} disabled={isGenerating} size="lg" className="gap-2">
 
                                                 <Zap className="w-5 h-5" />

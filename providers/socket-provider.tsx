@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { Socket } from 'socket.io-client';
 import { socketClient } from '@/lib/socket-client';
+import TokenManager from '@/lib/token-manager';
 
 interface SocketContextType {
   socket: Socket | null;
@@ -22,9 +23,11 @@ interface SocketProviderProps {
 export function SocketProvider({ children }: SocketProviderProps) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  
+  const token = TokenManager.getAccessToken();
 
   const connect = (token: string) => {
-    const newSocket = socketClient.connect(token);
+    const newSocket = socketClient.connect(token);  
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
@@ -62,7 +65,7 @@ export function SocketProvider({ children }: SocketProviderProps) {
   };
 
   useEffect(() => {
-    connect('');
+    connect(token || '');
     return () => {
       disconnect();
     };

@@ -1,9 +1,11 @@
 'use client'
 
 import { useScreenSize } from '@/hooks/use-screen-size'
+import TokenManager from '@/lib/token-manager'
 import { cn } from '@/lib/utils'
+import { useSocket } from '@/providers/socket-provider'
 import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 interface PaddingConfig {
   path: string

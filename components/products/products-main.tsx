@@ -100,7 +100,7 @@ export default function ProductsMain() {
         <div className="p-4 max-w-6xl mx-auto">
             <div className="space-y-4">
                 {/* Search and Filters */}
-                <Card className="bg-background">
+                <Card className="bg-background rounded-xl">
                     <CardContent className="">
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 relative">
@@ -147,9 +147,9 @@ export default function ProductsMain() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <Card className="bg-background h-full hover:shadow-lg transition-shadow sm:py-6 py-4">
+                            <Card className="bg-background h-full hover:shadow-lg rounded-xl transition-shadow sm:py-6 py-4">
                                 <CardContent className="sm:px-6 px-4">
-                                    <div className="aspect-square bg-muted rounded-lg mb-4 overflow-hidden">
+                                    <div className="aspect-square bg-muted rounded-xl mb-4 overflow-hidden">
                                         <img
                                             src={product.image || "/placeholder.svg"}
                                             alt={product.name}
