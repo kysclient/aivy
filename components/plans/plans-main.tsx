@@ -5,6 +5,7 @@ import { NoPlans } from "../no-plans";
 import { cn } from "@/lib/utils";
 import { Calendar, ChevronRight, Clock } from "lucide-react";
 import { MealPlan, MealPlanData } from "@/repositoires/MealPlanRepository";
+import { useRouter } from "next/navigation";
 
 export function PlansMain() {
     const {
@@ -16,7 +17,8 @@ export function PlansMain() {
         error,
         refresh: mutate,
     } = useUserMealPlans();
-    console.log('mealPlans : ', mealPlans)
+
+    const router = useRouter();
 
     const getStatusColor = (status?: string) => {
         switch (status) {
@@ -53,7 +55,7 @@ export function PlansMain() {
             {mealPlans.map((mealPlan: MealPlan) => (
                 <div
                     key={mealPlan.id}
-                    // onClick={() => onPlanClick?.(mealPlan)}
+                    onClick={() => router.push(`plans/${mealPlan.id}`)}
                     className={cn(
                         "group relative overflow-hidden border border-border/50",
                         "bg-card/50 backdrop-blur-sm",
