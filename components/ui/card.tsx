@@ -1,13 +1,17 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
+  const { theme } = useTheme();
+
   return (
     <div
       data-slot="card"
       className={cn(
         "bg-muted text-muted-foreground flex flex-col gap-6 rounded-xl border py-6 ",
+        theme === 'light' && 'bg-background',
         className
       )}
       {...props}

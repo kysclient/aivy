@@ -35,6 +35,7 @@ interface UserInfo {
     excludeFoods: string[]
     targetCalories: number | null
     specialRequests: string
+    title: string
 }
 
 
@@ -64,6 +65,7 @@ export default function MealPlanMain() {
     const [currentStep, setCurrentStep] = useState(0);
     const [generateMealPlanId, setGenerateMealPlanId] = useState<string | null>(null);
     const [userInfo, setUserInfo] = useState<UserInfo>({
+        title: '',
         name: "",
         age: "",
         gender: "",
@@ -261,6 +263,17 @@ export default function MealPlanMain() {
                                     <CardDescription>맞춤형 식단을 위해 기본 정보가 필요해요</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-6">
+                                    <div className="space-y-2">
+                                        <Label>식단 제목</Label>
+                                        <Input
+                                            id="title"
+                                            type="text"
+                                            value={userInfo.title}
+                                            onChange={(e) => setUserInfo((prev) => ({ ...prev, title: e.target.value }))}
+                                            placeholder="제목을 입력하세요.."
+                                        />
+                                    </div>
+
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="name">이름</Label>

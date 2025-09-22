@@ -23,7 +23,7 @@ export enum MealPlanStatus {
 }
 
 export interface MealPlanData {
-    mealPlan: DailyMealPlan[];
+    mealPlanData: DailyMealPlan[];
 }
 
 export interface DailyMealPlan {
@@ -55,6 +55,7 @@ export interface NutritionSummary {
 }
 
 export interface CreateMealPlanDto {
+    title?: string;
     name: string;
     startDate: string;
     endDate: string;
