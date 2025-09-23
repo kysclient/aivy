@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     creator: '@aivy_official',
     title: '아이비 - AI가 만드는 나만의 건강 식단',
     description: 'AI 맞춤 식단 + 스마트 쇼핑으로 건강한 식생활을 쉽고 편리하게!',
-    images: ['/default-placeholder.png'] // 실제 이미지 경로로 변경
+    images: ['/og-image.png'] // 실제 이미지 경로로 변경
   },
 
   // 앱 관련 메타데이터
