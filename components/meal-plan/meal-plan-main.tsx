@@ -750,10 +750,13 @@ export default function MealPlanMain() {
 
                 {/* Navigation */}
                 <div className="flex justify-between">
-                    <Button variant="outline" onClick={handlePrev} disabled={currentStep === 0} className="gap-2 bg-transparent">
-                        <ArrowLeft className="w-4 h-4" />
-                        이전
-                    </Button>
+                    {
+                        !isGenerating &&
+                        <Button variant="outline" onClick={handlePrev} disabled={currentStep === 0} className="gap-2 bg-transparent">
+                            <ArrowLeft className="w-4 h-4" />
+                            이전
+                        </Button>
+                    }
 
                     {currentStep < 3 && (
                         <Button
