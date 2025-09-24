@@ -29,11 +29,14 @@ export function AppAside() {
             </div>
 
             <div className="flex flex-row gap-4">
-                {footers.map((item, idx) => (
-                    <Link href={item.href} key={idx} className="hover:underline text-primary text-sm">
-                        {item.title}
-                    </Link>
-                ))}
+                {footers.map((item, idx) => {
+                    const isBlank = item.href.startsWith('/mail')
+                    return (
+                        <Link href={item.href} target={isBlank ? '_blank' : '_self'} key={idx} className="hover:underline text-primary text-sm">
+                            {item.title}
+                        </Link>
+                    )
+                })}
             </div>
             <div className="text-description font-medium text-xs">
                 본 사이트는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
@@ -46,15 +49,15 @@ export function AppAside() {
 const footers = [
     {
         title: '피드백',
-        href: '/'
+        href: 'mailto:kysclient@gmail.com?subject=아이비(Aivy) 서비스 피드백입니다.'
     },
     {
         title: '개인정보',
-        href: '/'
+        href: '/privacy-policy'
     },
     {
         title: '이용약관',
-        href: '/'
+        href: '/terms'
     },
     {
         title: '도움말',

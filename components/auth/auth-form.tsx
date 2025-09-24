@@ -489,13 +489,13 @@ export function AuthForm() {
                                             onCheckedChange={(checked) => handleSignupChange('agreeToTerms', checked)}
                                         />
                                         <span className="text-muted-foreground leading-relaxed">
-                                            <button type="button" className="text-primary hover:underline">
+                                            <Link href={'/terms'} className="text-primary hover:underline">
                                                 이용약관
-                                            </button>
+                                            </Link>
                                             과{' '}
-                                            <button type="button" className="text-primary hover:underline">
+                                            <Link href={'/privacy-policy'} className="text-primary hover:underline">
                                                 개인정보처리방침
-                                            </button>
+                                            </Link>
                                             에 동의합니다
                                         </span>
                                     </div>

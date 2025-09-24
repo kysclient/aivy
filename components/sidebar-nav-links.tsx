@@ -22,7 +22,7 @@ export const navLinks: NavLink[] = [
     { title: '상품추천', icon: ExploreIcon, iconFilled: ExploreFilledIcon, href: '/products', authRequired: false },
     { title: '식단생성', icon: AiIcon, iconFilled: AiFilledIcon, href: '/meal-plan', authRequired: false },
     { title: '나만의 식단', icon: PlanIcon, iconFilled: PlanFilledIcon, href: '/plans', authRequired: true },
-    //   { title: '알림', icon: BellIcon, iconFilled: BellFilledIcon, href: '/notifications', hasSubPaths: true, authRequired: true },
+      { title: '알림', icon: BellIcon, iconFilled: BellFilledIcon, href: '/notifications', hasSubPaths: true, authRequired: true },
     //   { title: '메세지', icon: ChatIcon, iconFilled: ChatFilledIcon, href: '/messages', hasSubPaths: true, authRequired: true },
     //   { title: '프로필', icon: UserIcon, iconFilled: UserFilledIcon, href: '/profile', hasSubPaths: true, authRequired: true },
     { title: '설정', icon: SettingIcon, iconFilled: SettingFilledIcon, href: '/settings', hasSubPaths: true, authRequired: false }

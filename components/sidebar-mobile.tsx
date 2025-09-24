@@ -92,7 +92,7 @@ export function AppMobileSidebar() {
                     </div>
                     <Separator className="my-[12px] sm:my-[20px]" />
                     <div className="flex flex-col gap-[10px]">
-                        <Link href="/terms-of-service" className="hover:underline text-primary text-sm">
+                        <Link href="/terms" className="hover:underline text-primary text-sm">
                             서비스 이용약관
                         </Link>
                         <Link href={'/privacy-policy'} className="hover:underline text-primary text-sm">
@@ -102,10 +102,14 @@ export function AppMobileSidebar() {
                 </div>
 
                 <div className="flex flex-row items-center gap-2 py-4 text-xs sm:text-sm md:text-md">
-                    <Button variant={'secondary'} className="">
-                        <ChatIcon size={9} />
-                        피드백
-                    </Button>
+                    <Link
+                        href='mailto:kysclient@gmail.com?subject=아이비(Aivy) 서비스 피드백입니다.'
+                    >
+                        <Button variant={'secondary'} className="">
+                            <ChatIcon size={9} />
+                            피드백
+                        </Button>
+                    </Link>
                     <Link href={'/intro'}><Button variant={'outline'}>도움말</Button></Link>
                 </div>
             </div>

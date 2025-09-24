@@ -97,21 +97,13 @@ export default function ProductsMain() {
         })
 
     return (
-        <div className="p-4 max-w-6xl mx-auto">
+        <div className="">
             <div className="space-y-4">
                 {/* Search and Filters */}
-                <Card className="bg-background rounded-xl">
+                <Card className="bg-background rounded-xl border-0">
                     <CardContent className="">
-                        <div className="flex flex-col md:flex-row gap-4">
-                            <div className="flex-1 relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                                <Input
-                                    placeholder="상품명을 검색하세요..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="pl-10"
-                                />
-                            </div>
+                        <div className="flex flex-col md:flex-row gap-4 justify-end">
+                  
                             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                                 <SelectTrigger className="w-full md:w-40">
                                     <SelectValue />
@@ -139,7 +131,7 @@ export default function ProductsMain() {
                 </Card>
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     {filteredProducts.map((product, index) => (
                         <motion.div
                             key={product.id}
@@ -147,16 +139,16 @@ export default function ProductsMain() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <Card className="bg-background h-full hover:shadow-lg rounded-xl transition-shadow sm:py-6 py-4">
-                                <CardContent className="sm:px-6 px-4">
-                                    <div className="aspect-square bg-muted rounded-xl mb-4 overflow-hidden">
+                            <Card className="bg-background h-full rounded-none border-0 border-b border-border transition-shadow transition-colors hover:bg-muted  py-2">
+                                <CardContent className="flex flex-row gap-4 itmes-center">
+                                    <div className="aspect-square bg-muted rounded-xl overflow-hidden w-[160px] h-[210px] flex-shrink-0">
                                         <img
                                             src={product.image || "/placeholder.svg"}
                                             alt={product.name}
-                                            className="w-full h-full object-cover"
+                                            className="object-cover w-full h-full"
                                         />
                                     </div>
-                                    <div className="space-y-3">
+                                    <div className="space-y-1 sm:space-y-3 flex flex-col justify-center flex-1">
                                         <Badge variant="outline" className="text-xs">
                                             {product.category}
                                         </Badge>
