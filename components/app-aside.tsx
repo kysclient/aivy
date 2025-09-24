@@ -23,9 +23,10 @@ export function AppAside() {
 
         >
             <div className='rounded-xl overflow-hidden'>
-                <a href="https://link.coupang.com/a/cPTOPF" target="_blank" referrerPolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/919945?subId=&traceId=V0-301-371ae01f4226dec2-I919945&w=320&h=100" alt="" /></a>            </div>
+                <iframe src="https://ads-partners.coupang.com/widgets.html?id=925846&template=carousel&trackingCode=AF6160505&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                </div>
             <div className='rounded-xl overflow-hidden border border-border'>
-                <iframe src="https://ads-partners.coupang.com/widgets.html?id=919934&template=carousel&trackingCode=AF4080389&subId=&width=328&height=120&tsource=" width="328" height="120" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                <iframe src="https://ads-partners.coupang.com/widgets.html?id=925843&template=banner&trackingCode=AF6160505&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
             </div>
 
             <div className="flex flex-row gap-4">
