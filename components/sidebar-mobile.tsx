@@ -8,13 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { useAuth } from '@/providers/auth-provider'
 
 export function AppMobileSidebar() {
-    const { logout } = useAuth()
-    const user = {
-        user_id: 1,
-        profile_image: '/placeholder-user.jpg',
-        nickname: 'admin',
-        email: 'admin@aivy.com'
-    }
+    const { logout, user } = useAuth()
+  
     const userPopOverContents = [
         {
             title: '로그아웃',
@@ -39,7 +34,7 @@ export function AppMobileSidebar() {
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <div className="mb-[10px] relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
-                                            <Image src={user.profile_image || `https://avatar.vercel.sh/${user.user_id}`} alt={user.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
+                                            <Image src={user.profileImage || `https://avatar.vercel.sh/${user.id}`} alt={user.nickname ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
                                         </div>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-36 p-1">
@@ -54,12 +49,8 @@ export function AppMobileSidebar() {
                                     </PopoverContent>
                                 </Popover>
                                 <div>
-                                    <h1 className="font-bold text-xl">{user.nickname}</h1>
+                                    <h1 className="font-bold text-xl">{user.name || user.nickname || ''}</h1>
                                     <p className="text-description">{user.email}</p>
-                                    <p className="text-description text-sm">
-                                        <span className="text-foreground">0 </span>팔로워{' · '}
-                                        <span className="text-foreground">1 </span>팔로우 중
-                                    </p>
                                 </div>
                             </div>
                             <Separator className="my-[12px] sm:my-[20px]" />
@@ -72,24 +63,16 @@ export function AppMobileSidebar() {
 
                             <h1 className="text-2xl font-bold">대화에 참여하기</h1>
                             <div className="flex flex-row gap-2 items-center">
-                                <Link href={'/register'}>
+                                <Link href={'/auth'}>
                                     <Button>가입하기</Button>
                                 </Link>
-                                <Link href={'/login'}>
+                                <Link href={'/auth'}>
                                     <Button variant={'secondary'}>로그인</Button>
                                 </Link>
                             </div>
                         </div>
                     )}
-                    <SidebarNavLinks />
-                    <div className='flex flex-col gap-2 my-2'>
-                        <div className='rounded-xl overflow-hidden'>
-                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919936&template=banner&trackingCode=AF4080389&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
-                        </div>
-                        <div className='rounded-xl overflow-hidden border border-border'>
-                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919934&template=carousel&trackingCode=AF4080389&subId=&width=328&height=120&tsource=" width="328" height="120" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
-                        </div>
-                    </div>
+                    <SidebarNavLinks />                  
                     <Separator className="my-[12px] sm:my-[20px]" />
                     <div className="flex flex-col gap-[10px]">
                         <Link href="/terms" className="hover:underline text-primary text-sm">

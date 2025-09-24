@@ -95,7 +95,12 @@ export default function MealPlanMain() {
 
     const generateMealPlan = async () => {
         if (!token) {
-            toast('로그인 후 이용해주세요.');
+            toast("로그인 후 이용해주세요.", {
+                action: {
+                    label: "로그인",
+                    onClick: () => router.push('/auth'),
+                },
+            })
             return
         }
         setIsGenerating(true)

@@ -34,7 +34,7 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
             <DialogTitle></DialogTitle>
             <DialogClose onClick={handleClose} className="opacity-0"></DialogClose>
-            <DialogContent className=" w-full p-0 py-[10px]">
+            <DialogContent className=" w-full p-0 py-[10px]" showCloseButton={false}>
                 <div className="flex flex-row justify-between items-center mb-[10px] px-[10px]">
                     <button className="text-primary hover:bg-primary-hover font-medium rounded-full p-1" onClick={handleClose}>
                         취소

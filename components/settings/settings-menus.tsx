@@ -41,11 +41,11 @@ export function SettingsMenus() {
           <LinkButton key={menu.href} href={menu.href} icon={menu.icon} title={menu.title} />
         ))}
       </div>
-      <div className="border-t w-full border-border pt-[8px]">
+      {/* <div className="border-t w-full border-border pt-[8px]">
         {menus2.map((menu, idx) => (
           <LinkButton key={menu.href} href={menu.href} icon={menu.icon} title={menu.title} />
         ))}
-      </div>
+      </div> */}
       {
         user &&
         <button onClick={logout} className='text-red-500 text-sm hover:underline px-4 py-4'>로그아웃</button>

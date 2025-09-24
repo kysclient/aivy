@@ -55,6 +55,9 @@ export function PlansMain() {
             {
                 mealPlans.length > 0 ?
                     <>
+                        <div className='w-full overflow-hidden'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919936&template=banner&trackingCode=AF4080389&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
                         {mealPlans.map((mealPlan: MealPlan) => (
                             <div
                                 key={mealPlan.id}
@@ -122,9 +125,19 @@ export function PlansMain() {
                                 <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
                         ))}
+                        <div className='border border-border'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919934&template=carousel&trackingCode=AF4080389&subId=&width=328&height=120&tsource=" width="328" height="120" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
                     </>
                     : <>
+                        <div className='w-full overflow-hidden'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919936&template=banner&trackingCode=AF4080389&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
+
                         <NoPlans />
+                        <div className='border-t border-border'>
+                            <iframe src="https://ads-partners.coupang.com/widgets.html?id=919934&template=carousel&trackingCode=AF4080389&subId=&width=328&height=120&tsource=" width="328" height="120" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
+                        </div>
                     </>
             }
         </>
