@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: 'images.unsplash.com'
+      },
+      {
+        hostname: 'aivy.s3.ap-northeast-2.amazonaws.com'
       }
     ],
   }

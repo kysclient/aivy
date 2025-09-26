@@ -104,10 +104,26 @@ const GalleryImage = ({ url, idx, handleImageClick, className }: GalleryImagePro
 
     return (
         <div className="relative w-full h-full overflow-hidden">
-            {/* 스켈레톤 */}
-            <div className={cn('absolute inset-0 bg-muted transition-opacity duration-300', isLoaded ? 'opacity-0' : 'opacity-100 animate-pulse')} />
+            {/* 스켈레톤 배경 */}
+            {!isLoaded && (
+                <div className="absolute inset-0 bg-muted animate-pulse" />
+            )}
 
-            <Image src={url} alt={`Gallery image ${idx + 1}`} fill className={cn('object-cover transition-all duration-700 ease-in-out', isLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-md', className)} sizes="(max-width: 640px) 50vw, 33vw" onClick={(e) => handleImageClick(e, idx)} style={{ objectPosition: 'center' }} onLoad={() => setIsLoaded(true)} loading="lazy" />
+            <Image
+                src={url}
+                alt={`Gallery image ${idx + 1}`}
+                fill
+                className={cn(
+                    'object-cover transition-opacity duration-300 ease-out',
+                    isLoaded ? 'opacity-100' : 'opacity-0',
+                    className
+                )}
+                sizes="(max-width: 640px) 50vw, 33vw"
+                onClick={(e) => handleImageClick(e, idx)}
+                style={{ objectPosition: 'center' }}
+                onLoad={() => setIsLoaded(true)}
+                loading="lazy"
+            />
         </div>
     )
 }

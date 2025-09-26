@@ -1,11 +1,22 @@
 'use client'
 import { useRef, useState } from "react";
 import { Tabs } from "../tabs";
-import { HomeHeader } from "./home-header";
-import { PostList } from "../post/post-list";
+import { HomeHeader } from "../home/home-header";
+import { PostList } from "./post-list";
 import { PostType } from "@/repositoires/PostRepository";
 
-export default function HomeMain() {
+const tabs = [
+    {
+        label: '건강 Tips',
+        value: 'health_tip'
+    },
+    {
+        label: '커뮤니티',
+        value: 'general'
+    }
+];
+
+export default function PostMain() {
     const [selectedTab, setSelectedTab] = useState<PostType>(PostType.HEALTH_TIP);
     const lastElementRef = useRef(null);
 
@@ -28,16 +39,3 @@ export default function HomeMain() {
         </>
     );
 }
-const tabs = [
-    {
-        label: '건강 Tips',
-        value: PostType.HEALTH_TIP
-    },
-    {
-        label: '커뮤니티',
-        value: PostType.GENERAL
-    }
-]
-
-
-

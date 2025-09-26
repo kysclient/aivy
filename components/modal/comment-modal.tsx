@@ -30,6 +30,10 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
         setInput('')
     }, [isOpen])
 
+    if(!user) {
+        return
+    }
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
             <DialogTitle></DialogTitle>
@@ -46,10 +50,10 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
 
                 <div className="flex flex-row gap-[12px] p-[10px] border-b border-border">
                     <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
-                        <Image src={post.user.profileImage || `https://avatar.vercel.sh/${post.user?.id}`} alt={post.user?.email ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
+                        <Image src={user.profileImage || `https://avatar.vercel.sh/${post.user?.id}`} alt={user?.email ?? 'User Avatar'} width={48} height={48} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col flex-1">
-                        <div className="font-bold">{post.user.name || '관리자'}</div>
+                        <div className="font-bold">{user.name || '관리자'}</div>
                         <div className="line-clamp-3 text-[15px]">{post.content}</div>
                     </div>
 

@@ -161,7 +161,6 @@ export default function MealPlanMain() {
         if (!socket || !isConnected) return;
 
         const handleStatusUpdate = (data: MealPlanStatusUpdate) => {
-            console.log('📡 Meal plan status update:', data);
 
             if (data.progress !== undefined) {
             }

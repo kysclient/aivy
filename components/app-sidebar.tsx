@@ -43,7 +43,7 @@ export function AppSidebar() {
           {screenSize.isDesktop && (
             <>
               <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
-              <h1 className="text-2xl font-bold">나만의 식단 생성하러가기</h1>
+              <h1 className="text-2xl font-bold">나만의 식단 만들기</h1>
             </>
           )}
 

@@ -34,8 +34,6 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
 
     const [expandedMeal, setExpandedMeal] = useState<string | null>(null)
 
-    console.log('meal Plan : ', mealPlan)
-
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
         return date.toLocaleDateString("ko-KR", {

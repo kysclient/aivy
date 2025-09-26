@@ -1,4 +1,4 @@
-import { Post as PostType } from '@/types/posts'
+import { Post as PostType } from '@/repositoires/PostRepository'
 import { memo } from 'react'
 import { Loading } from '../loading'
 import PostSkeleton from './post-skeleton'

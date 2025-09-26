@@ -66,13 +66,11 @@ export function useUserMealPlans(page?: number, limit?: number) {
         }
     );
 
-    console.log('data : ', data)
-
     return {
-        mealPlans: data?.mealPlans || [],
-        total: data?.total || 0,
-        page: data?.page || 1,
-        totalPages: data?.totalPages || 0,
+        mealPlans: data?.data || [],
+        total: data?.pagination?.total || 0,
+        page: data?.pagination?.page || 1,
+        totalPages: data?.pagination?.totalPages || 0,
         isLoading,
         error,
         refresh: mutate,
@@ -94,13 +92,13 @@ export function useMealPlansByStatus(status: MealPlanStatus) {
 
 
     return {
-        mealPlans: isLoading ? [] : (data?.mealPlans as MealPlan[] ?? []), // PaginatedResponse의 data 필드 사용
-        total: data?.total ?? 0,
-        page: data?.page ?? 1,
-        limit: data?.limit ?? 20,
-        totalPages: data?.totalPages ?? 0,
-        hasNext: data?.hasNext ?? false,
-        hasPrev: data?.hasPrev ?? false,
+        mealPlans: isLoading ? [] : (data?.data as MealPlan[] ?? []), // PaginatedResponse의 data 필드 사용
+        total: data?.pagination?.total ?? 0,
+        page: data?.pagination?.page ?? 1,
+        limit: data?.pagination?.limit ?? 20,
+        totalPages: data?.pagination?.totalPages ?? 0,
+        hasNext: data?.pagination?.hasNext ?? false,
+        hasPrev: data?.pagination?.hasPrev ?? false,
         isLoading,
         error,
         refresh: () => mutate(undefined, { revalidate: true }), // 수동 갱신

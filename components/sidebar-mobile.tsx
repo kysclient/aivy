@@ -61,7 +61,7 @@ export function AppMobileSidebar() {
                         <div className="flex flex-col gap-[10px] w-full my-[12px]">
                             <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
 
-                            <h1 className="text-2xl font-bold">대화에 참여하기</h1>
+                            <h1 className="text-2xl font-bold">나만의 식단 만들기</h1>
                             <div className="flex flex-row gap-2 items-center">
                                 <Link href={'/auth'}>
                                     <Button>가입하기</Button>
