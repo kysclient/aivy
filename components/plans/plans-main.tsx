@@ -19,7 +19,8 @@ export function PlansMain() {
         refresh: mutate,
     } = useUserMealPlans();
     const router = useRouter();
-
+    
+    console.log('mealPlans',mealPlans);
     const getStatusColor = (status?: string) => {
         switch (status) {
             case 'completed':

@@ -67,10 +67,10 @@ export function useUserMealPlans(page?: number, limit?: number) {
     );
 
     return {
-        mealPlans: data?.data || [],
-        total: data?.pagination?.total || 0,
-        page: data?.pagination?.page || 1,
-        totalPages: data?.pagination?.totalPages || 0,
+        mealPlans: data?.mealPlans || [],
+        total: data?.total || 0,
+        page: data?.page || 1,
+        totalPages: data?.totalPages || 0,
         isLoading,
         error,
         refresh: mutate,

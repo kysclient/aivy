@@ -53,11 +53,11 @@ export interface UpdatePostDto {
 export class PostRepository extends BaseRepository<Post> {
     protected endpoint = '/posts';
 
-    async findAll(
-        page: number = 1,
-        limit: number = 10,
-        postType?: PostType
-    ): Promise<PaginatedResponse<Post>> {
+    async findAll(options?: { page?: number; limit?: number; postType?: PostType }): Promise<PaginatedResponse<Post>> {
+        const page = options?.page || 1;
+        const limit = options?.limit || 10;
+        const postType = options?.postType;
+
         const params: any = { page, limit };
         if (postType) {
             params.postType = postType;
@@ -73,7 +73,6 @@ export class PostRepository extends BaseRepository<Post> {
     }
 
     async findByUser(
-        userId: string,
         page: number = 1,
         limit: number = 10
     ): Promise<PaginatedResponse<Post>> {

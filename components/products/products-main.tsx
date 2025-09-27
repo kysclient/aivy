@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ShoppingCart, Search, Star } from "lucide-react"
+import Link from "next/link"
 
 interface Product {
     id: string
@@ -17,66 +18,24 @@ interface Product {
     rating: number
     category: string
     description: string
+    href?: string
 }
 
 const mockProducts: Product[] = [
     {
         id: "1",
-        name: "유기농 닭가슴살 1kg",
-        price: 15900,
-        image: "/placeholder-yv9ky.png",
-        rating: 4.8,
-        category: "육류",
-        description: "신선한 국내산 유기농 닭가슴살로 고단백 저지방 식단에 완벽합니다.",
+        name: "샐러드 포케 정기배송 2주 다이어트 식단 얌샐러드 구독 배달 야채 도시락 새벽 배송",
+        price: 95020,
+        image: "/poke-sample.jpg",
+        rating: 4.0,
+        category: "신선식품",
+        description: "",
+        href:'https://link.coupang.com/a/cTts7t'
     },
-    {
-        id: "2",
-        name: "프리미엄 연어 필렛",
-        price: 28000,
-        image: "/placeholder-jh77b.png",
-        rating: 4.9,
-        category: "수산물",
-        description: "오메가3가 풍부한 노르웨이산 연어로 건강한 지방 공급원입니다.",
-    },
-    {
-        id: "3",
-        name: "국산 유기농 두부",
-        price: 3500,
-        image: "/organic-tofu.png",
-        rating: 4.7,
-        category: "두부/콩",
-        description: "100% 국산 콩으로 만든 부드럽고 고소한 유기농 두부입니다.",
-    },
-    {
-        id: "4",
-        name: "유기농 퀴노아 500g",
-        price: 12000,
-        image: "/bowl-of-quinoa.png",
-        rating: 4.6,
-        category: "곡물",
-        description: "완전 단백질을 함유한 슈퍼푸드 퀴노아입니다.",
-    },
-    {
-        id: "5",
-        name: "신선한 브로콜리",
-        price: 4500,
-        image: "/fresh-broccoli.png",
-        rating: 4.5,
-        category: "채소",
-        description: "비타민과 미네랄이 풍부한 신선한 브로콜리입니다.",
-    },
-    {
-        id: "6",
-        name: "아보카도 4개입",
-        price: 8900,
-        image: "/ripe-avocado-halves.png",
-        rating: 4.4,
-        category: "과일",
-        description: "건강한 지방과 영양소가 가득한 멕시코산 아보카도입니다.",
-    },
+ 
 ]
 
-const categories = ["전체", "육류", "수산물", "두부/콩", "곡물", "채소", "과일"]
+const categories = ["전체", "육류", "수산물", "두부/콩", "곡물", "채소", "과일", '신선식품']
 
 export default function ProductsMain() {
     const [searchTerm, setSearchTerm] = useState("")
@@ -161,10 +120,12 @@ export default function ProductsMain() {
                                         </div>
                                         <div className="flex sm:items-center justify-between sm:flex-row flex-col gap-2">
                                             <span className="text-xl font-bold text-primary">{product.price.toLocaleString()}원</span>
-                                            <Button size="sm" className="gap-2">
+                                            <Link href={product.href || '/'} target="__blank">
+                                            <Button  size="sm" className="gap-2">
                                                 <ShoppingCart className="w-4 h-4" />
                                                 구매하기
                                             </Button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </CardContent>

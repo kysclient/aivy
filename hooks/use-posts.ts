@@ -21,10 +21,10 @@ const fetchers = {
         return await postRepository.findById(id);
     },
     getAllPosts: async ([, , params]: [string, string, { page?: number; limit?: number; postType?: PostType }]) => {
-        return await postRepository.findAll(params.page, params.limit, params.postType);
+        return await postRepository.findAll(params);
     },
     getUserPosts: async ([, , params]: [string, string, { page?: number; limit?: number }]) => {
-        return await postRepository.findByUser('', params.page, params.limit);
+        return await postRepository.findByUser(params.page, params.limit);
     },
     getReplies: async ([, , postId, params]: [string, string, string, { page?: number; limit?: number }]) => {
         return await postRepository.findReplies(postId, params.page, params.limit);

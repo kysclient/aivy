@@ -64,7 +64,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
                             <span className="truncate">{post.user.name}</span>
                             <CertIcon className="w-4 h-4 flex-shrink-0 ml-1" />
                         </span>
-                        <span className="text-description text-sm flex-shrink-0"> · {formatTimeago(post.created_at)}</span>
+                        <span className="text-description text-sm flex-shrink-0"> · {formatTimeago(post.createdAt)}</span>
                     </div>
 
                     {/* 포스트 내용 */}
