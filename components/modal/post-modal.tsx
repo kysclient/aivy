@@ -132,7 +132,7 @@ export default function PostModal({ isOpen, setIsOpen, user }: PostModalProps) {
         <DialogTitle className="sr-only">게시물 작성</DialogTitle>
         <DialogContent showCloseButton={false} className="w-full p-0 py-2.5 max-w-lg">
           <div className="flex items-center justify-between px-2.5 mb-2.5">
-            <Button variant="ghost" className="text-primary font-medium rounded-full p-2 hover:bg-primary/10" onClick={handleClose} aria-label="모달 닫기">
+            <Button variant="ghost" className="text-primary font-medium rounded-full p-2" onClick={handleClose} aria-label="모달 닫기">
               취소
             </Button>
             <Button className="rounded-full" onClick={handleSubmit} disabled={isLoading || (textLength < 1 && images.length === 0)} aria-label="게시물 작성">
