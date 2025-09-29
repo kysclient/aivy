@@ -24,6 +24,7 @@ export interface Post {
     likeCnt: number;
     commentCnt: number;
     isLiked?: boolean; // 현재 사용자가 좋아요했는지 여부
+    level?: number; // 백엔드에서 제공하는 댓글 깊이 (1부터 시작)
     user: User;
     parent?: Post;
     replies: Post[];
@@ -33,7 +34,6 @@ export interface Post {
 
 export interface CreatePostDto {
     content: string;
-    image?: any;
     postType: PostType;
     parentId?: string;
     membership?: boolean;
@@ -43,7 +43,6 @@ export interface CreatePostDto {
 
 export interface UpdatePostDto {
     content?: string;
-    image?: any;
     postType?: PostType;
     membership?: boolean;
     point?: number;
@@ -91,7 +90,7 @@ export class PostRepository extends BaseRepository<Post> {
     async findReplies(
         postId: string,
         page: number = 1,
-        limit: number = 10
+        limit: number = 50
     ): Promise<PaginatedResponse<Post>> {
         const response = await apiClient.get<any>(`${this.endpoint}/${postId}/replies`, {
             page,
@@ -100,6 +99,16 @@ export class PostRepository extends BaseRepository<Post> {
 
         if (!response.success) {
             throw new Error(response.error || 'Failed to fetch replies');
+        }
+
+        return response.data;
+    }
+
+    async findAllReplies(postId: string): Promise<Post[]> {
+        const response = await apiClient.get<any>(`${this.endpoint}/${postId}/all-replies`);
+
+        if (!response.success) {
+            throw new Error(response.error || 'Failed to fetch all replies');
         }
 
         return response.data;
@@ -115,8 +124,36 @@ export class PostRepository extends BaseRepository<Post> {
         return response.data;
     }
 
-    async create(data: CreatePostDto): Promise<Post> {
-        return super.create(data);
+    async create(data: CreatePostDto, images?: File[]): Promise<Post> {
+        const formData = new FormData();
+
+        // 텍스트 데이터만 추가 (image 필드 제외)
+        formData.append('content', data.content);
+        if (data.postType) formData.append('postType', data.postType);
+        if (data.parentId) formData.append('parentId', data.parentId);
+        if (data.membership !== undefined) formData.append('membership', data.membership.toString());
+        if (data.point !== undefined) formData.append('point', data.point.toString());
+        if (data.isAdult !== undefined) formData.append('isAdult', data.isAdult.toString());
+
+        // 이미지 파일들 추가
+        if (images && images.length > 0) {
+            images.forEach((file) => {
+                formData.append('images', file);
+            });
+        }
+
+        // FormData 전송 시 Content-Type을 설정하지 않아 브라우저가 자동으로 boundary를 포함한 multipart/form-data로 설정하도록 함
+        const response = await apiClient.post<any>(this.endpoint, formData, {
+            headers: {
+                'Content-Type': undefined, // axios가 자동으로 multipart/form-data와 boundary를 설정하도록
+            },
+        });
+
+        if (!response.success) {
+            throw new Error(response.error || 'Failed to create post');
+        }
+
+        return response.data;
     }
 
     async update(id: string, data: UpdatePostDto): Promise<Post> {

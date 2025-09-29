@@ -1,6 +1,6 @@
 'use client'
 
-import { ChatIcon, HeartFillIcon, HeartIcon, MoreHorizontalIcon, WarningIcon } from '@/components/icons'
+import { HeartFillIcon, HeartIcon, MoreHorizontalIcon, WarningIcon } from '@/components/icons'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
 import { Post } from '@/repositoires/PostRepository'
@@ -78,7 +78,16 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
                 setOpenMenu(true)
             }
             if (type === 'comment') {
-                router.push(`/post/${post.id}`)
+                // 댓글이면 원본 게시글로, 원본 게시글이면 답글 모달
+                if (post.parentId) {
+                    // 댓글인 경우 - 최상위 게시글로 이동
+                    let rootId = post.parentId
+                    // TODO: 최상위 게시글 ID를 찾기 위한 로직 필요
+                    router.push(`/post/${rootId}`)
+                } else {
+                    // 원본 게시글인 경우
+                    router.push(`/post/${post.id}`)
+                }
             }
         },
         [handleToggleLike, router, post.id]

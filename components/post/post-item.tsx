@@ -63,14 +63,13 @@ function PurePostItem({ post, isOnPost = false, isChild = false, isParent = fals
                             />
                         </div>
                     </button>
-
-                    {isParent && <div className="absolute top-[42px] left-[26px] w-[2px] h-[calc(100%-0px)] bg-border" />}
+                    {isParent && <div className="absolute top-[42px] left-[26px] w-[2px] h-[calc(100%-6.5px)] bg-border" />}
                 </div>
 
                 <div className="flex-1 ml-[10px] flex flex-col gap-2">
                     <div className="flex flex-row items-center gap-2">
                         <span className="flex items-center text-foreground font-bold truncate">
-                            <span className="truncate">{post.user.nickname || post.user.email}</span>
+                            <span className="truncate">{post.user.name || post.user.nickname}</span>
                             <CertIcon className="w-4 h-4 flex-shrink-0 ml-1" />
                         </span>
                         <span className="text-description text-sm flex-shrink-0"> · {formatDate(post.createdAt)}</span>

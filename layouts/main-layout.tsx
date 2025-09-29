@@ -1,8 +1,10 @@
 'use client'
 
+import { PostFloatingButton } from '@/components/post-floating-button'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import TokenManager from '@/lib/token-manager'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/providers/auth-provider'
 import { useSocket } from '@/providers/socket-provider'
 import { usePathname } from 'next/navigation'
 import { useEffect, useMemo } from 'react'
@@ -13,6 +15,7 @@ interface PaddingConfig {
 }
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   const screenSize = useScreenSize()
   const pathname = usePathname()
   const isProfile = pathname.startsWith('/profile')
@@ -42,6 +45,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <div className={cn('', screenSize.isMobile ? 'pb-16' : '', paddingClass)} style={screenSize.isMobile ? undefined : desktopContainerStyle}>
         {children}
       </div>
+      {screenSize.isMobile && pathname === '/' && <PostFloatingButton user={user} />}
     </>
   )
 }

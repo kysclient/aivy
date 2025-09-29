@@ -32,8 +32,8 @@ const fetchers = {
 };
 
 const mutators = {
-    createPost: async (url: string, { arg }: { arg: CreatePostDto }) => {
-        return await postRepository.create(arg);
+    createPost: async (url: string, { arg }: { arg: { data: CreatePostDto; images?: File[] } }) => {
+        return await postRepository.create(arg.data, arg.images);
     },
     updatePost: async (url: string, { arg }: { arg: { id: string; data: UpdatePostDto } }) => {
         return await postRepository.update(arg.id, arg.data);
@@ -151,6 +151,26 @@ export function useReplies(postId: string, page: number = 1, limit: number = 10)
     };
 }
 
+// 모든 댓글을 트리 구조로 조회하는 훅
+export function useAllReplies(postId: string) {
+    const { data, error, isLoading, mutate } = useSWR(
+        postId ? `all-replies-${postId}` : null,
+        async () => await postRepository.findAllReplies(postId),
+        {
+            revalidateOnFocus: false,
+            revalidateOnReconnect: true,
+            dedupingInterval: 30000,
+        }
+    );
+
+    return {
+        allReplies: data || [],
+        isLoading,
+        error,
+        refresh: mutate,
+    };
+}
+
 // 게시글 생성 훅
 export function useCreatePost() {
     const { trigger, isMutating } = useSWRMutation(
@@ -158,9 +178,9 @@ export function useCreatePost() {
         mutators.createPost
     );
 
-    const createPost = async (data: CreatePostDto) => {
+    const createPost = async (data: CreatePostDto, images?: File[]) => {
         try {
-            const newPost = await trigger(data);
+            const newPost = await trigger({ data, images });
 
             // 관련 캐시 무효화
             await Promise.all([
@@ -173,7 +193,8 @@ export function useCreatePost() {
                 // 댓글인 경우 부모 댓글 캐시 무효화
                 ...(data.parentId ? [
                     mutate(POST_KEYS.replies(data.parentId)),
-                    mutate(POST_KEYS.byId(data.parentId)) // 댓글 수 업데이트를 위해
+                    mutate(POST_KEYS.byId(data.parentId)), // 댓글 수 업데이트를 위해
+                    mutate(`all-replies-${data.parentId}`) // 트리 구조 댓글 캐시 무효화
                 ] : [])
             ]);
 

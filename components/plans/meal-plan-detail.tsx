@@ -54,13 +54,13 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
         const dayIndex = mealPlanData.findIndex((meal) => meal.date === selectedDateString)
 
         if (dayIndex !== -1) {
-            setCurrentDay(dayIndex + 1)
+            setCurrentDay(dayIndex) // +1 제거 (배열 인덱스는 0부터 시작)
             setIsCalendarOpen(false)
         }
-    }
-
-    const getAvailableDates = () => {
-        return mealPlanData.map((meal) => new Date(meal.date))
+        // 데이터가 없는 날짜를 선택한 경우 달력만 닫고 currentDay는 변경하지 않음
+        else {
+            setIsCalendarOpen(false)
+        }
     }
 
     const isDateAvailable = (date: Date) => {
@@ -82,7 +82,6 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
 
     if (mealPlan?.status !== 'completed') {
         redirect('/plans')
-        return
     }
 
     return (
@@ -110,7 +109,7 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
                                             <Calendar className="h-5 w-5 text-primary" />
                                             <div>
                                                 <div className="font-semibold text-lg text-foreground">{formatDate(currentMeal.date)}</div>
-                                                <div className="text-sm text-muted-foreground">Day {currentDay} of 30</div>
+                                                <div className="text-sm text-muted-foreground">Day {currentDay + 1} of {mealPlanData.length}</div>
                                             </div>
                                         </Button>
                                     </PopoverTrigger>
@@ -120,8 +119,11 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
                                             selected={new Date(currentMeal.date)}
                                             onSelect={handleDateSelect}
                                             disabled={(date) => !isDateAvailable(date)}
-                                            initialFocus
                                             className="rounded-md border-0"
+                                            classNames={{
+                                                disabled: "text-muted-foreground opacity-30 line-through",
+                                                today: "bg-primary/10 text-primary rounded-md font-semibold"
+                                            }}
                                         />
                                     </PopoverContent>
                                 </Popover>
@@ -192,9 +194,9 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
                                                 <span className="text-xs text-muted-foreground font-semibold">탄수화물</span>
                                                 <span className="text-xs font-medium">{meal.nutrients.carbs}g</span>
                                             </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                            <div className="w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-3 shadow-inner">
                                                 <div
-                                                    className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                                                    className="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 h-3 rounded-full transition-all duration-700 shadow-sm"
                                                     style={{ width: `${getNutrientPercentage(meal.nutrients.carbs, 150)}%` }}
                                                 />
                                             </div>
@@ -203,9 +205,9 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
                                                 <span className="text-xs text-muted-foreground font-semibold">단백질</span>
                                                 <span className="text-xs font-medium">{meal.nutrients.protein}g</span>
                                             </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                            <div className="w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-3 shadow-inner">
                                                 <div
-                                                    className="bg-teal-500 h-2 rounded-full transition-all duration-500"
+                                                    className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 h-3 rounded-full transition-all duration-700 shadow-sm"
                                                     style={{ width: `${getNutrientPercentage(meal.nutrients.protein, 80)}%` }}
                                                 />
                                             </div>
@@ -214,9 +216,9 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
                                                 <span className="text-xs text-muted-foreground font-semibold">지방</span>
                                                 <span className="text-xs font-medium">{meal.nutrients.fat}g</span>
                                             </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                            <div className="w-full bg-gradient-to-r from-gray-100 to-gray-200 rounded-full h-3 shadow-inner">
                                                 <div
-                                                    className="bg-cyan-500 h-2 rounded-full transition-all duration-500"
+                                                    className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 h-3 rounded-full transition-all duration-700 shadow-sm"
                                                     style={{ width: `${getNutrientPercentage(meal.nutrients.fat, 40)}%` }}
                                                 />
                                             </div>

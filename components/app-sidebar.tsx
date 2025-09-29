@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { useScreenSize } from '@/hooks/use-screen-size'
 import { Button } from './ui/button'
 import Link from 'next/link'
@@ -6,10 +7,12 @@ import { FeatherIcon } from './icons'
 import { SidebarUserNav } from './sidebar-user-nav'
 import SidebarNavLinks from './sidebar-nav-links'
 import { useAuth } from '@/providers/auth-provider'
+import PostModal from './modal/post-modal'
 
 export function AppSidebar() {
   const { user } = useAuth()
   const screenSize = useScreenSize()
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   return (
     <nav
       role="navigation"
@@ -31,10 +34,13 @@ export function AppSidebar() {
 
           {screenSize.isDesktop && (
             <div className="flex pl-[12px] pt-[20px]">
-              <Link href={'/meal-plan'} className="rounded-full text-white px-[20px] py-[13px] gap-[8px] flex flex-row items-center bg-primary font-bold hover:bg-primary/90 transition duration-200">
+              <button
+                onClick={() => setIsPostModalOpen(true)}
+                className="rounded-full text-white px-[20px] py-[13px] gap-[8px] flex flex-row items-center bg-primary font-bold hover:bg-primary/90 transition duration-200"
+              >
                 <FeatherIcon className="text-white w-5 h-5" />
                 글쓰기
-              </Link>
+              </button>
             </div>
           )}
         </>
@@ -60,6 +66,12 @@ export function AppSidebar() {
           <SidebarNavLinks />
         </div>
       )}
+
+      <PostModal
+        isOpen={isPostModalOpen}
+        setIsOpen={setIsPostModalOpen}
+        user={user || undefined}
+      />
     </nav>
   )
 }

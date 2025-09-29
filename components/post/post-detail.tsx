@@ -1,13 +1,15 @@
 'use client'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
-import { usePost, useReplies } from '@/hooks/use-posts'
+import { usePost, useAllReplies } from '@/hooks/use-posts'
 import { PostItem } from './post-item'
 import { DefaultHeader } from '@/layouts/default-header'
 import { Separator } from '../ui/separator'
 import { ReplyButton } from '../reply-button'
 import CommentModal from '../modal/comment-modal'
 import PostSkeleton from '../home/post-skeleton'
+import { useAuth } from '@/providers/auth-provider'
+import { CommentTree } from './comment-tree'
 
 interface PostDetailProps {
 }
@@ -16,9 +18,9 @@ export function PostDetail({ }: PostDetailProps) {
     const [openCommentModal, setOpenCommentModal] = useState(false)
     const params = useParams()
     const postId = params?.slug as string
-
+    const { user } = useAuth();
     const { post, isLoading: postLoading, error: postError } = usePost(postId)
-    const { replies, isLoading: repliesLoading } = useReplies(postId || '', 1, 50)
+    const { allReplies, isLoading: repliesLoading } = useAllReplies(postId || '')
 
     if (postLoading) {
         return (
@@ -51,28 +53,17 @@ export function PostDetail({ }: PostDetailProps) {
                     onClickHandler={() => {
                         setOpenCommentModal(true)
                     }}
-                    user={null}
+                    user={user}
                 />
             </div>
 
-            {repliesLoading ? (
-                <PostSkeleton count={3} />
-            ) : (
-                replies.map((reply, idx) => {
-                    const isLast = idx === replies.length - 1
-                    return (
-                        <PostItem
-                            key={reply.id}
-                            post={reply}
-                            isOnPost={false}
-                            isChild={true}
-                            isParent={!isLast}
-                        />
-                    )
-                })
-            )}
+            <CommentTree
+                replies={allReplies}
+                rootPostId={postId}
+                isLoading={repliesLoading}
+            />
 
-            <CommentModal isOpen={openCommentModal} setIsOpen={setOpenCommentModal} post={post} user={undefined} />
+            <CommentModal isOpen={openCommentModal} setIsOpen={setOpenCommentModal} post={post} user={user} />
         </>
     )
 }
