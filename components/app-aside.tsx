@@ -24,7 +24,7 @@ export function AppAside() {
         >
             <div className='rounded-xl overflow-hidden'>
                 <iframe src="https://ads-partners.coupang.com/widgets.html?id=925846&template=carousel&trackingCode=AF6160505&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
-                </div>
+            </div>
             <div className='rounded-xl overflow-hidden border border-border'>
                 <iframe src="https://ads-partners.coupang.com/widgets.html?id=925843&template=banner&trackingCode=AF6160505&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url"></iframe>
             </div>
@@ -42,7 +42,10 @@ export function AppAside() {
             <div className="text-description font-medium text-xs">
                 본 사이트는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
             </div>
-            <div className="text-description font-medium text-xs">© 2025 Aivy from XXXX</div>
+            <div className="flex items-center gap-2">
+                <span className="font-semibold">aivy</span>
+                <span className="text-muted-foreground text-sm">© 2025 All rights reserved.</span>
+            </div>
         </aside>
     )
 }
