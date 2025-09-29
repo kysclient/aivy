@@ -19,10 +19,9 @@ interface PostItemProps {
   isOnPost?: boolean
   isChild?: boolean
   isParent?: boolean
-  postType: PostType
 }
 
-function PurePostItem({ postType, post, isOnPost = false, isChild = false, isParent = false }: PostItemProps) {
+function PurePostItem({ post, isOnPost = false, isChild = false, isParent = false }: PostItemProps) {
   const router = useRouter()
   const [openImageModal, setOpenImageModal] = useState(false)
 
