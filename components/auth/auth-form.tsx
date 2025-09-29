@@ -368,7 +368,7 @@ export function AuthForm() {
                     </div>
 
                     {/* Auth Forms */}
-                    <Card className="auth-card-modern">
+                    <Card className="auth-card-modern bg-background">
                         <Tabs defaultValue="login" className="w-full p-6">
                             <TabsList className="grid w-full grid-cols-2 mb-6">
                                 <TabsTrigger value="login" className="">

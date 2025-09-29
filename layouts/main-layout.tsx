@@ -45,7 +45,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <div className={cn('', screenSize.isMobile ? 'pb-16' : '', paddingClass)} style={screenSize.isMobile ? undefined : desktopContainerStyle}>
         {children}
       </div>
-      {screenSize.isMobile && pathname === '/' && <PostFloatingButton user={user} />}
+      {!screenSize.isDesktop && pathname === '/' && <PostFloatingButton user={user} />}
     </>
   )
 }

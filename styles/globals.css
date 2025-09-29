@@ -236,7 +236,7 @@
   }
 
   .legal-section {
-    @apply bg-card border border-border rounded-lg p-6 mb-6 shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-background border border-border rounded-lg p-6 mb-6 shadow-sm hover:shadow-md transition-all duration-300;
   }
 
   .legal-section.highlight {
@@ -269,7 +269,7 @@
 
   /* Table of contents navigation */
   .toc-nav {
-    @apply sticky top-6 bg-card border border-border rounded-lg p-4 shadow-sm;
+    @apply sticky top-6 bg-background border border-border rounded-lg p-4 shadow-sm;
   }
 
   .toc-item {
@@ -316,7 +316,7 @@
   }
 
   .auth-form-side {
-    @apply w-full lg:w-1/2 flex items-center justify-center p-8 bg-background;
+    @apply w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 bg-background;
   }
 
   .auth-visual-content {

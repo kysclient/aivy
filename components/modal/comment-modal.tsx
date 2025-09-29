@@ -151,7 +151,7 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
                         />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="font-bold text-sm">{post.user.nickname || post.user.email}</div>
+                        <div className="font-bold text-sm">{post.user.name || post.user.email}</div>
                         <div className="line-clamp-3 text-sm text-muted-foreground mt-1">{post.content}</div>
                     </div>
                     {post.image && Array.isArray(post.image) && post.image.length > 0 && (

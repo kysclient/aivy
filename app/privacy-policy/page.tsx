@@ -87,9 +87,7 @@ export default function PrivacyPolicyPage() {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center">
-                <span className="text-white font-bold text-sm">A</span>
-              </div>
+            
               <span className="text-xl font-bold">aivy</span>
             </Link>
           </div>
@@ -127,14 +125,14 @@ export default function PrivacyPolicyPage() {
       <section className="py-16">
         <div className="container max-w-4xl mx-auto px-4 md:px-8">
           {/* Company Info */}
-          <div className="bg-card border border-border rounded-2xl p-6 md:p-8 mb-12">
+          <div className="bg-background border border-border rounded-2xl p-6 md:p-8 mb-12">
             <div className="flex items-start gap-4 mb-6">
               <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center flex-shrink-0">
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">아이비(Aivy) 개인정보처리방침</h2>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed text-sm sm:text-md">
                   주식회사 아이비 (이하 '회사' 또는 'Aivy')는 이용자의 개인정보를 소중히 여기며, 「개인정보 보호법」 등
                   관련 법령을 준수하여 개인정보 처리 방침을 수립·공개합니다.
                 </p>
@@ -160,8 +158,8 @@ export default function PrivacyPolicyPage() {
           {/* Policy Sections */}
           <div className="space-y-8">
             {policySections.map((section, index) => (
-              <div key={index} className="bg-card border border-border rounded-2xl overflow-hidden">
-                <div className="p-6 md:p-8">
+              <div key={index} className="bg-background border border-border rounded-2xl overflow-hidden">
+                <div className="p-2 sm:p-6 md:p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                       {section.icon}
@@ -184,14 +182,14 @@ export default function PrivacyPolicyPage() {
                   )}
 
                   {section.table && (
-                    <div className="overflow-hidden rounded-xl border border-border">
+                    <div className="overflow-hidden rounded-none sm:rounded-xl border border-border">
                       <div className="overflow-x-auto">
                         <table className="w-full">
                           <thead>
                             <tr className="bg-muted/50 border-b border-border">
-                              <th className="text-left py-4 px-6 font-semibold text-sm">항목</th>
-                              <th className="text-left py-4 px-6 font-semibold text-sm">상세 내용</th>
-                              <th className="text-left py-4 px-6 font-semibold text-sm">처리 목적</th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">항목</th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">상세 내용</th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">처리 목적</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -200,7 +198,7 @@ export default function PrivacyPolicyPage() {
                                 key={i}
                                 className="border-b border-border last:border-b-0 hover:bg-muted/20 transition-colors"
                               >
-                                <td className="py-4 px-6">
+                                <td className="py-4 px-2 sm:px-6">
                                   <div className="flex items-center gap-2">
                                     <span
                                       className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium border ${getTypeColor(row.type || "")}`}
@@ -240,7 +238,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="mt-12 bg-card border border-border rounded-2xl p-6 md:p-8">
+          <div className="mt-12 bg-background border border-border rounded-2xl p-6 md:p-8">
             <h4 className="text-lg font-semibold mb-4">개인정보보호 문의</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -265,7 +263,7 @@ export default function PrivacyPolicyPage() {
               <span className="text-muted-foreground text-sm">© 2025 All rights reserved.</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <Link href="/privacy" className="hover:text-foreground transition-colors">
+              <Link href="/privacy-policy" className="hover:text-foreground transition-colors">
                 개인정보처리방침
               </Link>
               <Link href="/terms" className="hover:text-foreground transition-colors">
