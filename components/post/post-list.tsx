@@ -105,7 +105,7 @@ function PurePostList({ postType }: PostListProps) {
                     {accumulatedPosts.length > 0 ? (
                         <>
                             {accumulatedPosts.map((post, idx) => (
-                                <PostItem key={`${post.id}_${idx}`} post={post} />
+                                <PostItem key={`${post.id}_${idx}`} post={post} postType={postType} />
                             ))}
 
                             {/* 무한 스크롤 트리거 요소 */}

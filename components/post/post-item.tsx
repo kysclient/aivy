@@ -12,15 +12,17 @@ import { Post } from '@/repositoires/PostRepository'
 import { Separator } from '../ui/separator'
 import ImageGallery from '../image-gallery'
 import { PostItemActions } from './post-item-actions'
+import { PostType } from '@/types/posts'
 
 interface PostItemProps {
   post: Post
   isOnPost?: boolean
   isChild?: boolean
   isParent?: boolean
+  postType: PostType
 }
 
-function PurePostItem({ post, isOnPost = false, isChild = false, isParent = false }: PostItemProps) {
+function PurePostItem({ postType, post, isOnPost = false, isChild = false, isParent = false }: PostItemProps) {
   const router = useRouter()
   const [openImageModal, setOpenImageModal] = useState(false)
 
@@ -47,7 +49,7 @@ function PurePostItem({ post, isOnPost = false, isChild = false, isParent = fals
   }
 
   return (
-    <div className={cn('relative', !isOnPost && 'hover:bg-muted', !isChild && 'border-t border-border')} onClick={(e) => !isOnPost && postBodyOnClick(e, post.id)}>
+    <div className={cn(' relative', !isOnPost && 'hover:bg-muted', !isChild && 'border-t border-border')} onClick={(e) => !isOnPost && postBodyOnClick(e, post.id)}>
       {isChild && <div className="absolute left-[41px] top-0 h-[16px] w-[2px] bg-border" />}
 
       <div className={cn('flex flex-row px-[15px] pt-[12px]', isOnPost && 'flex-row')}>
@@ -60,7 +62,7 @@ function PurePostItem({ post, isOnPost = false, isChild = false, isParent = fals
           {isParent && <div className="absolute top-[42px] left-[26px] w-[2px] h-[calc(100%-6.5px)] bg-border" />}
         </div>
 
-        <div className="flex-1 ml-[10px] flex flex-col gap-2">
+        <div className="flex-1 ml-[10px] flex flex-col gap-2 pb-4">
           <div className="flex flex-row items-center gap-2">
             <span className="flex items-center text-foreground font-bold truncate">
               <span className="truncate">{post.user.name || post.user.nickname}</span>
