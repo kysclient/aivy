@@ -47,6 +47,23 @@ function PurePostItem({ post, isOnPost = false, isChild = false, isParent = fals
     }
   }
 
+  const truncateContent = (content: string, maxLength: number = 280) => {
+    if (!content) return ''
+    if (isOnPost) return content
+
+    if (content.length <= maxLength) return content
+
+    // 단어 단위로 자르기 위해 마지막 공백 찾기
+    const truncated = content.substring(0, maxLength)
+    const lastSpaceIndex = truncated.lastIndexOf(' ')
+
+    if (lastSpaceIndex > maxLength * 0.8) {
+      return truncated.substring(0, lastSpaceIndex) + '...'
+    }
+
+    return truncated + '...'
+  }
+
   return (
     <div className={cn(' relative', !isOnPost && 'hover:bg-muted', !isChild && 'border-t border-border')} onClick={(e) => !isOnPost && postBodyOnClick(e, post.id)}>
       {isChild && <div className="absolute left-[41px] top-0 h-[16px] w-[2px] bg-border" />}
@@ -70,7 +87,7 @@ function PurePostItem({ post, isOnPost = false, isChild = false, isParent = fals
             <span className="text-description text-sm flex-shrink-0"> · {formatDate(post.createdAt)}</span>
           </div>
 
-          <div className="text-foreground whitespace-pre-wrap">{post.content}</div>
+          <div className="text-foreground whitespace-pre-wrap">{truncateContent(post.content)}</div>
 
           {post.image && (
             <div
