@@ -138,7 +138,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
             </div>
           )}
 
-          {!isBot && (
+          {/* {!isBot && (
             <div className={`
               absolute top-3 -right-2
               w-0 h-0
@@ -156,7 +156,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               border-t-4 border-t-transparent
               border-b-4 border-b-transparent
             `} />
-          )}
+          )} */}
         </motion.div>
 
         <motion.div

@@ -291,7 +291,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
         {renderInput()}
 
         {/* Select, Tags에 별도 버튼 표시 */}
-        {(question.type === 'select' || (question.type === 'tags' && tags.length > 0)) && (
+        {(question.type === 'select' || question.type === 'tags') && (
           <div className="flex flex-col sm:flex-row gap-2 justify-end mt-3 sm:mt-4">
             {question.optional && (
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
