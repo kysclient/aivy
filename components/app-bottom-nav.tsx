@@ -6,15 +6,12 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { MessageBadge } from './ui/alarm-badge'
+import { useAuth } from '@/providers/auth-provider'
 
 export function AppBottomNav() {
     const screenSize = useScreenSize()
     const pathname = usePathname()
-    const user = {
-        profile_image: '/placeholder-user.jpg',
-        nickname: 'admin',
-        email: 'admin@aivy.com'
-    }
+    const { user } = useAuth();
 
     return (
         <>
@@ -22,18 +19,13 @@ export function AppBottomNav() {
                 <>
                     {user ? (
                         <nav
-                            role="navigation"
-                            className="w-full h-16 border-t border-border fixed bottom-0 left-0 bg-background z-50"
                             style={{
-                                position: 'fixed',
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                transform: 'translateZ(0)',
-                                WebkitTransform: 'translateZ(0)',
-                                backfaceVisibility: 'hidden',
-                                WebkitBackfaceVisibility: 'hidden'
+                                padding: "0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)",
+                                WebkitBackdropFilter: "blur(24px)",
+                                backdropFilter: "blur(24px)",
                             }}
+                            role="navigation"
+                            className="w-full h-16 border-t border-border bg-background/70 z-50 fixed bottom-0 left-0 right-0 p-0 bg-blur-[24px]"
                         >
                             <div className="grid grid-cols-5 h-full w-full">
                                 {mobileNavLinks.map((link, idx) => {
@@ -53,34 +45,29 @@ export function AppBottomNav() {
                         </nav>
                     ) : (
                         <div
-                            className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 left-0 bg-background flex flex-row items-center justify-between"
                             style={{
-                                position: 'fixed',
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                transform: 'translateZ(0)',
-                                WebkitTransform: 'translateZ(0)',
-                                backfaceVisibility: 'hidden',
-                                WebkitBackfaceVisibility: 'hidden'
+                                padding: "0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)",
+                                WebkitBackdropFilter: "blur(24px)",
+                                backdropFilter: "blur(24px)",
                             }}
-                        >
+                            className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 bg-background/70 flex flex-row items-center justify-between p-0 left-0 right-0">
                             <div className="flex flex-row gap-1 items-center">
                                 <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
 
                             </div>
                             <div className="flex flex-row gap-2 items-center">
-                                <Link href={'/register'}>
+                                <Link href={'/auth'}>
                                     <Button>가입하기</Button>
                                 </Link>
-                                <Link href={'/login'}>
+                                <Link href={'/auth'}>
                                     <Button variant={'secondary'}>로그인</Button>
                                 </Link>
                             </div>
                         </div>
                     )}
                 </>
-            )}
+            )
+            }
         </>
     )
 }
