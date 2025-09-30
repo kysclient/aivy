@@ -29,6 +29,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
   const [tagInput, setTagInput] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [isComposing, setIsComposing] = useState(false)
 
   useEffect(() => {
     if (question.type === 'text' || question.type === 'number') {
@@ -72,6 +73,8 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isComposing) return;
+
     if (e.key === 'Enter') {
       e.preventDefault()
       if (question.type === 'tags') {
@@ -154,6 +157,8 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 onChange={(e) => setTagInput(e.target.value)}
                 placeholder={question.placeholder}
                 onKeyDown={handleKeyDown}
+                onCompositionStart={() => setIsComposing(true)}
+                onCompositionEnd={() => setIsComposing(false)}
                 disabled={disabled}
                 className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
               />
@@ -211,6 +216,8 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               onChange={(e) => setValue(e.target.value)}
               placeholder={question.placeholder}
               onKeyDown={handleKeyDown}
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
               disabled={disabled}
               rows={3}
               className="resize-none pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-2xl text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
@@ -242,6 +249,8 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               onChange={(e) => setValue(e.target.value)}
               placeholder={question.placeholder}
               onKeyDown={handleKeyDown}
+              onCompositionStart={() => setIsComposing(true)}
+              onCompositionEnd={() => setIsComposing(false)}
               disabled={disabled}
               className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
             />
