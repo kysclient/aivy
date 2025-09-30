@@ -50,18 +50,21 @@ export function AppBottomNav() {
                                 WebkitBackdropFilter: "blur(24px)",
                                 backdropFilter: "blur(24px)",
                             }}
-                            className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 bg-background/70 flex flex-row items-center justify-between p-0 left-0 right-0">
-                            <div className="flex flex-row gap-1 items-center">
-                                <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+                            className="z-50 w-full h-16 border-t border-border fixed bottom-0 bg-background/70 p-0 left-0 right-0 flex justify-center">
+                            <div className='w-full px-4  flex flex-row items-center justify-between'>
 
-                            </div>
-                            <div className="flex flex-row gap-2 items-center">
-                                <Link href={'/auth'}>
-                                    <Button>가입하기</Button>
-                                </Link>
-                                <Link href={'/auth'}>
-                                    <Button variant={'secondary'}>로그인</Button>
-                                </Link>
+                                <div className="flex flex-row gap-1 items-center justify-center">
+                                    <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
+
+                                </div>
+                                <div className="flex flex-row gap-2 items-center">
+                                    <Link href={'/auth'}>
+                                        <Button>가입하기</Button>
+                                    </Link>
+                                    <Link href={'/auth'}>
+                                        <Button variant={'secondary'}>로그인</Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     )}
