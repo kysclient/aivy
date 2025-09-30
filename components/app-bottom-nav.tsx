@@ -21,7 +21,20 @@ export function AppBottomNav() {
             {screenSize.isMobile && (
                 <>
                     {user ? (
-                        <nav role="navigation" className="w-full h-16 border-t border-border fixed bottom-0 left-0 bg-background z-50">
+                        <nav
+                            role="navigation"
+                            className="w-full h-16 border-t border-border fixed bottom-0 left-0 bg-background z-50"
+                            style={{
+                                position: 'fixed',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                transform: 'translateZ(0)',
+                                WebkitTransform: 'translateZ(0)',
+                                backfaceVisibility: 'hidden',
+                                WebkitBackfaceVisibility: 'hidden'
+                            }}
+                        >
                             <div className="grid grid-cols-5 h-full w-full">
                                 {mobileNavLinks.map((link, idx) => {
                                     const path = user ? (link.href === '/profile' ? `${link.href}/${user?.nickname}` : link.href) : link.href
@@ -39,7 +52,19 @@ export function AppBottomNav() {
                             </div>
                         </nav>
                     ) : (
-                        <div className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 left-0 bg-background flex flex-row items-center justify-between">
+                        <div
+                            className="z-50 w-full h-16 border-t border-border px-4 fixed bottom-0 left-0 bg-background flex flex-row items-center justify-between"
+                            style={{
+                                position: 'fixed',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                transform: 'translateZ(0)',
+                                WebkitTransform: 'translateZ(0)',
+                                backfaceVisibility: 'hidden',
+                                WebkitBackfaceVisibility: 'hidden'
+                            }}
+                        >
                             <div className="flex flex-row gap-1 items-center">
                                 <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
 
