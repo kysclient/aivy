@@ -1,5 +1,4 @@
-
-import { Fallback } from '@/components/fallback'
+import { Fallback } from '@/components/fallback';
 
 /**
  * Profile page for a specific user.
@@ -8,14 +7,12 @@ import { Fallback } from '@/components/fallback'
  * @returns The profile page component.
  */
 export default async function Page(props: { params: Promise<{ id: string }> }) {
-    const params = await props.params
-    const { id } = params
+  const params = await props.params;
+  const { id } = params;
 
-    if (!id) {
-        return <Fallback />
-    }
+  if (!id) {
+    return <Fallback />;
+  }
 
-
-
-    return <></>
+  return <></>;
 }

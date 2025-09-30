@@ -1,98 +1,98 @@
-"use client"
+'use client';
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { Send, Plus, X } from "lucide-react"
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Send, Plus, X } from 'lucide-react';
 
 interface Question {
-  id: string
-  question: string
-  placeholder?: string
-  type: 'text' | 'number' | 'select' | 'tags' | 'textarea'
-  options?: { value: string; label: string }[]
-  optional?: boolean
+  id: string;
+  question: string;
+  placeholder?: string;
+  type: 'text' | 'number' | 'select' | 'tags' | 'textarea';
+  options?: { value: string; label: string }[];
+  optional?: boolean;
 }
 
 interface ChatInputProps {
-  question: Question
-  onSubmit: (value: string | string[]) => void
-  disabled?: boolean
+  question: Question;
+  onSubmit: (value: string | string[]) => void;
+  disabled?: boolean;
 }
 
 export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
-  const [value, setValue] = useState<string>('')
-  const [tags, setTags] = useState<string[]>([])
-  const [tagInput, setTagInput] = useState<string>('')
-  const inputRef = useRef<HTMLInputElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const [isComposing, setIsComposing] = useState(false)
+  const [value, setValue] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isComposing, setIsComposing] = useState(false);
 
   useEffect(() => {
     if (question.type === 'text' || question.type === 'number') {
-      inputRef.current?.focus()
+      inputRef.current?.focus();
     } else if (question.type === 'textarea') {
-      textareaRef.current?.focus()
+      textareaRef.current?.focus();
     }
-  }, [question])
+  }, [question]);
 
   const handleSubmit = (e?: React.FormEvent) => {
-    e?.preventDefault()
+    e?.preventDefault();
 
-    if (disabled) return
+    if (disabled) return;
 
     if (question.type === 'tags') {
-      if (tags.length === 0 && !question.optional) return
-      onSubmit(tags)
-      setTags([])
-      setTagInput('')
+      if (tags.length === 0 && !question.optional) return;
+      onSubmit(tags);
+      setTags([]);
+      setTagInput('');
     } else if (question.type === 'select') {
-      if (!value && !question.optional) return
-      onSubmit(value)
-      setValue('')
+      if (!value && !question.optional) return;
+      onSubmit(value);
+      setValue('');
     } else {
-      if (!value.trim() && !question.optional) return
-      onSubmit(value.trim())
-      setValue('')
+      if (!value.trim() && !question.optional) return;
+      onSubmit(value.trim());
+      setValue('');
     }
-  }
+  };
 
   const addTag = (tag: string) => {
-    const trimmedTag = tag.trim()
+    const trimmedTag = tag.trim();
     if (trimmedTag && !tags.includes(trimmedTag)) {
-      setTags([...tags, trimmedTag])
-      setTagInput('')
+      setTags([...tags, trimmedTag]);
+      setTagInput('');
     }
-  }
+  };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove))
-  }
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isComposing) return;
 
     if (e.key === 'Enter') {
-      e.preventDefault()
+      e.preventDefault();
       if (question.type === 'tags') {
-        addTag(tagInput)
+        addTag(tagInput);
       } else if (question.type === 'textarea' && e.shiftKey) {
         // Shift+Enter는 textarea에서 줄바꿈 허용
-        return
+        return;
       } else {
-        handleSubmit()
+        handleSubmit();
       }
     }
-  }
+  };
 
   const handleSkip = () => {
     if (question.optional) {
-      onSubmit('')
+      onSubmit('');
     }
-  }
+  };
 
   const renderInput = () => {
     switch (question.type) {
@@ -109,27 +109,30 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                     exit={{ opacity: 0, y: -10, scale: 0.9 }}
                     transition={{
                       delay: index * 0.1,
-                      type: "spring",
+                      type: 'spring',
                       stiffness: 300,
-                      damping: 25
+                      damping: 25,
                     }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <Button
-                      variant={value === option.value ? "default" : "outline"}
+                      variant={value === option.value ? 'default' : 'outline'}
                       className={`
                         w-full justify-between text-left h-auto py-3 px-4 sm:py-4 sm:px-5
                         transition-all duration-300 border
-                        ${value === option.value
-                          ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg'
-                          : 'hover:border-primary/50 hover:shadow-md hover:bg-primary/5'
+                        ${
+                          value === option.value
+                            ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg'
+                            : 'hover:border-primary/50 hover:shadow-md hover:bg-primary/5'
                         }
                       `}
                       onClick={() => setValue(option.value)}
                       disabled={disabled}
                     >
-                      <span className="font-medium text-sm sm:text-base break-words pr-2">{option.label}</span>
+                      <span className="font-medium text-sm sm:text-base break-words pr-2">
+                        {option.label}
+                      </span>
                       {value === option.value && (
                         <motion.div
                           initial={{ scale: 0 }}
@@ -145,7 +148,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               </AnimatePresence>
             </div>
           </div>
-        )
+        );
 
       case 'tags':
         return (
@@ -205,7 +208,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               </motion.div>
             )}
           </div>
-        )
+        );
 
       case 'textarea':
         return (
@@ -237,7 +240,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               </Button>
             </motion.div>
           </div>
-        )
+        );
 
       default:
         return (
@@ -269,19 +272,19 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               </Button>
             </motion.div>
           </div>
-        )
+        );
     }
-  }
+  };
 
   const canSubmit = () => {
     if (question.type === 'tags') {
-      return tags.length > 0 || question.optional
+      return tags.length > 0 || question.optional;
     } else if (question.type === 'select') {
-      return value || question.optional
+      return value || question.optional;
     } else {
-      return value.trim() || question.optional
+      return value.trim() || question.optional;
     }
-  }
+  };
 
   return (
     <motion.div
@@ -290,9 +293,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
       exit={{ opacity: 0, y: -30, scale: 0.95 }}
       transition={{
         duration: 0.4,
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
-        damping: 30
+        damping: 30,
       }}
       className="space-y-4"
     >
@@ -303,7 +306,11 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
         {(question.type === 'select' || question.type === 'tags') && (
           <div className="flex flex-col sm:flex-row gap-2 justify-end mt-3 sm:mt-4">
             {question.optional && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
+              >
                 <Button
                   type="button"
                   variant="ghost"
@@ -317,7 +324,11 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
             )}
 
             {question.type === 'select' && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
+              >
                 <Button
                   type="button"
                   onClick={handleSubmit}
@@ -331,7 +342,11 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
             )}
 
             {question.type === 'tags' && tags.length > 0 && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
+              >
                 <Button
                   type="submit"
                   disabled={disabled}
@@ -375,5 +390,5 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
         </motion.p>
       )}
     </motion.div>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-import { Suspense } from 'react'
-import { MainLayout } from '@/layouts/main-layout'
-import { AppSidebar } from '@/components/app-sidebar'
-import { AppAside } from '@/components/app-aside'
-import { AppBottomNav } from '@/components/app-bottom-nav'
-import { PageLoading } from '@/components/page-loading'
-import { Providers } from '@/providers/providers'
+import { Suspense } from 'react';
+import { MainLayout } from '@/layouts/main-layout';
+import { AppSidebar } from '@/components/app-sidebar';
+import { AppAside } from '@/components/app-aside';
+import { AppBottomNav } from '@/components/app-bottom-nav';
+import { PageLoading } from '@/components/page-loading';
+import { Providers } from '@/providers/providers';
 
 export default function Layout({
-  children
+  children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <>
@@ -24,5 +24,5 @@ export default function Layout({
         </Providers>
       </Suspense>
     </>
-  )
+  );
 }

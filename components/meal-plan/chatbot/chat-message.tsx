@@ -1,25 +1,25 @@
-"use client"
+'use client';
 
-import { motion } from "framer-motion"
-import { Bot, User } from "lucide-react"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { motion } from 'framer-motion';
+import { Bot, User } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export interface ChatMessage {
-  id: string
-  type: 'bot' | 'user'
-  content: string | React.ReactNode
-  timestamp: Date
-  isTyping?: boolean
+  id: string;
+  type: 'bot' | 'user';
+  content: string | React.ReactNode;
+  timestamp: Date;
+  isTyping?: boolean;
 }
 
 interface ChatMessageProps {
-  message: ChatMessage
+  message: ChatMessage;
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
-  const isBot = message.type === 'bot'
+  const isBot = message.type === 'bot';
 
   return (
     <motion.div
@@ -28,10 +28,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
       transition={{
         duration: 0.4,
-        ease: "easeOut",
-        type: "spring",
+        ease: 'easeOut',
+        type: 'spring',
         stiffness: 300,
-        damping: 30
+        damping: 30,
       }}
       className={`flex gap-3 ${isBot ? 'justify-start' : 'justify-end'}`}
     >
@@ -39,7 +39,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          transition={{ delay: 0.1, duration: 0.5, type: "spring" }}
+          transition={{ delay: 0.1, duration: 0.5, type: 'spring' }}
           className="shrink-0"
         >
           <Avatar className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-primary/30 shadow-lg">
@@ -47,12 +47,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
               <motion.div
                 animate={{
                   scale: [1, 1.1, 1],
-                  rotate: [0, 5, -5, 0]
+                  rotate: [0, 5, -5, 0],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  repeatDelay: 3
+                  repeatDelay: 3,
                 }}
               >
                 <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
@@ -67,29 +67,30 @@ export function ChatMessage({ message }: ChatMessageProps) {
           initial={{
             opacity: 0,
             x: isBot ? -20 : 20,
-            scale: 0.8
+            scale: 0.8,
           }}
           animate={{
             opacity: 1,
             x: 0,
-            scale: 1
+            scale: 1,
           }}
           transition={{
             delay: 0.2,
             duration: 0.4,
-            type: "spring",
+            type: 'spring',
             stiffness: 400,
-            damping: 25
+            damping: 25,
           }}
           whileHover={{
             scale: 1.02,
-            transition: { duration: 0.2 }
+            transition: { duration: 0.2 },
           }}
           className={`
             relative backdrop-blur-sm
-            ${isBot
-              ? 'bg-muted/80 text-foreground border border-border/50 shadow-lg'
-              : 'bg-primary text-white shadow-lg'
+            ${
+              isBot
+                ? 'bg-muted/80 text-foreground border border-border/50 shadow-lg'
+                : 'bg-primary text-white shadow-lg'
             }
             rounded-2xl px-3 py-3 sm:px-5 sm:py-4
             ${isBot ? 'rounded-tl-md' : 'rounded-tr-md'}
@@ -170,7 +171,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         >
           {message.timestamp.toLocaleTimeString('ko-KR', {
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
           })}
         </motion.div>
       </div>
@@ -200,5 +201,5 @@ export function ChatMessage({ message }: ChatMessageProps) {
         </motion.div>
       )} */}
     </motion.div>
-  )
+  );
 }

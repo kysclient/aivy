@@ -1,51 +1,54 @@
-'use client'
+'use client';
 
-import { PostFloatingButton } from '@/components/post-floating-button'
-import { useScreenSize } from '@/hooks/use-screen-size'
-import TokenManager from '@/lib/token-manager'
-import { cn } from '@/lib/utils'
-import { useAuth } from '@/providers/auth-provider'
-import { useSocket } from '@/providers/socket-provider'
-import { usePathname } from 'next/navigation'
-import { useEffect, useMemo } from 'react'
+import { PostFloatingButton } from '@/components/post-floating-button';
+import { useScreenSize } from '@/hooks/use-screen-size';
+import TokenManager from '@/lib/token-manager';
+import { cn } from '@/lib/utils';
+import { useAuth } from '@/providers/auth-provider';
+import { useSocket } from '@/providers/socket-provider';
+import { usePathname } from 'next/navigation';
+import { useEffect, useMemo } from 'react';
 
 interface PaddingConfig {
-  path: string
-  className: string
+  path: string;
+  className: string;
 }
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  const screenSize = useScreenSize()
-  const pathname = usePathname()
-  const isProfile = pathname.startsWith('/profile')
+  const screenSize = useScreenSize();
+  const pathname = usePathname();
+  const isProfile = pathname.startsWith('/profile');
   const paddingConfigs: PaddingConfig[] = [
     { path: '/', className: 'pt-[104px]' },
-    { path: '/live', className: 'pt-[113px]' }
-  ]
+    { path: '/live', className: 'pt-[113px]' },
+  ];
 
   const paddingClass = useMemo(() => {
-    if (!screenSize.isMobile) return ''
-    let config
-    config = paddingConfigs.find((item) => item.path === pathname)
-    return config ? config.className : !isProfile ? 'pt-[53px]' : ''
-  }, [pathname, screenSize.isMobile])
+    if (!screenSize.isMobile) return '';
+    let config;
+    config = paddingConfigs.find((item) => item.path === pathname);
+    return config ? config.className : !isProfile ? 'pt-[53px]' : '';
+  }, [pathname, screenSize.isMobile]);
 
   const desktopContainerStyle: React.CSSProperties = {
     position: 'absolute',
     inset: '0px 0px 0px 50%',
     width: 607,
     transform: 'translateX(-51%)',
-    height: 'full'
+    height: 'full',
     // overflowY: 'auto'
-  }
+  };
 
   return (
     <>
-      <div className={cn('', screenSize.isMobile ? 'pb-16' : '', paddingClass)} style={screenSize.isMobile ? undefined : desktopContainerStyle}>
+      <div
+        className={cn('', screenSize.isMobile ? 'pb-16' : '', paddingClass)}
+        style={screenSize.isMobile ? undefined : desktopContainerStyle}
+      >
         {children}
       </div>
       {!screenSize.isDesktop && pathname === '/' && <PostFloatingButton user={user} />}
     </>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { Loading } from './loading'
+import { Loading } from './loading';
 
 export function PageLoading() {
   return (
@@ -6,5 +6,5 @@ export function PageLoading() {
       <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
       <Loading />
     </div>
-  )
+  );
 }

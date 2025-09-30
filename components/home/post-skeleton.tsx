@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface PostSkeletonProps {
-  count?: number
+  count?: number;
 }
 
 export function PostSkeleton({ count = 5 }: PostSkeletonProps) {
@@ -33,7 +33,7 @@ export function PostSkeleton({ count = 5 }: PostSkeletonProps) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default PostSkeleton
+export default PostSkeleton;

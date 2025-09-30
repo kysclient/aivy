@@ -1,64 +1,63 @@
-'use client'
+'use client';
 
-import { useScreenSize } from '@/hooks/use-screen-size'
-import { useEffect, useState } from 'react'
-import { Menu } from 'lucide-react'
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { BellIcon, TiktokLogo } from '@/components/icons'
-import Link from 'next/link'
-import { AppMobileSidebar } from '../sidebar-mobile'
-import { useAuth } from '@/providers/auth-provider'
+import { useScreenSize } from '@/hooks/use-screen-size';
+import { useEffect, useState } from 'react';
+import { Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { BellIcon, TiktokLogo } from '@/components/icons';
+import Link from 'next/link';
+import { AppMobileSidebar } from '../sidebar-mobile';
+import { useAuth } from '@/providers/auth-provider';
 
 export function HomeHeader({ children }: { children?: React.ReactNode }) {
-  const screenSize = useScreenSize()
-  const [headerVisible, setHeaderVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const screenSize = useScreenSize();
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { user } = useAuth();
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
+      const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setHeaderVisible(false)
+        setHeaderVisible(false);
       } else if (currentScrollY < lastScrollY) {
-        setHeaderVisible(true)
+        setHeaderVisible(true);
       }
 
-      setLastScrollY(currentScrollY)
-    }
+      setLastScrollY(currentScrollY);
+    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
   return (
     <>
       {/* pc  */}
-      {
-        user &&
+      {user && (
         <div
           className="flex flex-row items-center"
           style={{
             padding: '12px 20px 8px',
-            display: screenSize.isMobile ? 'none' : 'flex'
+            display: screenSize.isMobile ? 'none' : 'flex',
           }}
         >
           <div className="w-[34px]"></div>
           <div
             className="items-center justify-center flex"
             style={{
-              flex: '1 1 0%'
+              flex: '1 1 0%',
             }}
           >
             <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
           </div>
           <div className="w-[34px]"></div>
         </div>
-      }
+      )}
 
       <div
         className="w-full sticky top-0 bg-background z-50"
         style={{
-          display: screenSize.isMobile ? 'none' : 'block'
+          display: screenSize.isMobile ? 'none' : 'block',
         }}
       >
         {children}
@@ -69,19 +68,19 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
       {/* mobile */}
       <div
         style={{
-          display: !screenSize.isMobile ? 'none' : 'flex'
+          display: !screenSize.isMobile ? 'none' : 'flex',
         }}
         className={`bg-background fixed flex flex-col  top-0 left-0 w-full transition-transform duration-300 ease-in-out z-50 ${headerVisible ? 'translate-y-0' : '-translate-y-full'}`}
       >
         <div
           className="flex flex-row items-center w-full"
           style={{
-            padding: '12px 20px 8px'
+            padding: '12px 20px 8px',
           }}
         >
           <div className="justify-center">
             <Sheet key={'mobile-sidebar'}>
-              <SheetTrigger asChild className='hover:bg-muted rounded-xl'>
+              <SheetTrigger asChild className="hover:bg-muted rounded-xl">
                 <Menu className="w-6 h-6 text-description" />
               </SheetTrigger>
               <SheetContent side={'left'}>
@@ -93,13 +92,13 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
           <div
             className="items-center justify-center flex"
             style={{
-              flex: '1 1 0%'
+              flex: '1 1 0%',
             }}
           >
             <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
           </div>
           <div className="w-[34px] text-description">
-            <Link className='' href={'/notifications'}>
+            <Link className="" href={'/notifications'}>
               <BellIcon size={21} />
             </Link>
           </div>
@@ -108,5 +107,5 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
       </div>
       {/*  */}
     </>
-  )
+  );
 }

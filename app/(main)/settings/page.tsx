@@ -1,5 +1,5 @@
-import SettingsMain from '@/components/settings/settings-main'
-import { DefaultHeader } from '@/layouts/default-header'
+import SettingsMain from '@/components/settings/settings-main';
+import { DefaultHeader } from '@/layouts/default-header';
 
 export default function Page() {
   return (
@@ -7,5 +7,5 @@ export default function Page() {
       <DefaultHeader title="설정" />
       <SettingsMain />
     </>
-  )
+  );
 }

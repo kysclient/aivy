@@ -1,18 +1,18 @@
-'use client'
-import { useState } from 'react'
-import { useScreenSize } from '@/hooks/use-screen-size'
-import { Button } from './ui/button'
-import Link from 'next/link'
-import { FeatherIcon } from './icons'
-import { SidebarUserNav } from './sidebar-user-nav'
-import SidebarNavLinks from './sidebar-nav-links'
-import { useAuth } from '@/providers/auth-provider'
-import PostModal from './modal/post-modal'
+'use client';
+import { useState } from 'react';
+import { useScreenSize } from '@/hooks/use-screen-size';
+import { Button } from './ui/button';
+import Link from 'next/link';
+import { FeatherIcon } from './icons';
+import { SidebarUserNav } from './sidebar-user-nav';
+import SidebarNavLinks from './sidebar-nav-links';
+import { useAuth } from '@/providers/auth-provider';
+import PostModal from './modal/post-modal';
 
 export function AppSidebar() {
-  const { user } = useAuth()
-  const screenSize = useScreenSize()
-  const [isPostModalOpen, setIsPostModalOpen] = useState(false)
+  const { user } = useAuth();
+  const screenSize = useScreenSize();
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   return (
     <nav
       role="navigation"
@@ -22,7 +22,13 @@ export function AppSidebar() {
         paddingLeft: '20px',
         paddingRight: '18px',
         width: screenSize.isTablet ? 86 : 240,
-        display: user ? (screenSize.isMobile ? 'none' : 'block') : screenSize.isMobile ? 'none' : 'block'
+        display: user
+          ? screenSize.isMobile
+            ? 'none'
+            : 'block'
+          : screenSize.isMobile
+            ? 'none'
+            : 'block',
       }}
     >
       {user ? (
@@ -67,11 +73,7 @@ export function AppSidebar() {
         </div>
       )}
 
-      <PostModal
-        isOpen={isPostModalOpen}
-        setIsOpen={setIsPostModalOpen}
-        user={user || undefined}
-      />
+      <PostModal isOpen={isPostModalOpen} setIsOpen={setIsPostModalOpen} user={user || undefined} />
     </nav>
-  )
+  );
 }

@@ -1,62 +1,71 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { ChefHat, Target, Sparkles, ArrowRight, ArrowLeft, Heart, Clock, Users, Zap, TrendingUp, Calendar, Apple } from "lucide-react"
-import { mockMealPlans } from "@/lib/mock-meal-plan"
-import { AiIcon } from "../icons"
-import { useSocket } from "@/providers/socket-provider"
-import { mealPlanRepository } from "@/repositoires/RepositoryFactory"
-import TokenManager from "@/lib/token-manager"
-import { MealPlan, MealPlanStatus, MealPlanStatusUpdate } from "@/repositoires/MealPlanRepository"
-import { toast } from "sonner"
-import { getMealPlanDates } from "@/lib/utils"
-import { useRouter } from "next/navigation"
-import { Progress } from "../ui/progress"
-import { useGeneratingMealPlans, useMealPlan } from "@/hooks/use-meal-plan"
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import {
+    ChefHat,
+    Target,
+    Sparkles,
+    ArrowRight,
+    ArrowLeft,
+    Heart,
+    Clock,
+    Users,
+    Zap,
+    TrendingUp,
+    Calendar,
+    Apple,
+} from 'lucide-react';
+import { mockMealPlans } from '@/lib/mock-meal-plan';
+import { AiIcon } from '../icons';
+import { useSocket } from '@/providers/socket-provider';
+import { mealPlanRepository } from '@/repositoires/RepositoryFactory';
+import TokenManager from '@/lib/token-manager';
+import { MealPlan, MealPlanStatus, MealPlanStatusUpdate } from '@/repositoires/MealPlanRepository';
+import { toast } from 'sonner';
+import { getMealPlanDates } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { Progress } from '../ui/progress';
+import { useGeneratingMealPlans, useMealPlan } from '@/hooks/use-meal-plan';
 
 interface UserInfo {
-    name: string
-    age: string
-    gender: string
-    height: string
-    weight: string
-    activityLevel: string
-    goal: string
-    allergies: string[]
-    excludeFoods: string[]
-    targetCalories: number | null
-    specialRequests: string
-    title: string
+    name: string;
+    age: string;
+    gender: string;
+    height: string;
+    weight: string;
+    activityLevel: string;
+    goal: string;
+    allergies: string[];
+    excludeFoods: string[];
+    targetCalories: number | null;
+    specialRequests: string;
+    title: string;
 }
 
-
-
-
-
 const steps = [
-    { title: "기본 정보", icon: Users },
-    { title: "목표 설정", icon: Target },
-    { title: "식단 선호도", icon: Heart },
-    { title: "식단 생성", icon: AiIcon },
-]
+    { title: '기본 정보', icon: Users },
+    { title: '목표 설정', icon: Target },
+    { title: '식단 선호도', icon: Heart },
+    { title: '식단 생성', icon: AiIcon },
+];
 
 export default function MealPlanMain() {
-    const {
-        generatingMealPlans,
-        isLoading,
-        error,
-        refresh,
-        count
-    } = useGeneratingMealPlans();
+    const { generatingMealPlans, isLoading, error, refresh, count } = useGeneratingMealPlans();
 
     const { connect, disconnect, isConnected, socket } = useSocket();
     const token = TokenManager.getAccessToken();
@@ -66,44 +75,44 @@ export default function MealPlanMain() {
     const [generateMealPlanId, setGenerateMealPlanId] = useState<string | null>(null);
     const [userInfo, setUserInfo] = useState<UserInfo>({
         title: '',
-        name: "",
-        age: "",
-        gender: "",
-        height: "",
-        weight: "",
-        activityLevel: "",
-        goal: "",
+        name: '',
+        age: '',
+        gender: '',
+        height: '',
+        weight: '',
+        activityLevel: '',
+        goal: '',
         allergies: [],
         excludeFoods: [],
         targetCalories: null,
-        specialRequests: "",
-    })
-    const [mealPlans, setMealPlans] = useState<MealPlan | null>(null)
-    const [isGenerating, setIsGenerating] = useState(false)
+        specialRequests: '',
+    });
+    const [mealPlans, setMealPlans] = useState<MealPlan | null>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const handleNext = () => {
         if (currentStep < steps.length - 1) {
-            setCurrentStep(currentStep + 1)
+            setCurrentStep(currentStep + 1);
         }
-    }
+    };
 
     const handlePrev = () => {
         if (currentStep > 0) {
-            setCurrentStep(currentStep - 1)
+            setCurrentStep(currentStep - 1);
         }
-    }
+    };
 
     const generateMealPlan = async () => {
         if (!token) {
-            toast("로그인 후 이용해주세요.", {
+            toast('로그인 후 이용해주세요.', {
                 action: {
-                    label: "로그인",
+                    label: '로그인',
                     onClick: () => router.push('/auth'),
                 },
-            })
-            return
+            });
+            return;
         }
-        setIsGenerating(true)
+        setIsGenerating(true);
         const { startDate, endDate } = getMealPlanDates();
         // Simulate API call
         const bodyData = {
@@ -114,59 +123,57 @@ export default function MealPlanMain() {
             gender: userInfo.gender,
             height: parseInt(userInfo.height),
             weight: parseInt(userInfo.weight),
-        }
+        };
         try {
-
-            const response = await mealPlanRepository.generateMealPlan(bodyData)
-            setMealPlans(response)
+            const response = await mealPlanRepository.generateMealPlan(bodyData);
+            setMealPlans(response);
         } catch {
-            toast('식단 생성에 실패했습니다. 잠시 후 다시 시도해주세요.')
-            setIsGenerating(false)
+            toast('식단 생성에 실패했습니다. 잠시 후 다시 시도해주세요.');
+            setIsGenerating(false);
         }
-    }
+    };
 
     const addAllergy = (allergy: string) => {
         if (allergy && !userInfo.allergies.includes(allergy)) {
             setUserInfo((prev) => ({
                 ...prev,
                 allergies: [...prev.allergies, allergy],
-            }))
+            }));
         }
-    }
+    };
 
     const removeAllergy = (allergy: string) => {
         setUserInfo((prev) => ({
             ...prev,
             allergies: prev.allergies.filter((a) => a !== allergy),
-        }))
-    }
+        }));
+    };
 
     const addExcludeFood = (food: string) => {
         if (food && !userInfo.excludeFoods.includes(food)) {
             setUserInfo((prev) => ({
                 ...prev,
                 excludeFoods: [...prev.excludeFoods, food],
-            }))
+            }));
         }
-    }
+    };
 
     const removeExcludeFood = (food: string) => {
         setUserInfo((prev) => ({
             ...prev,
             excludeFoods: prev.excludeFoods.filter((f) => f !== food),
-        }))
-    }
+        }));
+    };
 
     useEffect(() => {
         if (!socket || !isConnected) return;
 
         const handleStatusUpdate = (data: MealPlanStatusUpdate) => {
-
             if (data.progress !== undefined) {
             }
 
             if (data.message) {
-                toast.info(data.message)
+                toast.info(data.message);
             }
 
             switch (data.status) {
@@ -179,19 +186,19 @@ export default function MealPlanMain() {
                     setProgress(data.progress || 0);
                     setIsGenerating(false);
                     const { startDate, endDate } = getMealPlanDates();
-                    toast("맞춤 식단이 성공적으로 생성되었습니다. 🍽️", {
+                    toast('맞춤 식단이 성공적으로 생성되었습니다. 🍽️', {
                         description: `${startDate} ~ ${endDate}`,
                         action: {
-                            label: "바로가기",
+                            label: '바로가기',
                             onClick: () => router.push('/plans'),
                         },
-                    })
+                    });
                     break;
 
                 case MealPlanStatus.FAILED:
                     setProgress(0);
                     setIsGenerating(false);
-                    toast.error('식단 생성에 실패했습니다.')
+                    toast.error('식단 생성에 실패했습니다.');
                     break;
             }
         };
@@ -203,41 +210,37 @@ export default function MealPlanMain() {
         };
     }, [socket, isConnected]);
 
-
     useEffect(() => {
         if (count > 0) {
-            setMealPlans(generatingMealPlans[0])
-            setIsGenerating(true)
+            setMealPlans(generatingMealPlans[0]);
+            setIsGenerating(true);
             setCurrentStep(3);
         } else {
             setMealPlans(null);
-            setIsGenerating(false)
+            setIsGenerating(false);
             setCurrentStep(0);
         }
-    }, [count])
-
-
-
+    }, [count]);
 
     return (
         <div className="p-4 md:p-6 max-w-4xl mx-auto">
             <div className="space-y-6">
-
-
                 {/* Progress Bar */}
                 <div className="bg-muted/30 py-4 rounded-lg">
                     <div className="w-full flex items-center justify-between mb-2 px-4">
                         {steps.map((step, index) => (
                             <div key={index} className="flex items-center">
                                 <div
-                                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${index <= currentStep ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${index <= currentStep
+                                            ? 'bg-primary text-primary-foreground'
+                                            : 'bg-muted text-muted-foreground'
                                         }`}
                                 >
                                     <step.icon className="w-5 h-5" />
                                 </div>
                                 {index < steps.length - 1 && (
                                     <div
-                                        className={`w-9 sm:w-16 h-1 mx-2 transition-all duration-300 ${index < currentStep ? "bg-primary" : "bg-muted"
+                                        className={`w-9 sm:w-16 h-1 mx-2 transition-all duration-300 ${index < currentStep ? 'bg-primary' : 'bg-muted'
                                             }`}
                                     />
                                 )}
@@ -324,7 +327,9 @@ export default function MealPlanMain() {
                                                 id="height"
                                                 type="number"
                                                 value={userInfo.height}
-                                                onChange={(e) => setUserInfo((prev) => ({ ...prev, height: e.target.value }))}
+                                                onChange={(e) =>
+                                                    setUserInfo((prev) => ({ ...prev, height: e.target.value }))
+                                                }
                                                 placeholder="170"
                                             />
                                         </div>
@@ -334,7 +339,9 @@ export default function MealPlanMain() {
                                                 id="weight"
                                                 type="number"
                                                 value={userInfo.weight}
-                                                onChange={(e) => setUserInfo((prev) => ({ ...prev, weight: e.target.value }))}
+                                                onChange={(e) =>
+                                                    setUserInfo((prev) => ({ ...prev, weight: e.target.value }))
+                                                }
                                                 placeholder="65"
                                             />
                                         </div>
@@ -344,7 +351,9 @@ export default function MealPlanMain() {
                                         <Label>활동 수준</Label>
                                         <Select
                                             value={userInfo.activityLevel}
-                                            onValueChange={(value) => setUserInfo((prev) => ({ ...prev, activityLevel: value }))}
+                                            onValueChange={(value) =>
+                                                setUserInfo((prev) => ({ ...prev, activityLevel: value }))
+                                            }
                                         >
                                             <SelectTrigger>
                                                 <SelectValue placeholder="활동 수준을 선택해주세요" />
@@ -406,10 +415,17 @@ export default function MealPlanMain() {
                                             id="targetCalories"
                                             type="number"
                                             value={userInfo.targetCalories || 0}
-                                            onChange={(e) => setUserInfo((prev) => ({ ...prev, targetCalories: parseInt(e.target.value) }))}
+                                            onChange={(e) =>
+                                                setUserInfo((prev) => ({
+                                                    ...prev,
+                                                    targetCalories: parseInt(e.target.value),
+                                                }))
+                                            }
                                             placeholder="2000"
                                         />
-                                        <p className="text-sm text-muted-foreground">비워두시면 자동으로 계산해드려요</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            비워두시면 자동으로 계산해드려요
+                                        </p>
                                     </div>
 
                                     <div className="space-y-2">
@@ -417,7 +433,9 @@ export default function MealPlanMain() {
                                         <Textarea
                                             id="specialRequests"
                                             value={userInfo.specialRequests}
-                                            onChange={(e) => setUserInfo((prev) => ({ ...prev, specialRequests: e.target.value }))}
+                                            onChange={(e) =>
+                                                setUserInfo((prev) => ({ ...prev, specialRequests: e.target.value }))
+                                            }
                                             placeholder="저염식으로 준비해주세요, 매운 음식 선호 등..."
                                             rows={3}
                                         />
@@ -452,9 +470,9 @@ export default function MealPlanMain() {
                                                 <Input
                                                     placeholder="알레르기 추가"
                                                     onKeyPress={(e) => {
-                                                        if (e.key === "Enter") {
-                                                            addAllergy(e.currentTarget.value)
-                                                            e.currentTarget.value = ""
+                                                        if (e.key === 'Enter') {
+                                                            addAllergy(e.currentTarget.value);
+                                                            e.currentTarget.value = '';
                                                         }
                                                     }}
                                                 />
@@ -462,9 +480,10 @@ export default function MealPlanMain() {
                                                     type="button"
                                                     variant="outline"
                                                     onClick={(e) => {
-                                                        const input = e.currentTarget.previousElementSibling as HTMLInputElement
-                                                        addAllergy(input.value)
-                                                        input.value = ""
+                                                        const input = e.currentTarget
+                                                            .previousElementSibling as HTMLInputElement;
+                                                        addAllergy(input.value);
+                                                        input.value = '';
                                                     }}
                                                 >
                                                     추가
@@ -492,9 +511,9 @@ export default function MealPlanMain() {
                                                 <Input
                                                     placeholder="제외할 음식 추가"
                                                     onKeyPress={(e) => {
-                                                        if (e.key === "Enter") {
-                                                            addExcludeFood(e.currentTarget.value)
-                                                            e.currentTarget.value = ""
+                                                        if (e.key === 'Enter') {
+                                                            addExcludeFood(e.currentTarget.value);
+                                                            e.currentTarget.value = '';
                                                         }
                                                     }}
                                                 />
@@ -502,9 +521,10 @@ export default function MealPlanMain() {
                                                     type="button"
                                                     variant="outline"
                                                     onClick={(e) => {
-                                                        const input = e.currentTarget.previousElementSibling as HTMLInputElement
-                                                        addExcludeFood(input.value)
-                                                        input.value = ""
+                                                        const input = e.currentTarget
+                                                            .previousElementSibling as HTMLInputElement;
+                                                        addExcludeFood(input.value);
+                                                        input.value = '';
                                                     }}
                                                 >
                                                     추가
@@ -552,7 +572,7 @@ export default function MealPlanMain() {
                                                 <div className="w-20 h-20 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full flex items-center justify-center">
                                                     <motion.div
                                                         animate={{ rotate: 360 }}
-                                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                                        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                                                         className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full"
                                                     />
                                                 </div>
@@ -609,7 +629,9 @@ export default function MealPlanMain() {
                                                 className="text-center space-y-2"
                                             >
                                                 <p className="text-sm text-primary font-medium">잠시만 기다려주세요</p>
-                                                <p className="text-xs text-muted-foreground">완성되면 알림으로 알려드릴게요</p>
+                                                <p className="text-xs text-muted-foreground">
+                                                    완성되면 알림으로 알려드릴게요
+                                                </p>
                                             </motion.div>
 
                                             <motion.div
@@ -635,7 +657,7 @@ export default function MealPlanMain() {
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
-                                                transition={{ duration: 0.6, type: "spring" }}
+                                                transition={{ duration: 0.6, type: 'spring' }}
                                                 className="flex flex-col items-center gap-6"
                                             >
                                                 <div className="relative">
@@ -687,7 +709,9 @@ export default function MealPlanMain() {
                                                             <div className="text-xs text-muted-foreground"> 맞춤 식단</div>
                                                         </div>
                                                         <div>
-                                                            <div className="text-2xl font-bold text-blue-600">{mealPlans.dailyCalories}</div>
+                                                            <div className="text-2xl font-bold text-blue-600">
+                                                                {mealPlans.dailyCalories}
+                                                            </div>
                                                             <div className="text-xs text-muted-foreground">평균 칼로리</div>
                                                         </div>
                                                         <div>
@@ -704,7 +728,7 @@ export default function MealPlanMain() {
                                                     className="flex flex-col sm:flex-row gap-3"
                                                 >
                                                     <Button
-                                                        onClick={() => window.location.href = '/plans'}
+                                                        onClick={() => (window.location.href = '/plans')}
                                                         size="lg"
                                                         className="gap-2 bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
                                                     >
@@ -738,11 +762,14 @@ export default function MealPlanMain() {
                                                     입력하신 정보를 바탕으로 맞춤형 식단을 생성해드릴게요
                                                 </p>
                                             </div>
-                                            <Button onClick={generateMealPlan} disabled={isGenerating} size="lg" className="gap-2">
-
+                                            <Button
+                                                onClick={generateMealPlan}
+                                                disabled={isGenerating}
+                                                size="lg"
+                                                className="gap-2"
+                                            >
                                                 <Zap className="w-5 h-5" />
                                                 AI 식단 생성하기
-
                                             </Button>
                                         </div>
                                     </CardContent>
@@ -754,13 +781,17 @@ export default function MealPlanMain() {
 
                 {/* Navigation */}
                 <div className="flex justify-between">
-                    {
-                        !isGenerating &&
-                        <Button variant="outline" onClick={handlePrev} disabled={currentStep === 0} className="gap-2 bg-transparent">
+                    {!isGenerating && (
+                        <Button
+                            variant="outline"
+                            onClick={handlePrev}
+                            disabled={currentStep === 0}
+                            className="gap-2 bg-transparent"
+                        >
                             <ArrowLeft className="w-4 h-4" />
                             이전
                         </Button>
-                    }
+                    )}
 
                     {currentStep < 3 && (
                         <Button
@@ -783,6 +814,6 @@ export default function MealPlanMain() {
                     )}
                 </div>
             </div>
-        </div >
-    )
+        </div>
+    );
 }

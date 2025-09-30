@@ -1,14 +1,14 @@
-"use client"
+'use client';
 
-import MealPlanChatbot from '@/components/meal-plan/chatbot/meal-plan-chatbot'
-import MealPlanMain from '@/components/meal-plan/meal-plan-main'
-import { MenuHeader } from '@/layouts/menu-header'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { MessageCircle, Settings } from 'lucide-react'
+import MealPlanChatbot from '@/components/meal-plan/chatbot/meal-plan-chatbot';
+import MealPlanMain from '@/components/meal-plan/meal-plan-main';
+import { MenuHeader } from '@/layouts/menu-header';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { MessageCircle, Settings } from 'lucide-react';
 
 export default function Page() {
-  const [viewMode, setViewMode] = useState<'chatbot' | 'form'>('chatbot')
+  const [viewMode, setViewMode] = useState<'chatbot' | 'form'>('chatbot');
 
   return (
     <>
@@ -29,8 +29,7 @@ export default function Page() {
               onClick={() => setViewMode('form')}
               className="gap-2"
             >
-              <Settings className="w-4 h-4" />
-              폼 모드
+              <Settings className="w-4 h-4" />폼 모드
             </Button>
           </div>
         </div>
@@ -38,5 +37,5 @@ export default function Page() {
 
       {viewMode === 'chatbot' ? <MealPlanChatbot /> : <MealPlanMain />}
     </>
-  )
+  );
 }

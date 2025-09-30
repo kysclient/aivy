@@ -1,60 +1,69 @@
-import Link from "next/link"
-import { FileText, AlertTriangle, Shield, Users, Gavel, ExternalLink, Clock, CheckCircle } from "lucide-react"
+import Link from 'next/link';
+import {
+  FileText,
+  AlertTriangle,
+  Shield,
+  Users,
+  Gavel,
+  ExternalLink,
+  Clock,
+  CheckCircle,
+} from 'lucide-react';
 
 export default function Page() {
   const termsSections = [
     {
-      id: "purpose",
-      title: "제1조 (목적)",
+      id: 'purpose',
+      title: '제1조 (목적)',
       icon: FileText,
       content:
         "본 약관은 AI 건강관리 식단 추천 및 상품 구매 서비스를 제공하는 '아이비'와 이용자 간의 권리, 의무, 책임 사항을 규정함을 목적으로 합니다.",
     },
     {
-      id: "definitions",
-      title: "제2조 (용어의 정의)",
+      id: 'definitions',
+      title: '제2조 (용어의 정의)',
       icon: Shield,
       content: [
-        "**아이비**: 회사가 운영하는 웹사이트 및 모바일 앱.",
-        "**AI 건강관리 식단 서비스**: 회원이 제공한 나이, 키, 몸무게 등을 기반으로 AI가 맞춤형 식단을 추천하는 서비스.",
+        '**아이비**: 회사가 운영하는 웹사이트 및 모바일 앱.',
+        '**AI 건강관리 식단 서비스**: 회원이 제공한 나이, 키, 몸무게 등을 기반으로 AI가 맞춤형 식단을 추천하는 서비스.',
       ],
     },
     {
-      id: "services",
-      title: "제4조 (서비스의 제공)",
+      id: 'services',
+      title: '제4조 (서비스의 제공)',
       icon: Users,
       content: [
-        "AI 건강관리 식단 서비스 제공",
-        "재화 또는 용역에 대한 정보 제공 및 구매 계약 체결",
-        "구매 상품의 배송 및 결제 지원",
+        'AI 건강관리 식단 서비스 제공',
+        '재화 또는 용역에 대한 정보 제공 및 구매 계약 체결',
+        '구매 상품의 배송 및 결제 지원',
       ],
     },
     {
-      id: "withdrawal",
-      title: "제6조 (회원 탈퇴 및 자격 상실)",
+      id: 'withdrawal',
+      title: '제6조 (회원 탈퇴 및 자격 상실)',
       icon: ExternalLink,
       content: [
-        "회원은 언제든지 탈퇴를 요청할 수 있으며, 회사는 즉시 처리합니다.",
-        "허위 내용 등록, 타인 정보 도용, 공서양속에 반하는 행위 시 자격이 제한/상실될 수 있습니다.",
+        '회원은 언제든지 탈퇴를 요청할 수 있으며, 회사는 즉시 처리합니다.',
+        '허위 내용 등록, 타인 정보 도용, 공서양속에 반하는 행위 시 자격이 제한/상실될 수 있습니다.',
       ],
     },
     {
-      id: "liability",
-      title: "제10조 (AI 식단 서비스 관련 책임의 제한)",
+      id: 'liability',
+      title: '제10조 (AI 식단 서비스 관련 책임의 제한)',
       icon: AlertTriangle,
       content: [
-        "AI 식단 서비스는 이용자가 제공한 정보를 기반으로 한 **참고용 추천 정보**이며, **의학적 진단 또는 치료를 대체할 수 없습니다.**",
-        "이용자는 건강 문제 발생 시 반드시 전문 의료기관의 진료를 받아야 하며, 회사는 추천 정보로 인한 직·간접적 결과에 대해 법적 책임을 지지 않습니다.",
+        'AI 식단 서비스는 이용자가 제공한 정보를 기반으로 한 **참고용 추천 정보**이며, **의학적 진단 또는 치료를 대체할 수 없습니다.**',
+        '이용자는 건강 문제 발생 시 반드시 전문 의료기관의 진료를 받아야 하며, 회사는 추천 정보로 인한 직·간접적 결과에 대해 법적 책임을 지지 않습니다.',
       ],
       highlight: true,
     },
     {
-      id: "obligations",
-      title: "제11조 (이용자의 의무)",
+      id: 'obligations',
+      title: '제11조 (이용자의 의무)',
       icon: Gavel,
-      content: ["허위 내용 등록 금지", "타인 정보 도용 금지", "지적재산권 침해 금지"],
+      content: ['허위 내용 등록 금지', '타인 정보 도용 금지', '지적재산권 침해 금지'],
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,7 +73,10 @@ export default function Page() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link
+            href="/privacy"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
             개인정보처리방침
           </Link>
           <Link href="/terms" className="text-sm text-foreground font-medium">
@@ -117,8 +129,8 @@ export default function Page() {
               </div>
 
               <p className="page-subtitle max-w-3xl">
-                본 약관은 아이비(Aivy) 서비스 이용에 대한 회사와 이용자 간의 권리 및 의무를 규정합니다. 서비스를
-                이용하기 전에 약관을 주의 깊게 읽어 주시기 바랍니다.
+                본 약관은 아이비(Aivy) 서비스 이용에 대한 회사와 이용자 간의 권리 및 의무를
+                규정합니다. 서비스를 이용하기 전에 약관을 주의 깊게 읽어 주시기 바랍니다.
               </p>
             </div>
 
@@ -126,10 +138,13 @@ export default function Page() {
               <div className="flex items-start gap-3">
                 <AlertTriangle className="warning-icon" />
                 <div>
-                  <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">중요 고지사항</h3>
+                  <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">
+                    중요 고지사항
+                  </h3>
                   <p className="text-sm text-amber-700 dark:text-amber-300 leading-relaxed">
-                    AI 건강관리 식단 서비스는 참고용 정보 제공 목적이며, 의학적 진단이나 치료를 대체할 수 없습니다. 건강
-                    관련 문제가 있으시면 반드시 전문 의료기관에 상담받으시기 바랍니다.
+                    AI 건강관리 식단 서비스는 참고용 정보 제공 목적이며, 의학적 진단이나 치료를
+                    대체할 수 없습니다. 건강 관련 문제가 있으시면 반드시 전문 의료기관에
+                    상담받으시기 바랍니다.
                   </p>
                 </div>
               </div>
@@ -137,15 +152,17 @@ export default function Page() {
 
             <div className="space-y-6">
               {termsSections.map((section) => {
-                const IconComponent = section.icon
+                const IconComponent = section.icon;
                 return (
                   <section
                     key={section.id}
                     id={section.id}
-                    className={`legal-section ${section.highlight ? "highlight" : ""}`}
+                    className={`legal-section ${section.highlight ? 'highlight' : ''}`}
                   >
                     <h2 className="legal-title">
-                      <IconComponent className={section.highlight ? "warning-icon" : "section-icon"} />
+                      <IconComponent
+                        className={section.highlight ? 'warning-icon' : 'section-icon'}
+                      />
                       {section.title}
                     </h2>
 
@@ -154,19 +171,25 @@ export default function Page() {
                         {section.content.map((item, i) => (
                           <div key={i} className="legal-list-item">
                             <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                            <span className={section.highlight ? "text-amber-700 dark:text-amber-300" : ""}>
+                            <span
+                              className={
+                                section.highlight ? 'text-amber-700 dark:text-amber-300' : ''
+                              }
+                            >
                               {item}
                             </span>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className={`legal-content ${section.highlight ? "text-amber-700 dark:text-amber-300" : ""}`}>
+                      <p
+                        className={`legal-content ${section.highlight ? 'text-amber-700 dark:text-amber-300' : ''}`}
+                      >
                         {section.content}
                       </p>
                     )}
                   </section>
-                )
+                );
               })}
             </div>
 
@@ -199,5 +222,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  )
+  );
 }

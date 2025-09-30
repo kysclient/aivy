@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { DefaultHeader } from '@/layouts/default-header'
-import AppearanceTheme from './appearance-theme'
+import { DefaultHeader } from '@/layouts/default-header';
+import AppearanceTheme from './appearance-theme';
 
 export function Appearance() {
   return (
@@ -9,5 +9,5 @@ export function Appearance() {
       <DefaultHeader title="테마" />
       <AppearanceTheme />
     </>
-  )
+  );
 }

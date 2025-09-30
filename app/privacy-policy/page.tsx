@@ -1,79 +1,90 @@
-import Link from "next/link"
-import { Shield, FileText, Users, Lock, Eye, AlertCircle, CheckCircle2, ArrowLeft } from "lucide-react"
+import Link from 'next/link';
+import {
+  Shield,
+  FileText,
+  Users,
+  Lock,
+  Eye,
+  AlertCircle,
+  CheckCircle2,
+  ArrowLeft,
+} from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
   const policySections = [
     {
-      title: "제1조 (개인정보의 처리 목적)",
+      title: '제1조 (개인정보의 처리 목적)',
       icon: <FileText className="w-5 h-5" />,
       content: [
-        "**회원 가입 및 관리:** 본인 식별/인증, 회원 자격 유지/관리, 고지/통지.",
-        "**AI 건강관리 식단 서비스 제공:** 이용자의 나이, 키, 몸무게 등을 분석하여 맞춤형 식단 및 건강 정보 제공.",
-        "**상품 구매 및 결제:** 구매 계약 체결 및 이행, 대금 결제, 물품 배송.",
-        "**마케팅 및 광고 활용:** 신규 서비스 개발, 맞춤 서비스 제공, 통계 활용.",
+        '**회원 가입 및 관리:** 본인 식별/인증, 회원 자격 유지/관리, 고지/통지.',
+        '**AI 건강관리 식단 서비스 제공:** 이용자의 나이, 키, 몸무게 등을 분석하여 맞춤형 식단 및 건강 정보 제공.',
+        '**상품 구매 및 결제:** 구매 계약 체결 및 이행, 대금 결제, 물품 배송.',
+        '**마케팅 및 광고 활용:** 신규 서비스 개발, 맞춤 서비스 제공, 통계 활용.',
       ],
     },
     {
-      title: "제2조 (처리하는 개인정보의 항목)",
+      title: '제2조 (처리하는 개인정보의 항목)',
       icon: <Users className="w-5 h-5" />,
       table: true,
       data: [
         {
-          item: "필수 수집 항목",
-          details: "이름, 이메일, 비밀번호, 나이, 키, 몸무게, 연락처, 배송지 주소, 결제 정보",
-          purpose: "서비스 제공 및 구매",
-          type: "required",
+          item: '필수 수집 항목',
+          details: '이름, 이메일, 비밀번호, 나이, 키, 몸무게, 연락처, 배송지 주소, 결제 정보',
+          purpose: '서비스 제공 및 구매',
+          type: 'required',
         },
         {
-          item: "민감 정보",
-          details: "나이, 키, 몸무게 (맞춤형 식단 추천 목적)",
-          purpose: "AI 건강관리 서비스",
-          type: "sensitive",
+          item: '민감 정보',
+          details: '나이, 키, 몸무게 (맞춤형 식단 추천 목적)',
+          purpose: 'AI 건강관리 서비스',
+          type: 'sensitive',
         },
         {
-          item: "자동 수집 항목",
-          details: "서비스 이용 기록, 접속 로그, 쿠키, IP 정보",
-          purpose: "서비스 개선 및 통계",
-          type: "automatic",
+          item: '자동 수집 항목',
+          details: '서비스 이용 기록, 접속 로그, 쿠키, IP 정보',
+          purpose: '서비스 개선 및 통계',
+          type: 'automatic',
         },
       ],
     },
     {
-      title: "제3조 (개인정보의 보유 및 이용 기간)",
+      title: '제3조 (개인정보의 보유 및 이용 기간)',
       icon: <Lock className="w-5 h-5" />,
       content: [
-        "**회원 가입 및 관리:** 회원 탈퇴 시까지.",
-        "**계약 및 대금 결제 기록:** 5년 (전자상거래법 근거).",
-        "**소비자 불만/분쟁 처리 기록:** 3년 (전자상거래법 근거).",
+        '**회원 가입 및 관리:** 회원 탈퇴 시까지.',
+        '**계약 및 대금 결제 기록:** 5년 (전자상거래법 근거).',
+        '**소비자 불만/분쟁 처리 기록:** 3년 (전자상거래법 근거).',
       ],
     },
     {
-      title: "제4조 (개인정보의 제3자 제공)",
+      title: '제4조 (개인정보의 제3자 제공)',
       icon: <Shield className="w-5 h-5" />,
       content: [
-        "회사는 원칙적으로 이용자의 동의 없이 개인정보를 외부에 제공하지 않습니다.",
-        "다만, 상품 배송을 위한 **배송업체** 및 대금 결제를 위한 **결제 대행사**에는 필요한 범위 내에서 제공될 수 있습니다.",
+        '회사는 원칙적으로 이용자의 동의 없이 개인정보를 외부에 제공하지 않습니다.',
+        '다만, 상품 배송을 위한 **배송업체** 및 대금 결제를 위한 **결제 대행사**에는 필요한 범위 내에서 제공될 수 있습니다.',
       ],
     },
     {
-      title: "제6조 (이용자 및 법정대리인의 권리)",
+      title: '제6조 (이용자 및 법정대리인의 권리)',
       icon: <Eye className="w-5 h-5" />,
-      content: ["이용자는 언제든지 개인정보 **열람, 정정/삭제, 처리정지, 동의 철회**를 요구할 수 있습니다."],
+      content: [
+        '이용자는 언제든지 개인정보 **열람, 정정/삭제, 처리정지, 동의 철회**를 요구할 수 있습니다.',
+      ],
     },
-  ]
+  ];
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "required":
-        return "bg-blue-500/10 text-blue-400 border-blue-500/20"
-      case "sensitive":
-        return "bg-orange-500/10 text-orange-400 border-orange-500/20"
-      case "automatic":
-        return "bg-green-500/10 text-green-400 border-green-500/20"
+      case 'required':
+        return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+      case 'sensitive':
+        return 'bg-orange-500/10 text-orange-400 border-orange-500/20';
+      case 'automatic':
+        return 'bg-green-500/10 text-green-400 border-green-500/20';
       default:
-        return "bg-muted text-muted-foreground border-border"
+        return 'bg-muted text-muted-foreground border-border';
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,7 +98,6 @@ export default function PrivacyPolicyPage() {
             </Link>
             <div className="h-6 w-px bg-border" />
             <Link href="/" className="flex items-center gap-2">
-            
               <span className="text-xl font-bold">aivy</span>
             </Link>
           </div>
@@ -95,10 +105,16 @@ export default function PrivacyPolicyPage() {
             <Link href="/privacy" className="text-sm font-medium text-primary">
               개인정보처리방침
             </Link>
-            <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              href="/terms"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               이용약관
             </Link>
-            <Link href="mailto:kysclient@gmail.com?subject=아이비(Aivy) 서비스 피드백입니다." className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              href="mailto:kysclient@gmail.com?subject=아이비(Aivy) 서비스 피드백입니다."
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               문의하기
             </Link>
           </nav>
@@ -115,8 +131,8 @@ export default function PrivacyPolicyPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-balance mb-6">개인정보처리방침</h1>
           <p className="text-xl text-muted-foreground text-balance max-w-2xl mx-auto mb-8">
-            Aivy는 이용자의 개인정보를 소중히 여기며, 관련 법령을 준수하여 투명하고 안전한 개인정보 처리 방침을
-            제공합니다.
+            Aivy는 이용자의 개인정보를 소중히 여기며, 관련 법령을 준수하여 투명하고 안전한 개인정보
+            처리 방침을 제공합니다.
           </p>
         </div>
       </section>
@@ -133,8 +149,8 @@ export default function PrivacyPolicyPage() {
               <div>
                 <h2 className="text-2xl font-bold mb-2">아이비(Aivy) 개인정보처리방침</h2>
                 <p className="text-muted-foreground leading-relaxed text-sm sm:text-md">
-                  주식회사 아이비 (이하 '회사' 또는 'Aivy')는 이용자의 개인정보를 소중히 여기며, 「개인정보 보호법」 등
-                  관련 법령을 준수하여 개인정보 처리 방침을 수립·공개합니다.
+                  주식회사 아이비 (이하 '회사' 또는 'Aivy')는 이용자의 개인정보를 소중히 여기며,
+                  「개인정보 보호법」 등 관련 법령을 준수하여 개인정보 처리 방침을 수립·공개합니다.
                 </p>
               </div>
             </div>
@@ -158,7 +174,10 @@ export default function PrivacyPolicyPage() {
           {/* Policy Sections */}
           <div className="space-y-8">
             {policySections.map((section, index) => (
-              <div key={index} className="bg-background border border-border rounded-2xl overflow-hidden">
+              <div
+                key={index}
+                className="bg-background border border-border rounded-2xl overflow-hidden"
+              >
                 <div className="p-2 sm:p-6 md:p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
@@ -187,9 +206,15 @@ export default function PrivacyPolicyPage() {
                         <table className="w-full">
                           <thead>
                             <tr className="bg-muted/50 border-b border-border">
-                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">항목</th>
-                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">상세 내용</th>
-                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">처리 목적</th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">
+                                항목
+                              </th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">
+                                상세 내용
+                              </th>
+                              <th className="text-left py-4 px-2 sm:px-6 font-semibold text-sm">
+                                처리 목적
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
@@ -201,7 +226,7 @@ export default function PrivacyPolicyPage() {
                                 <td className="py-4 px-2 sm:px-6">
                                   <div className="flex items-center gap-2">
                                     <span
-                                      className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium border ${getTypeColor(row.type || "")}`}
+                                      className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium border ${getTypeColor(row.type || '')}`}
                                     >
                                       {row.item}
                                     </span>
@@ -210,7 +235,9 @@ export default function PrivacyPolicyPage() {
                                 <td className="py-4 px-6 text-sm text-muted-foreground leading-relaxed">
                                   {row.details}
                                 </td>
-                                <td className="py-4 px-6 text-sm text-muted-foreground">{row.purpose}</td>
+                                <td className="py-4 px-6 text-sm text-muted-foreground">
+                                  {row.purpose}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -230,8 +257,9 @@ export default function PrivacyPolicyPage() {
               <div>
                 <h4 className="font-semibold text-orange-400 mb-2">중요 공지사항</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  본 방침은 2025년 10월 1일부터 적용됩니다. 법령 및 정책 변경 시 개정 최소 7일 전에 고지하며, 중요한
-                  변경사항이 있을 경우 이메일 또는 서비스 내 알림을 통해 별도 안내드립니다.
+                  본 방침은 2025년 10월 1일부터 적용됩니다. 법령 및 정책 변경 시 개정 최소 7일 전에
+                  고지하며, 중요한 변경사항이 있을 경우 이메일 또는 서비스 내 알림을 통해 별도
+                  안내드립니다.
                 </p>
               </div>
             </div>
@@ -277,5 +305,5 @@ export default function PrivacyPolicyPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

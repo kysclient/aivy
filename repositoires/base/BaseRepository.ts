@@ -2,66 +2,63 @@ import { apiClient } from '@/api/api-client';
 import { ApiResponse, FindAllOptions, IBaseRepository, PaginatedResponse } from './IBaseRepository';
 
 export abstract class BaseRepository<T> implements IBaseRepository<T> {
-    protected abstract endpoint: string;
+  protected abstract endpoint: string;
 
-    async findById(id: string): Promise<T> {
-        const response = await apiClient.get<ApiResponse<T>>(`${this.endpoint}/${id}`);
+  async findById(id: string): Promise<T> {
+    const response = await apiClient.get<ApiResponse<T>>(`${this.endpoint}/${id}`);
 
-        if (!response.success) {
-            throw new Error(response.error || 'Failed to fetch data');
-        }
-
-        return response.data;
+    if (!response.success) {
+      throw new Error(response.error || 'Failed to fetch data');
     }
 
-    async findAll(options?: FindAllOptions): Promise<PaginatedResponse<T>> {
-        const params = {
-            page: options?.page || 1,
-            limit: options?.limit || 10,
-            sortBy: options?.sortBy || 'createdAt',
-            sortOrder: options?.sortOrder || 'DESC',
-            ...options?.filters,
-        };
+    return response.data;
+  }
 
-        const response = await apiClient.get<ApiResponse<PaginatedResponse<T>>>(
-            this.endpoint,
-            params
-        );
+  async findAll(options?: FindAllOptions): Promise<PaginatedResponse<T>> {
+    const params = {
+      page: options?.page || 1,
+      limit: options?.limit || 10,
+      sortBy: options?.sortBy || 'createdAt',
+      sortOrder: options?.sortOrder || 'DESC',
+      ...options?.filters,
+    };
 
-        if (!response.success) {
-            throw new Error(response.error || 'Failed to fetch data');
-        }
+    const response = await apiClient.get<ApiResponse<PaginatedResponse<T>>>(this.endpoint, params);
 
-        return response.data;
+    if (!response.success) {
+      throw new Error(response.error || 'Failed to fetch data');
     }
 
-    async create(data: Partial<T>): Promise<T> {
-        const response = await apiClient.post<ApiResponse<T>>(this.endpoint, data);
+    return response.data;
+  }
 
-        if (!response.success) {
-            throw new Error(response.error || 'Failed to create');
-        }
+  async create(data: Partial<T>): Promise<T> {
+    const response = await apiClient.post<ApiResponse<T>>(this.endpoint, data);
 
-        return response.data;
+    if (!response.success) {
+      throw new Error(response.error || 'Failed to create');
     }
 
-    async update(id: string, data: Partial<T>): Promise<T> {
-        const response = await apiClient.put<ApiResponse<T>>(`${this.endpoint}/${id}`, data);
+    return response.data;
+  }
 
-        if (!response.success) {
-            throw new Error(response.error || 'Failed to update');
-        }
+  async update(id: string, data: Partial<T>): Promise<T> {
+    const response = await apiClient.put<ApiResponse<T>>(`${this.endpoint}/${id}`, data);
 
-        return response.data;
+    if (!response.success) {
+      throw new Error(response.error || 'Failed to update');
     }
 
-    async delete(id: string): Promise<boolean> {
-        const response = await apiClient.delete<ApiResponse<boolean>>(`${this.endpoint}/${id}`);
+    return response.data;
+  }
 
-        if (!response.success) {
-            throw new Error(response.error || 'Failed to delete');
-        }
+  async delete(id: string): Promise<boolean> {
+    const response = await apiClient.delete<ApiResponse<boolean>>(`${this.endpoint}/${id}`);
 
-        return response.data;
+    if (!response.success) {
+      throw new Error(response.error || 'Failed to delete');
     }
+
+    return response.data;
+  }
 }

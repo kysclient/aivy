@@ -1,5 +1,5 @@
-import PostMain from "@/components/post/post-main";
+import PostMain from '@/components/post/post-main';
 
 export default function PostPage() {
-    return <PostMain />;
+  return <PostMain />;
 }

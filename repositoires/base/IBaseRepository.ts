@@ -23,7 +23,7 @@ export interface PaginatedResponse<T> {
     totalPages: number;
     hasNext: boolean;
     hasPrev: boolean;
-  }
+  };
 }
 
 export interface ApiResponse<T> {

@@ -23,11 +23,11 @@ interface SocketProviderProps {
 export function SocketProvider({ children }: SocketProviderProps) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  
+
   const token = TokenManager.getAccessToken();
 
   const connect = (token: string) => {
-    const newSocket = socketClient.connect(token);  
+    const newSocket = socketClient.connect(token);
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
@@ -80,11 +80,7 @@ export function SocketProvider({ children }: SocketProviderProps) {
     leaveMealPlan,
   };
 
-  return (
-    <SocketContext.Provider value={value}>
-      {children}
-    </SocketContext.Provider>
-  );
+  return <SocketContext.Provider value={value}>{children}</SocketContext.Provider>;
 }
 
 export function useSocket() {
