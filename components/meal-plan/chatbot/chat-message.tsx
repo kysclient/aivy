@@ -40,8 +40,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ delay: 0.1, duration: 0.5, type: "spring" }}
+          className="shrink-0"
         >
-          <Avatar className="w-10 h-10 border-2 border-primary/30 shadow-lg">
+          <Avatar className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-primary/30 shadow-lg">
             <AvatarFallback className="bg-gradient-to-br from-primary via-blue-500 to-purple-500">
               <motion.div
                 animate={{
@@ -54,14 +55,14 @@ export function ChatMessage({ message }: ChatMessageProps) {
                   repeatDelay: 3
                 }}
               >
-                <Bot className="w-5 h-5 text-white" />
+                <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </motion.div>
             </AvatarFallback>
           </Avatar>
         </motion.div>
       )}
 
-      <div className={`max-w-[80%] ${isBot ? 'mr-auto' : 'ml-auto'}`}>
+      <div className={`max-w-[85%] sm:max-w-[75%] ${isBot ? 'mr-auto' : 'ml-auto'} min-w-0`}>
         <motion.div
           initial={{
             opacity: 0,
@@ -90,7 +91,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
               ? 'bg-muted/80 text-foreground border border-border/50 shadow-lg'
               : 'bg-primary text-white shadow-lg'
             }
-            rounded-2xl px-5 py-4
+            rounded-2xl px-3 py-3 sm:px-5 sm:py-4
             ${isBot ? 'rounded-tl-md' : 'rounded-tr-md'}
             hover:shadow-xl transition-shadow duration-300
           `}

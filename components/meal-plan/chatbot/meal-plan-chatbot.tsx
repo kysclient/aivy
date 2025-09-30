@@ -215,30 +215,30 @@ export default function MealPlanChatbot() {
             id: `completion-${Date.now()}`,
             type: 'bot',
             content: (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-emerald-600 mb-2">
+                  <h3 className="text-base sm:text-xl font-bold text-emerald-600 mb-2">
                     🎉 맞춤형 식단이 완성되었습니다!
                   </h3>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                     {userProfile.name}님을 위한 건강한 30일 식단이 준비되었어요
                   </p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <Button
                     onClick={() => router.push('/plans')}
-                    className="flex-1 bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white"
+                    className="flex-1 bg-gradient-to-r from-emerald-500 to-blue-500 hover:from-emerald-600 hover:to-blue-600 text-white text-xs sm:text-sm"
                   >
-                    <Calendar className="w-4 h-4 mr-2" />
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     나의 식단 보러가기
                   </Button>
                   <Button
                     variant="outline"
                     onClick={resetChat}
-                    className="flex-1"
+                    className="flex-1 text-xs sm:text-sm"
                   >
                     새로운 식단 만들기
                   </Button>
@@ -328,11 +328,11 @@ export default function MealPlanChatbot() {
 
     if (currentQuestion.type === 'tags') {
       const tags = Array.isArray(value) ? value : value.split(',').map(tag => tag.trim()).filter(tag => tag)
-      ;(updatedProfile as any)[currentQuestion.id] = tags
+        ; (updatedProfile as any)[currentQuestion.id] = tags
     } else if (currentQuestion.id === 'targetCalories') {
-      ;(updatedProfile as any)[currentQuestion.id] = value ? parseInt(value as string) : null
+      ; (updatedProfile as any)[currentQuestion.id] = value ? parseInt(value as string) : null
     } else {
-      ;(updatedProfile as any)[currentQuestion.id] = value
+      ; (updatedProfile as any)[currentQuestion.id] = value
     }
 
     setUserProfile(updatedProfile)
@@ -370,24 +370,24 @@ export default function MealPlanChatbot() {
       id: `generating-${Date.now()}`,
       type: 'bot',
       content: (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <div className="text-center">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"
+              className="w-7 h-7 sm:w-8 sm:h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-3 sm:mb-4"
             />
-            <p className="text-primary font-medium">
+            <p className="text-sm sm:text-base text-primary font-medium">
               {profile.name}님의 맞춤형 식단을 생성하고 있어요...
             </p>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">
               영양소 균형을 맞춰 30일 식단을 만들고 있습니다
             </p>
           </div>
           {progress > 0 && (
-            <div className="w-full bg-muted rounded-full h-2">
+            <div className="w-full bg-muted rounded-full h-1.5 sm:h-2">
               <motion.div
-                className="bg-gradient-to-r from-primary to-blue-500 h-2 rounded-full"
+                className="bg-gradient-to-r from-primary to-blue-500 h-1.5 sm:h-2 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.5 }}
@@ -428,7 +428,7 @@ export default function MealPlanChatbot() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-12rem)] w-full">
+    <div className="flex flex-col h-[calc(100dvh-12rem)] sm:h-[calc(100dvh-8rem)] w-full max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -437,14 +437,14 @@ export default function MealPlanChatbot() {
       >
         {/* Header */}
         <motion.div
-          className="p-4 border-b bg-gradient-to-r from-primary/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm"
+          className="p-3 sm:p-4 border-b bg-gradient-to-r from-primary/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm shrink-0"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <motion.div
-              className="w-10 h-10 bg-gradient-to-r from-primary via-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg"
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-primary via-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shrink-0"
               animate={{
                 boxShadow: [
                   "0 4px 20px rgba(59, 130, 246, 0.3)",
@@ -454,10 +454,10 @@ export default function MealPlanChatbot() {
               }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <Bot className="w-5 h-5 text-white" />
+              <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </motion.div>
-            <div>
-              <h2 className="font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+            <div className="min-w-0 flex-1">
+              <h2 className="text-sm sm:text-base font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent truncate">
                 AI 식단 생성 도우미
               </h2>
               <p className="text-xs text-muted-foreground font-medium">
@@ -479,7 +479,7 @@ export default function MealPlanChatbot() {
         </motion.div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-transparent to-muted/5">
+        <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-transparent to-muted/5 min-h-0">
           <AnimatePresence mode="popLayout">
             {messages.map((message) => (
               <ChatMessageComponent key={message.id} message={message} />
@@ -491,7 +491,7 @@ export default function MealPlanChatbot() {
         {/* Input Area - Fixed at bottom */}
         {!isGenerating && !isComplete && currentQuestionIndex < questions.length && (
           <motion.div
-            className="p-2 sm:p-4 border-t bg-background/80 backdrop-blur-sm"
+            className="p-3 sm:p-4 border-t bg-background/95 backdrop-blur-sm shrink-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}

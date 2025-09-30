@@ -73,11 +73,13 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
+      e.preventDefault()
       if (question.type === 'tags') {
-        e.preventDefault()
         addTag(tagInput)
-      } else if (!e.shiftKey) {
-        e.preventDefault()
+      } else if (question.type === 'textarea' && e.shiftKey) {
+        // Shift+Enter는 textarea에서 줄바꿈 허용
+        return
+      } else {
         handleSubmit()
       }
     }
@@ -93,8 +95,8 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
     switch (question.type) {
       case 'select':
         return (
-          <div className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex flex-col gap-2">
               <AnimatePresence>
                 {question.options?.map((option, index) => (
                   <motion.div
@@ -114,22 +116,22 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                     <Button
                       variant={value === option.value ? "default" : "outline"}
                       className={`
-                        w-full justify-start text-left h-auto py-4 px-5
+                        w-full justify-between text-left h-auto py-3 px-4 sm:py-4 sm:px-5
                         transition-all duration-300 border
                         ${value === option.value
-                          ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg scale-105'
+                          ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg'
                           : 'hover:border-primary/50 hover:shadow-md hover:bg-primary/5'
                         }
                       `}
                       onClick={() => setValue(option.value)}
                       disabled={disabled}
                     >
-                      <span className="truncate font-medium">{option.label}</span>
+                      <span className="font-medium text-sm sm:text-base break-words pr-2">{option.label}</span>
                       {value === option.value && (
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="ml-auto text-lg"
+                          className="shrink-0 text-lg"
                         >
                           ✓
                         </motion.div>
@@ -144,7 +146,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
 
       case 'tags':
         return (
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="relative flex items-center">
               <Input
                 ref={inputRef}
@@ -153,7 +155,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 placeholder={question.placeholder}
                 onKeyDown={handleKeyDown}
                 disabled={disabled}
-                className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-sm placeholder:text-sm"
+                className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
               />
               <motion.div
                 className="absolute right-2"
@@ -165,9 +167,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                   size="sm"
                   onClick={() => addTag(tagInput)}
                   disabled={disabled || !tagInput.trim()}
-                  className="w-8 h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </motion.div>
             </div>
@@ -176,7 +178,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                className="flex flex-wrap gap-2"
+                className="flex flex-wrap gap-1.5 sm:gap-2"
               >
                 {tags.map((tag, index) => (
                   <motion.div
@@ -187,7 +189,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                   >
                     <Badge
                       variant="secondary"
-                      className="cursor-pointer hover:bg-destructive hover:text-destructive-foreground transition-colors"
+                      className="cursor-pointer hover:bg-destructive hover:text-destructive-foreground transition-colors text-xs"
                       onClick={() => removeTag(tag)}
                     >
                       {tag}
@@ -211,10 +213,10 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               onKeyDown={handleKeyDown}
               disabled={disabled}
               rows={3}
-              className="resize-none pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-2xl text-sm placeholder:text-sm"
+              className="resize-none pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-2xl text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
             />
             <motion.div
-              className="absolute bottom-3 right-3"
+              className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -222,9 +224,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 type="submit"
                 size="sm"
                 disabled={disabled || !canSubmit()}
-                className="w-8 h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </motion.div>
           </div>
@@ -241,7 +243,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               placeholder={question.placeholder}
               onKeyDown={handleKeyDown}
               disabled={disabled}
-              className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-sm placeholder:text-sm"
+              className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
             />
             <motion.div
               className="absolute right-2"
@@ -252,9 +254,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 type="submit"
                 size="sm"
                 disabled={disabled || !canSubmit()}
-                className="w-8 h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </motion.div>
           </div>
@@ -290,15 +292,15 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
 
         {/* Select, Tags에 별도 버튼 표시 */}
         {(question.type === 'select' || (question.type === 'tags' && tags.length > 0)) && (
-          <div className="flex gap-2 justify-end mt-4">
+          <div className="flex flex-col sm:flex-row gap-2 justify-end mt-3 sm:mt-4">
             {question.optional && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Button
                   type="button"
                   variant="ghost"
                   onClick={handleSkip}
                   disabled={disabled}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="w-full sm:w-auto text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
                 >
                   건너뛰기
                 </Button>
@@ -306,27 +308,27 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
             )}
 
             {question.type === 'select' && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Button
                   type="button"
                   onClick={handleSubmit}
                   disabled={disabled || !canSubmit()}
-                  className="gap-2 min-w-[120px] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg rounded-full"
+                  className="w-full sm:w-auto gap-2 min-w-[120px] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg rounded-full text-xs sm:text-sm"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                   선택완료
                 </Button>
               </motion.div>
             )}
 
             {question.type === 'tags' && tags.length > 0 && (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Button
                   type="submit"
                   disabled={disabled}
-                  className="gap-2 min-w-[120px] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg rounded-full"
+                  className="w-full sm:w-auto gap-2 min-w-[120px] bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg rounded-full text-xs sm:text-sm"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                   전송 ({tags.length})
                 </Button>
               </motion.div>
