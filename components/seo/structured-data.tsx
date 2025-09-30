@@ -5,10 +5,11 @@ export const OrganizationSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: '아이비',
-    alternateName: ['아이비', 'AI 식단'],
+    alternateName: ['아이비', 'Aivy', 'aivy', 'AI 식단', 'AI 건강관리'],
     url: 'https://aivy.co.kr',
     logo: 'https://aivy.co.kr/logo.png',
-    description: 'AI 기반 맞춤형 식단 추천 및 스마트 쇼핑 서비스',
+    description:
+      'AI 기반 개인 맞춤형 식단 추천 및 건강관리 서비스. 아이비(Aivy)는 식단 생성, 영양 분석, 건강 관리를 AI로 제공합니다.',
     foundingDate: '2025',
     address: {
       '@type': 'PostalAddress',
@@ -26,7 +27,7 @@ export const OrganizationSchema = () => {
       },
     ],
     sameAs: [
-      'https://www.instagram.com/aivy_official', // 실제 SNS 계정으로 변경
+      'https://www.instagram.com/aivy_official',
       'https://www.facebook.com/aivy.official',
       'https://blog.naver.com/aivy_official',
       'https://www.youtube.com/@aivy_official',
@@ -34,7 +35,9 @@ export const OrganizationSchema = () => {
     brand: {
       '@type': 'Brand',
       name: '아이비',
+      alternateName: 'Aivy',
     },
+    keywords: '아이비, aivy, AI 식단, 맞춤 식단, 건강 관리, 식단 추천, 건강 앱',
   };
 
   return (
@@ -51,9 +54,11 @@ export const WebSiteSchema = () => {
   const websiteData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: '아이비 - AI 맞춤 식단과 스마트 쇼핑',
+    name: '아이비(Aivy) - AI 맞춤 식단과 건강관리',
+    alternateName: 'Aivy',
     url: 'https://aivy.co.kr',
-    description: 'AI가 추천하는 개인 맞춤 식단과 스마트 쇼핑 서비스',
+    description:
+      'AI가 추천하는 개인 맞춤 식단과 건강관리 서비스. 아이비(aivy)로 식단 생성부터 영양 분석까지 한 번에 해결하세요.',
     inLanguage: 'ko-KR',
     potentialAction: {
       '@type': 'SearchAction',
@@ -66,7 +71,10 @@ export const WebSiteSchema = () => {
     publisher: {
       '@type': 'Organization',
       name: '아이비',
+      alternateName: 'Aivy',
     },
+    keywords:
+      '아이비, aivy, Aivy, AI 식단, 맞춤 식단, 식단 생성, 건강 식단, 다이어트 식단, 건강관리, 영양 관리',
   };
 
   return (
