@@ -74,7 +74,7 @@ export default function Page() {
 
         <nav className="hidden md:flex items-center gap-6">
           <Link
-            href="/privacy"
+            href="/privacy-policy"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             개인정보처리방침

@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
             </Link>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/privacy" className="text-sm font-medium text-primary">
+            <Link href="/privacy-policy" className="text-sm font-medium text-primary">
               개인정보처리방침
             </Link>
             <Link
