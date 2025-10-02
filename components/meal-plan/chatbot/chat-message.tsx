@@ -87,10 +87,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
           }}
           className={`
             relative backdrop-blur-sm
-            ${
-              isBot
-                ? 'bg-muted/80 text-foreground border border-border/50 shadow-lg'
-                : 'bg-primary text-white shadow-lg'
+            ${isBot
+              ? 'bg-muted text-foreground border border-border/50 shadow-lg'
+              : 'bg-primary text-white shadow-lg'
             }
             rounded-2xl px-3 py-3 sm:px-5 sm:py-4
             ${isBot ? 'rounded-tl-md' : 'rounded-tr-md'}
@@ -139,25 +138,6 @@ export function ChatMessage({ message }: ChatMessageProps) {
             </div>
           )}
 
-          {/* {!isBot && (
-            <div className={`
-              absolute top-3 -right-2
-              w-0 h-0
-              border-l-8 border-l-primary
-              border-t-4 border-t-transparent
-              border-b-4 border-b-transparent
-            `} />
-          )}
-
-          {isBot && (
-            <div className={`
-              absolute top-3 -left-2
-              w-0 h-0
-              border-r-8 border-r-card
-              border-t-4 border-t-transparent
-              border-b-4 border-b-transparent
-            `} />
-          )} */}
         </motion.div>
 
         <motion.div
@@ -175,31 +155,6 @@ export function ChatMessage({ message }: ChatMessageProps) {
           })}
         </motion.div>
       </div>
-
-      {/* {!isBot && (
-        <motion.div
-          initial={{ scale: 0, rotate: 180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ delay: 0.1, duration: 0.4, type: "spring" }}
-        >
-          <Avatar className="w-10 h-10 border-2 border-primary/30 shadow-lg">
-            <AvatarFallback className="bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500">
-              <motion.div
-                animate={{
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 4
-                }}
-              >
-                <User className="w-5 h-5 text-white" />
-              </motion.div>
-            </AvatarFallback>
-          </Avatar>
-        </motion.div>
-      )} */}
     </motion.div>
   );
 }

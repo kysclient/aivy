@@ -41,6 +41,7 @@ import { getMealPlanDates } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { Progress } from '../ui/progress';
 import { useGeneratingMealPlans, useMealPlan } from '@/hooks/use-meal-plan';
+import { AuthModal } from '../modal/auth-modal';
 
 interface UserInfo {
     name: string;
@@ -89,6 +90,7 @@ export default function MealPlanMain() {
     });
     const [mealPlans, setMealPlans] = useState<MealPlan | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [authModalOpen, setAuthModalOpen] = useState(false);
 
     const handleNext = () => {
         if (currentStep < steps.length - 1) {
@@ -104,12 +106,7 @@ export default function MealPlanMain() {
 
     const generateMealPlan = async () => {
         if (!token) {
-            toast('로그인 후 이용해주세요.', {
-                action: {
-                    label: '로그인',
-                    onClick: () => router.push('/auth'),
-                },
-            });
+            setAuthModalOpen(true);
             return;
         }
         setIsGenerating(true);
@@ -224,6 +221,14 @@ export default function MealPlanMain() {
 
     return (
         <div className="p-4 md:p-6 max-w-4xl mx-auto">
+            <AuthModal
+                open={authModalOpen}
+                onOpenChange={setAuthModalOpen}
+                onSuccess={() => {
+                    // 로그인/회원가입 성공 후 식단 생성 진행
+                    generateMealPlan();
+                }}
+            />
             <div className="space-y-6">
                 {/* Progress Bar */}
                 <div className="bg-muted/30 py-4 rounded-lg">

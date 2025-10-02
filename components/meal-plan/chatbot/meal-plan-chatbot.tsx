@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { getMealPlanDates } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useGeneratingMealPlans } from '@/hooks/use-meal-plan';
+import { AuthModal } from '@/components/modal/auth-modal';
 
 export interface ChatMessage {
   id: string;
@@ -41,7 +42,7 @@ export interface UserProfile {
 const questions = [
   {
     id: 'title',
-    question: '안녕하세요! 🍽️ AI 식단 생성을 도와드릴게요. 먼저 이번 식단의 제목을 정해주세요.',
+    question: '안녕하세요! AI 식단 생성을 도와드릴게요. 먼저 이번 식단의 제목을 정해주세요.',
     placeholder: '예: 다이어트 식단, 헬스 식단 등',
     type: 'text' as const,
   },
@@ -153,6 +154,8 @@ export default function MealPlanChatbot() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [pendingProfile, setPendingProfile] = useState<UserProfile | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { isConnected, socket } = useSocket();
@@ -361,12 +364,8 @@ export default function MealPlanChatbot() {
 
   const generateMealPlan = async (profile: UserProfile) => {
     if (!token) {
-      toast('로그인 후 이용해주세요.', {
-        action: {
-          label: '로그인',
-          onClick: () => router.push('/auth'),
-        },
-      });
+      setPendingProfile(profile);
+      setAuthModalOpen(true);
       return;
     }
 
@@ -433,6 +432,17 @@ export default function MealPlanChatbot() {
 
   return (
     <div className="flex flex-col h-[calc(100dvh-12rem)] sm:h-[calc(100dvh-8rem)] w-full max-w-4xl mx-auto">
+      <AuthModal
+        open={authModalOpen}
+        onOpenChange={setAuthModalOpen}
+        onSuccess={() => {
+          // 로그인/회원가입 성공 후 대기 중인 프로필로 식단 생성 진행
+          if (pendingProfile) {
+            generateMealPlan(pendingProfile);
+            setPendingProfile(null);
+          }
+        }}
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -470,7 +480,7 @@ export default function MealPlanChatbot() {
                     animate={{ opacity: [1, 0.5, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    🤖 식단 생성 중...
+                    식단 생성 중...
                   </motion.span>
                 ) : isComplete ? (
                   <span className="text-emerald-600">✨ 완료!</span>

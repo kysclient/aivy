@@ -183,7 +183,7 @@ export default function RootLayout({
         >
           <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
-        <Toaster position="top-center" />
+        <Toaster position="top-center" offset={16} expand visibleToasts={3} />
         <Analytics />
       </body>
     </html>

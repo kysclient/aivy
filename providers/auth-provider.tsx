@@ -22,8 +22,8 @@ export interface AuthContextType {
   isInitializing: boolean;
 
   // Actions
-  login: (credentials: LoginDto, rememberMe?: boolean) => Promise<void>;
-  register: (userData: CreateUserDto) => Promise<void>;
+  login: (credentials: LoginDto, rememberMe?: boolean, noRedirect?: boolean) => Promise<void>;
+  register: (userData: CreateUserDto, noRedirect?: boolean) => Promise<void>;
   logout: () => Promise<void>;
   updateProfile: (data: UpdateUserDto) => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Login function
   const login = useCallback(
-    async (credentials: LoginDto, rememberMe: boolean = false) => {
+    async (credentials: LoginDto, rememberMe: boolean = false, noRedirect?: boolean) => {
       setIsLoading(true);
       setError(null);
 
@@ -116,7 +116,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toast.success(`환영합니다, ${response.user.name || response.user.nickname}님!`);
 
         // Redirect to dashboard
-        router.push('/');
+        if (!noRedirect) {
+          router.push('/');
+        }
       } catch (error: any) {
         const errorMessage = error.message || '로그인에 실패했습니다.';
         setError(errorMessage);
@@ -142,7 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Register function
   const register = useCallback(
-    async (userData: CreateUserDto) => {
+    async (userData: CreateUserDto, noRedirect?: boolean) => {
       setIsLoading(true);
       setError(null);
 
@@ -157,7 +159,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toast.success('회원가입이 완료되었습니다!');
 
         // Redirect to dashboard or onboarding
-        router.push('/');
+        if (!noRedirect) {
+          router.push('/');
+        }
       } catch (error: any) {
         const errorMessage = error.message || '회원가입에 실패했습니다.';
         setError(errorMessage);
