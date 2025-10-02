@@ -8,11 +8,20 @@
   "scope": "/",
   "id": "aivy-pwa",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "theme_color": "#4F46E5",
   "background_color": "#ffffff",
-  "categories": ["health", "lifestyle", "shopping", "food"],
+  "categories": [
+    "health",
+    "lifestyle",
+    "shopping",
+    "food"
+  ],
   "shortcuts": [
     {
       "name": "AI 식단 받기",
@@ -199,7 +208,11 @@
       "files": [
         {
           "name": "image",
-          "accept": ["image/jpeg", "image/png", "image/webp"]
+          "accept": [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ]
         }
       ]
     }
