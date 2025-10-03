@@ -5,7 +5,6 @@ import { AivyStructuredData } from '@/components/seo/structured-data';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/providers/auth-provider';
 import { Analytics } from '@vercel/analytics/next';
-
 // 모바일 및 앱 설정
 export const viewport = {
   width: 'device-width',
@@ -153,12 +152,10 @@ export const metadata: Metadata = {
     'apple-mobile-web-app-title': '아이비',
   },
 
-  // 구조화된 데이터 (JSON-LD)
-  // 별도 컴포넌트에서 구현 권장
   verification: {
-    google: '', // Google Search Console 인증 코드
+    google: 'cWDzk5UYADLIxpc6PG1pMwCYpiofRcYgydnl8_bszwY',
     other: {
-      'naver-site-verification': '', // 네이버 웹마스터 도구 인증 코드
+      'naver-site-verification': 'c8b4dfe697418ae8fc5d4b351402a6f01bf3f97f',
     },
   },
 };
