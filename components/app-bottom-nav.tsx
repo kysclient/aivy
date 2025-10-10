@@ -56,10 +56,8 @@ export function AppBottomNav() {
                                             ? `${link.href}/${user?.name}`
                                             : link.href
                                         : link.href;
-                                    const isActive =
-                                        link.href === '/profile'
-                                            ? pathname.includes('profile')
-                                            : link.href === pathname;
+
+                                    const isActive = link.hasSubPaths ? pathname.startsWith(link.href) : pathname === link.href;
                                     const icon = isActive ? link.iconFilled(26) : link.icon(26);
                                     return (
                                         <div
@@ -120,16 +118,17 @@ export const mobileNavLinks = [
         href: '/',
     },
     {
-        title: '피드',
-        icon: (size: number) => <HomeIcon size={size} />,
-        iconFilled: (size: number) => <HomeFilledIcon size={size} />,
-        href: '/posts',
-    },
-    {
         title: '상품추천',
         icon: (size: number) => <ExploreIcon size={size} />,
         iconFilled: (size: number) => <ExploreFilledIcon size={size} />,
         href: '/products',
+    },
+    {
+        title: '피드',
+        icon: (size: number) => <HomeIcon size={size} />,
+        iconFilled: (size: number) => <HomeFilledIcon size={size} />,
+        href: '/posts',
+        hasSubPaths: true,
     },
     {
         title: '나만의 식단',
@@ -138,9 +137,11 @@ export const mobileNavLinks = [
         href: '/plans',
     },
     {
-        title: '설정',
-        icon: (size: number) => <SettingIcon size={size} />,
-        iconFilled: (size: number) => <SettingFilledIcon size={size} />,
-        href: '/settings',
+        title: '프로필',
+        icon: (size: number) => <UserIcon size={size} />,
+        iconFilled: (size: number) => <UserFilledIcon size={size} />,
+        href: '/profile',
+        hasSubPaths: true
     },
+
 ];
