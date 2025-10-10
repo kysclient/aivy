@@ -47,7 +47,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       >
         {children}
       </div>
-      {!screenSize.isDesktop && pathname === '/' && <PostFloatingButton user={user} />}
+      {!screenSize.isDesktop && pathname === '/posts' && <PostFloatingButton user={user} />}
     </>
   );
 }
