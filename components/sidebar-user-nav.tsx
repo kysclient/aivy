@@ -35,7 +35,7 @@ export function SidebarUserNav() {
                 <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
                   <Image
                     src={user?.profileImage || `https://avatar.vercel.sh/${user?.name}`}
-                    alt={user?.name ?? user?.nickname ?? 'User Avatar'}
+                    alt={user?.name ?? user?.name ?? 'User Avatar'}
                     width={48}
                     height={48}
                     className="w-full h-full object-cover"

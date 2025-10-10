@@ -2,7 +2,7 @@
 
 import { HeartFillIcon, HeartIcon, MoreHorizontalIcon, WarningIcon } from '@/components/icons';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+import { cn, formatNumber } from '@/lib/utils';
 import { Post } from '@/repositoires/PostRepository';
 import { useToggleLike, useDeletePost } from '@/hooks/use-posts';
 import { MessageSquare, Trash } from 'lucide-react';
@@ -12,6 +12,7 @@ import { PopoverButton } from '../ui/popover-button';
 import ReportModal from '../modal/report-modal';
 import { toast } from 'sonner';
 import { useAuth } from '@/providers/auth-provider';
+import { ConfirmDialog } from '../ui/confirm-dialog';
 
 export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: Post }) => {
   const { user } = useAuth();
@@ -19,6 +20,7 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
   const [animate, setAnimate] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [openReportModal, setOpenReportModal] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const [liked, setLiked] = useState(post.likes ? post.likes.includes(user.id) : false);
@@ -27,8 +29,8 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
   const { toggleLike, isMutating: isLikeMutating } = useToggleLike();
   const { deletePost, isDeleting } = useDeletePost();
 
-  // TODO: 현재 사용자 정보와 비교해서 내 게시글인지 확인
-  const isMe = false;
+  // 현재 사용자와 게시글 작성자 비교
+  const isMe = user.id === post.userId;
 
   const handleToggleLike = useCallback(async () => {
     if (isLikeMutating) return;
@@ -51,19 +53,26 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
     }
   }, [isLikeMutating, post.id, toggleLike]);
 
-  const handleDelete = useCallback(async () => {
-    if (isDeleting) return;
+  const handleDeleteClick = useCallback(() => {
+    setOpenDeleteDialog(true);
+    setOpenMenu(false);
+  }, []);
 
-    if (!confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
+  const handleDeleteConfirm = useCallback(async () => {
+    if (isDeleting) return;
 
     try {
       await deletePost(post.id);
       toast.success('게시글이 삭제되었습니다.');
-      setOpenMenu(false);
+
+      // 게시글 상세 페이지에서 삭제한 경우 홈으로 이동
+      if (isOnPost) {
+        router.push('/');
+      }
     } catch (error) {
       toast.error('게시글 삭제 중 오류가 발생했습니다.');
     }
-  }, [deletePost, isDeleting, post.id]);
+  }, [deletePost, isDeleting, post.id, isOnPost, router]);
 
   const handleOnclick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, type: 'like' | 'comment' | 'menu') => {
@@ -111,20 +120,11 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        handleDelete();
+        handleDeleteClick();
       },
     },
   ];
 
-  const formatNumber = (num: number) => {
-    if (num >= 10000) {
-      return `${(num / 10000).toFixed(0)}만`;
-    }
-    if (num >= 1000) {
-      return `${(num / 1000).toFixed(0)}천`;
-    }
-    return num.toString();
-  };
 
   return (
     <>
@@ -176,6 +176,17 @@ export const PostItemActions = ({ isOnPost, post }: { isOnPost?: boolean; post: 
         </Popover>
       </div>
       <ReportModal open={openReportModal} setOpen={setOpenReportModal} />
+      <ConfirmDialog
+        open={openDeleteDialog}
+        onOpenChange={setOpenDeleteDialog}
+        onConfirm={handleDeleteConfirm}
+        title="게시글 삭제"
+        description="정말로 이 게시글을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+        confirmText="삭제"
+        cancelText="취소"
+        variant="destructive"
+        isLoading={isDeleting}
+      />
     </>
   );
 };

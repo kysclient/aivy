@@ -15,10 +15,10 @@ import {
 import Image from 'next/image';
 import { cn, formatKoreanDate, formatTimeago } from '@/lib/utils';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Post as PostType } from '@/types/posts';
 import { Separator } from '../ui/separator';
 import ImageGallery from '../image-gallery';
 import { PostActions } from './post-actions';
+import { Post as PostType } from '@/repositoires/PostRepository';
 
 interface PostProps {
   post: PostType;
@@ -63,7 +63,7 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
           <button onClick={(e) => profileOnClick(e, post.user.name!)} className="relative z-10">
             <div className="border border-border w-[42px] h-[42px] rounded-full overflow-hidden">
               <Image
-                src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.id}`}
+                src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.name}`}
                 alt={post.user.name ?? 'User Avatar'}
                 width={42}
                 height={42}
@@ -90,6 +90,14 @@ function PurePost({ post, isOnPost = false, isChild = false, isParent = false }:
               {' '}
               · {formatTimeago(post.createdAt)}
             </span>
+            {
+              post.deletedAt && (
+                <span className="text-description text-sm flex-shrink-0">
+                  {' '}
+                  · Deleted
+                </span>
+              )
+            }
           </div>
 
           {/* 포스트 내용 */}

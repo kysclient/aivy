@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Loading } from '../loading';
 import PostSkeleton from './post-skeleton';
 import { NoPosts } from './no-posts';
-import { Post } from './post';
+import { PostItem } from '../post/post-item';
 
 interface PostsProps {
   posts: PostType[] | null | undefined;
@@ -16,7 +16,7 @@ function PurePosts({ isLoading, posts }: PostsProps) {
       {posts ? (
         <>
           {posts.map((post, idx) => (
-            <Post key={`${post.id}_${idx}`} post={post} />
+            <PostItem key={`${post.id}_${idx}`} post={post} />
           ))}
           {posts.length === 0 && <NoPosts />}
         </>

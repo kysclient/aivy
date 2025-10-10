@@ -270,18 +270,39 @@ export function useDeletePost() {
 
   const deletePost = async (id: string) => {
     try {
+      // Optimistic Update: 삭제 전에 먼저 UI 업데이트
+      await mutate(
+        (key) => Array.isArray(key) && key[0] === 'posts',
+        async (data: any) => {
+          if (!data?.data) return data;
+          return {
+            ...data,
+            data: data.data.filter((post: Post) => post.id !== id),
+            pagination: {
+              ...data.pagination,
+              total: data.pagination.total - 1,
+            },
+          };
+        },
+        { revalidate: false }
+      );
+
+      // 개별 게시글 캐시도 즉시 삭제
+      await mutate(POST_KEYS.byId(id), undefined, { revalidate: false });
+
+      // 서버에 삭제 요청
       await trigger(id);
 
-      // 관련 캐시 무효화
+      // 삭제 성공 후 캐시 재검증
       await Promise.all([
-        // 개별 게시글 캐시 삭제
-        mutate(POST_KEYS.byId(id), undefined, { revalidate: false }),
-        // 전체 게시글 목록 캐시 갱신
         mutate((key) => Array.isArray(key) && key[0] === 'posts'),
+        mutate((key) => typeof key === 'string' && key.startsWith('all-replies-')),
       ]);
 
       return true;
     } catch (error) {
+      // 실패 시 캐시 롤백 (재검증)
+      await mutate((key) => Array.isArray(key) && key[0] === 'posts');
       throw error;
     }
   };

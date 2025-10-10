@@ -21,7 +21,7 @@ export const ReplyButton: FC<ReplyButtonProps> = ({ user, onClickHandler }) => {
           <Image
             width={24}
             height={24}
-            src={user.profileImage || `https://avatar.vercel.sh/${user.id}`}
+            src={user.profileImage || `https://avatar.vercel.sh/${user.name}`}
             alt={user.name || 'User avatar'}
             className="object-cover"
           />

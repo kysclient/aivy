@@ -25,4 +25,5 @@ export type Post = {
   replies: Post[];
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string;
 };

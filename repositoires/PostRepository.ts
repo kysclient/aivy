@@ -30,6 +30,7 @@ export interface Post {
   replies: Post[];
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string;
 }
 
 export interface CreatePostDto {
@@ -80,6 +81,7 @@ export class PostRepository extends BaseRepository<Post> {
       page,
       limit,
     });
+
 
     if (!response.success) {
       throw new Error(response.error || 'Failed to fetch user posts');

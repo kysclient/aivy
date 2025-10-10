@@ -4,21 +4,21 @@ const baseUrl = 'https://aivy.co.kr';
 
 // 페이지별 SEO 설정
 export const pageMetadata = {
-  home: {
-    title: '아이비(Aivy) - AI 맞춤 식단과 건강관리',
-    description:
-      'AI가 만드는 나만의 건강 식단! 아이비(Aivy)에서 맞춤 식단 생성부터 영양 분석까지 한 번에. 건강한 식생활을 시작하세요.',
-    keywords:
-      '아이비, aivy, Aivy, AI 식단, 맞춤 식단, 건강 관리, 식단 추천, 건강 앱',
-    url: baseUrl,
-  },
   mealPlan: {
     title: 'AI 식단 생성 - 나만의 맞춤 식단 만들기',
     description:
       'AI가 분석한 개인 맞춤형 식단을 30초 만에 생성하세요. 아이비의 AI 식단 생성으로 건강 목표를 달성하세요. 다이어트, 근육 증가, 건강 관리 모두 가능합니다.',
     keywords:
       '아이비 식단 생성, AI 식단, 맞춤 식단, 식단 만들기, 다이어트 식단, 헬스 식단, 건강 식단, 30일 식단',
-    url: `${baseUrl}/meal-plan`,
+    url: `${baseUrl}`,
+  },
+  posts: {
+    title: '아이비(Aivy) - AI 맞춤 식단과 건강관리',
+    description:
+      'AI가 만드는 나만의 건강 식단! 아이비(Aivy)에서 맞춤 식단 생성부터 영양 분석까지 한 번에. 건강한 식생활을 시작하세요.',
+    keywords:
+      '아이비, aivy, Aivy, AI 식단, 맞춤 식단, 건강 관리, 식단 추천, 건강 앱',
+    url: `${baseUrl}/posts`,
   },
   plans: {
     title: '나의 식단 관리 - 맞춤 식단 보기',

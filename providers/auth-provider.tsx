@@ -25,7 +25,7 @@ export interface AuthContextType {
   login: (credentials: LoginDto, rememberMe?: boolean, noRedirect?: boolean) => Promise<void>;
   register: (userData: CreateUserDto, noRedirect?: boolean) => Promise<void>;
   logout: () => Promise<void>;
-  updateProfile: (data: UpdateUserDto) => Promise<void>;
+  updateProfile: (data: FormData) => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (token: string, newPassword: string) => Promise<void>;
   refreshAuth: () => Promise<void>;
@@ -212,7 +212,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Update profile function
   const updateProfile = useCallback(
-    async (data: UpdateUserDto) => {
+    async (data: FormData) => {
       setIsLoading(true);
       setError(null);
 

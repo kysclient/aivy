@@ -152,8 +152,8 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
         <div className="flex gap-3 p-2.5 border-b border-border">
           <div className="relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden">
             <Image
-              src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.id}`}
-              alt={post.user.nickname || 'User Avatar'}
+              src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.name}`}
+              alt={post.user.name || 'User Avatar'}
               width={48}
               height={48}
               className="w-full h-full object-cover"
@@ -180,8 +180,8 @@ export default function CommentModal({ isOpen, setIsOpen, post, user }: CommentM
         <div className="flex gap-4 px-2.5 min-h-[120px]">
           <div className="relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden">
             <Image
-              src={user.profileImage || `https://avatar.vercel.sh/${user.id}`}
-              alt={user.nickname || 'User Avatar'}
+              src={user.profileImage || `https://avatar.vercel.sh/${user.name}`}
+              alt={user.name || 'User Avatar'}
               width={48}
               height={48}
               className="w-full h-full object-cover"

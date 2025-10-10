@@ -96,8 +96,8 @@ class ApiClient {
     return response.data;
   }
 
-  async patch<T>(url: string, data?: any): Promise<T> {
-    const response: AxiosResponse<T> = await this.client.patch(url, data);
+  async patch<T>(url: string, data?: any, config?: any): Promise<T> {
+    const response: AxiosResponse<T> = await this.client.patch(url, data, config);
     return response.data;
   }
 

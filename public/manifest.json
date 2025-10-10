@@ -27,7 +27,7 @@
       "name": "AI 식단 받기",
       "short_name": "식단 추천",
       "description": "AI가 추천하는 맞춤 식단 바로 확인하기",
-      "url": "/meal-plan",
+      "url": "/",
       "icons": [
         {
           "src": "/icons/shortcut.png",

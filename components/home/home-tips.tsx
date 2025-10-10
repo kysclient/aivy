@@ -49,7 +49,7 @@ export default function HomeTips() {
           <h1 className="text-4xl font-bold mb-4">건강한 하루를 시작하세요 ✨</h1>
           <p className="text-xl text-muted-foreground mb-6">AI가 추천하는 맞춤형 식단과 건강 팁</p>
           <Button size="lg" className="gap-2" asChild>
-            <Link href="/meal-plan">
+            <Link href="/">
               <ChefHat className="w-5 h-5" />
               식단 생성 시작하기
             </Link>
@@ -107,7 +107,7 @@ export default function HomeTips() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
           <Card className="text-center p-6 hover:shadow-lg transition-shadow cursor-pointer">
-            <Link href="/meal-plan">
+            <Link href="/">
               <Utensils className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="font-bold mb-2">식단 계획</h3>
               <p className="text-sm text-muted-foreground">AI가 맞춤형 식단을 생성해드려요</p>

@@ -37,19 +37,19 @@ interface NavLink {
 }
 
 export const navLinks: NavLink[] = [
-  { title: '홈', icon: HomeIcon, iconFilled: HomeFilledIcon, href: '/', authRequired: false },
+  {
+    title: '식단생성',
+    icon: AiIcon,
+    iconFilled: AiFilledIcon,
+    href: '/',
+    authRequired: false,
+  },
+  { title: '피드', icon: HomeIcon, iconFilled: HomeFilledIcon, href: '/posts', authRequired: false },
   {
     title: '상품추천',
     icon: ExploreIcon,
     iconFilled: ExploreFilledIcon,
     href: '/products',
-    authRequired: false,
-  },
-  {
-    title: '식단생성',
-    icon: AiIcon,
-    iconFilled: AiFilledIcon,
-    href: '/meal-plan',
     authRequired: false,
   },
   {
@@ -68,7 +68,7 @@ export const navLinks: NavLink[] = [
     authRequired: true,
   },
   //   { title: '메세지', icon: ChatIcon, iconFilled: ChatFilledIcon, href: '/messages', hasSubPaths: true, authRequired: true },
-  //   { title: '프로필', icon: UserIcon, iconFilled: UserFilledIcon, href: '/profile', hasSubPaths: true, authRequired: true },
+  { title: '프로필', icon: UserIcon, iconFilled: UserFilledIcon, href: '/profile', hasSubPaths: true, authRequired: true },
   {
     title: '설정',
     icon: SettingIcon,
@@ -91,8 +91,7 @@ export function SidebarNavLinks() {
         if (link.authRequired && !user) {
           return;
         }
-        // const path = user && link.href === '/profile' ? `${link.href}/${user?.nickname}` : link.href
-        const path = link.href;
+        const path = user && link.href === '/profile' ? `${link.href}/${user?.name}` : link.href
         const isActive = link.hasSubPaths ? pathname.startsWith(link.href) : pathname === link.href;
         const IconComponent = isActive ? link.iconFilled : link.icon;
 

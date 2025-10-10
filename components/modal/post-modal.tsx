@@ -156,7 +156,7 @@ export default function PostModal({ isOpen, setIsOpen, user }: PostModalProps) {
             <div className="relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden">
               <Image
                 src={user?.profileImage || `https://avatar.vercel.sh/${user?.name || 'user'}`}
-                alt={user?.nickname || '사용자 아바타'}
+                alt={user?.name || '사용자 아바타'}
                 width={48}
                 height={48}
                 className="object-cover"

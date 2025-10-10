@@ -35,8 +35,8 @@ export function AppMobileSidebar() {
                   <PopoverTrigger asChild>
                     <div className="mb-[10px] relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
                       <Image
-                        src={user.profileImage || `https://avatar.vercel.sh/${user.id}`}
-                        alt={user.nickname ?? 'User Avatar'}
+                        src={user.profileImage || `https://avatar.vercel.sh/${user.name}`}
+                        alt={user.name ?? 'User Avatar'}
                         width={48}
                         height={48}
                         className="w-full h-full object-cover"

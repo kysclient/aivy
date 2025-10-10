@@ -7,8 +7,12 @@ import { Calendar, ChevronRight, Clock } from 'lucide-react';
 import { MealPlan, MealPlanData } from '@/repositoires/MealPlanRepository';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Loading } from '../loading';
 
 export function PlansMain() {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     mealPlans,
     total,
@@ -17,8 +21,11 @@ export function PlansMain() {
     isLoading,
     error,
     refresh: mutate,
-  } = useUserMealPlans();
+  } = useUserMealPlans(currentPage, 10);
   const router = useRouter();
+
+  const hasNext = currentPage < totalPages;
+  const hasPrev = currentPage > 1;
 
   const getStatusColor = (status?: string) => {
     switch (status) {
@@ -49,6 +56,14 @@ export function PlansMain() {
         return '대기';
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -157,6 +172,27 @@ export function PlansMain() {
               referrerPolicy="unsafe-url"
             ></iframe>
           </div>
+          {(hasNext || hasPrev) && (
+            <div className="flex justify-center gap-2 p-4">
+              <Button
+                variant="outline"
+                disabled={!hasPrev}
+                onClick={() => setCurrentPage((p) => p - 1)}
+              >
+                이전
+              </Button>
+              <span className="flex items-center px-4 text-sm text-muted-foreground">
+                {currentPage} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                disabled={!hasNext}
+                onClick={() => setCurrentPage((p) => p + 1)}
+              >
+                다음
+              </Button>
+            </div>
+          )}
         </>
       ) : (
         <>

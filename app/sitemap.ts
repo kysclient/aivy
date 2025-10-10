@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/meal-plan`,
+      url: `${baseUrl}/posts`,
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.9,

@@ -497,9 +497,12 @@ export default function MealPlanChatbot() {
         {/* Messages Area */}
         <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-transparent to-muted/5 min-h-0">
           <AnimatePresence mode="popLayout">
-            {messages.map((message) => (
-              <ChatMessageComponent key={message.id} message={message} />
-            ))}
+            {messages.map((message) => {
+              if(message.content === '') return null
+              return (
+                <ChatMessageComponent key={message.id} message={message} />
+              )
+            })}
           </AnimatePresence>
           <div ref={messagesEndRef} />
         </div>

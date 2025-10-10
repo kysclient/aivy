@@ -37,7 +37,7 @@ function PurePostItem({
   const router = useRouter();
   const [openImageModal, setOpenImageModal] = useState(false);
 
-  const profileOnClick = (e: ReactMouseEvent<HTMLButtonElement>, id: string) => {
+  const profileOnClick = (e: ReactMouseEvent<HTMLButtonElement>, id?: string) => {
     e.stopPropagation();
     e.preventDefault();
     router.push(`/profile/${id}`);
@@ -89,11 +89,11 @@ function PurePostItem({
 
       <div className={cn('flex flex-row px-[15px] pt-[12px]', isOnPost && 'flex-row')}>
         <div className="relative flex flex-col items-center w-[50px] flex-shrink-0">
-          <button onClick={(e) => profileOnClick(e, post.user.id)} className="relative z-10">
+          <button onClick={(e) => profileOnClick(e, post.user.name)} className="relative z-10">
             <div className="border border-border w-[42px] h-[42px] rounded-full overflow-hidden">
               <Image
-                src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.id}`}
-                alt={post.user.nickname || 'User Avatar'}
+                src={post.user.profileImage || `https://avatar.vercel.sh/${post.user.name}`}
+                alt={post.user.name || 'User Avatar'}
                 width={42}
                 height={42}
                 className="w-full h-full object-cover"
@@ -117,6 +117,14 @@ function PurePostItem({
               {' '}
               · {formatDate(post.createdAt)}
             </span>
+            {
+              post.deletedAt && (
+                <span className="text-description text-sm flex-shrink-0">
+                  {' '}
+                  · Deleted
+                </span>
+              )
+            }
           </div>
 
           <div className="text-foreground whitespace-pre-wrap">{truncateContent(post.content)}</div>

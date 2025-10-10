@@ -220,7 +220,7 @@ export function AuthModal({ open, onOpenChange, onSuccess }: AuthModalProps) {
         connect(token);
       }
 
-      toast.success('로그인되었습니다.');
+      // 로그인 성공 시에만 모달 닫기
       onOpenChange(false);
       onSuccess?.();
     } catch (error: any) {
@@ -260,7 +260,7 @@ export function AuthModal({ open, onOpenChange, onSuccess }: AuthModalProps) {
         connect(token);
       }
 
-      toast.success('회원가입이 완료되었습니다.');
+      // 회원가입 성공 시에만 모달 닫기
       onOpenChange(false);
       onSuccess?.();
     } catch (error: any) {
@@ -273,13 +273,10 @@ export function AuthModal({ open, onOpenChange, onSuccess }: AuthModalProps) {
         errorMessage.includes('already registered')
       ) {
         setErrors({ email: '이미 사용 중인 이메일입니다.' });
-        toast.error('이미 사용 중인 이메일입니다.');
       } else if (errorMessage.includes('Username already exists')) {
         setErrors({ name: '이미 사용 중인 이름입니다.' });
-        toast.error('이미 사용 중인 이름입니다.');
-      } else {
-        toast.error(errorMessage);
       }
+      // auth-provider에서 이미 toast를 표시하므로 여기서는 중복 toast 제거
     }
   };
 
@@ -298,8 +295,9 @@ export function AuthModal({ open, onOpenChange, onSuccess }: AuthModalProps) {
   );
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={onOpenChange} >
+      <DialogTitle></DialogTitle>
+      <DialogContent className="sm:max-w-[480px] max-h-[90vh] overflow-y-auto" showCloseButton={false}>
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-4">
             <TabsTrigger value="login">로그인</TabsTrigger>

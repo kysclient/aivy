@@ -62,8 +62,12 @@ export class UserRepository extends BaseRepository<User> {
     return response.data;
   }
 
-  async updateProfile(data: UpdateUserDto): Promise<User> {
-    const response = await apiClient.patch<ApiResponse<User>>('/auth/profile', data);
+  async updateProfile(data: FormData): Promise<User> {
+    const response = await apiClient.patch<ApiResponse<User>>('/users/profile', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     if (response.statusCode >= 400) {
       throw new Error(response.error || 'Failed to update profile');

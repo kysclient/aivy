@@ -6,6 +6,7 @@ export type User = {
   name?: string;
   nickname?: string;
   profileImage?: string;
+  coverImage?: string;
   role?: string;
   gender?: string;
   age?: string;
@@ -14,4 +15,5 @@ export type User = {
   isActive?: string;
   lastLoginAt?: String;
   password?: string;
+  description?: string;
 };

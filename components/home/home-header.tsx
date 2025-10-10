@@ -97,7 +97,7 @@ export function HomeHeader({ children }: { children?: React.ReactNode }) {
           >
             <h1 className="text-3xl font-kakao font-bold font-primary">aivy</h1>
           </div>
-          <div className="w-[34px] text-description">
+          <div className="w-[34px] h-[34px] text-description hover:bg-muted rounded-xl items-center justify-center flex">
             <Link className="" href={'/notifications'}>
               <BellIcon size={21} />
             </Link>

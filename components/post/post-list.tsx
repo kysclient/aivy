@@ -34,11 +34,27 @@ function PurePostList({ postType }: PostListProps) {
       if (page === 1) {
         setAccumulatedPosts(posts);
       } else {
-        setAccumulatedPosts((prev) => [...prev, ...posts]);
+        // 중복 제거: 이미 있는 게시물은 제외하고 새로운 게시물만 추가
+        setAccumulatedPosts((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id));
+          const newPosts = posts.filter((p) => !existingIds.has(p.id));
+          return [...prev, ...newPosts];
+        });
       }
+      setIsLoadingMore(false);
+    } else if (posts && posts.length === 0 && page === 1) {
+      // page 1에서 게시글이 없으면 빈 배열로 설정
+      setAccumulatedPosts([]);
       setIsLoadingMore(false);
     }
   }, [posts, page]);
+
+  // SWR 캐시가 업데이트되면 accumulatedPosts도 업데이트
+  useEffect(() => {
+    if (page === 1 && posts) {
+      setAccumulatedPosts(posts);
+    }
+  }, [posts]);
 
   // Intersection Observer를 사용한 무한 스크롤
   useEffect(() => {

@@ -10,8 +10,7 @@ export function Sidebar() {
 
   const menuItems = [
     { icon: Home, label: '홈', href: '/' },
-    { icon: ChefHat, label: '식단 생성', href: '/meal-plan' },
-    { icon: ChefHat, label: '식단 생성', href: '/meal-plan' },
+    { icon: ChefHat, label: '식단 생성', href: '/' },
     { icon: ShoppingCart, label: '상품 추천', href: '/products' },
     { icon: Settings, label: '설정', href: '/settings' },
   ];
