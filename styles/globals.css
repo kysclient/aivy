@@ -77,6 +77,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --content-max-width: var(--content-max-width);
+  --content-gutter: var(--content-gutter);
 }
 
 :root {
@@ -120,6 +122,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --content-max-width: 48rem;
+  --content-gutter: 1rem;
 }
 
 .dark {
@@ -162,6 +166,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --content-max-width: 48rem;
+  --content-gutter: 1rem;
 }
 
 .deep-dark {
@@ -204,6 +210,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+  --content-max-width: 48rem;
+  --content-gutter: 1rem;
 }
 
 @layer base {
@@ -225,6 +233,9 @@
     /* IE, Edge */
     scrollbar-width: none;
     /* Firefox */
+  }
+  .max-w-breakout {
+    max-width: calc(var(--content-max-width) + 2 * var(--content-gutter));
   }
 
   .gradient-accent {
