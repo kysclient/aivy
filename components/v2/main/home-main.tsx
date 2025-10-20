@@ -38,7 +38,7 @@ export function HomeMain() {
                   <Input
                     placeholder={
                       isMobile
-                        ? 'aivy에게 식단생성하기'
+                        ? '식단제목 입력..'
                         : '식단제목을 입력하고 나만의 식단을 만들어보세요!'
                     }
                     style={{

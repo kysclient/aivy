@@ -36,7 +36,7 @@ const mockProducts: Product[] = [
     rating: 4.0,
     category: '신선식품',
     description: '',
-    href: 'https://link.coupang.com/a/cTts7t',
+    href: 'https://link.coupang.com/a/cXQkbx',
   },
 ];
 
