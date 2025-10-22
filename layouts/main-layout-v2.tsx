@@ -36,7 +36,6 @@ export function MainLayoutV2({ children }: { children: React.ReactNode }) {
               'h-dvh flex-grow flex-shrink relative selection:bg-background isolate print:h-full print:prose print:max-w-none'
             }
           >
-            <HeaderV2 />
             {children}
           </main>
         </div>

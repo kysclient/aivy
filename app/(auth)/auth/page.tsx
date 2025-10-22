@@ -1,5 +1,12 @@
 import { AuthForm } from '@/components/auth/auth-form';
 
-export default async function Page() {
-  return <AuthForm />;
+interface PageProps {
+  searchParams: {
+    mode?: string;
+  };
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const { mode } = await searchParams;
+  return <AuthForm selectedMode={mode} />;
 }

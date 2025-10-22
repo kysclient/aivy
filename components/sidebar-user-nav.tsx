@@ -5,8 +5,9 @@ import { SignOutIcon } from './icons';
 import { useScreenSize } from '@/hooks/use-screen-size';
 import { MoreHorizontal } from 'lucide-react';
 import { useAuth } from '@/providers/auth-provider';
+import { cn } from '@/lib/utils';
 
-export function SidebarUserNav() {
+export function SidebarUserNav({iconClassName}: {iconClassName?: string}) {
   const { user, logout } = useAuth();
 
   const screenSize = useScreenSize();
@@ -32,7 +33,7 @@ export function SidebarUserNav() {
           {screenSize.isDesktop ? (
             <button className="group flex items-center justify-between gap-2 transition-all duration-200 ease-in-out hover:bg-muted rounded-full p-1 w-full">
               <div className="pl-[16px] group-hover:pl-0  flex flex-row items-center gap-2">
-                <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
+                <div className={cn("relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75", iconClassName)}>
                   <Image
                     src={user?.profileImage || `https://avatar.vercel.sh/${user?.name}`}
                     alt={user?.name ?? user?.name ?? 'User Avatar'}
@@ -57,7 +58,7 @@ export function SidebarUserNav() {
             </button>
           ) : (
             <button className="p-1 group bg-muted rounded-full">
-              <div className="relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75">
+              <div className={cn("relative w-[48px] h-[48px] rounded-full flex-shrink-0 overflow-hidden transition-transform duration-200 ease-in-out group-hover:scale-75", iconClassName)}>
                 <Image
                   src={user?.profileImage || `https://avatar.vercel.sh/${user?.name}`}
                   alt={user?.name ?? user?.nickname ?? 'User Avatar'}

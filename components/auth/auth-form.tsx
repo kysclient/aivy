@@ -63,7 +63,7 @@ const validateName = (name: string): string | null => {
   return null;
 };
 
-export function AuthForm() {
+export function AuthForm({selectedMode}: {selectedMode: string | undefined}) {
   const params = useParams();
   const router = useRouter();
   const [errors, setErrors] = useState<FormErrors>({});
@@ -362,7 +362,7 @@ export function AuthForm() {
       <div className="auth-form-side">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4 sm:mb-8">
             <Link href={'/'}>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 aivy
@@ -373,7 +373,7 @@ export function AuthForm() {
 
           {/* Auth Forms */}
           <Card className="auth-card-modern bg-background">
-            <Tabs defaultValue="login" className="w-full p-6">
+            <Tabs defaultValue={selectedMode ? selectedMode : 'login'} className="w-full p-6">
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="login" className="">
                   로그인
@@ -392,7 +392,7 @@ export function AuthForm() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="px-0">
-                  <form onSubmit={handleLogin} className="space-y-6">
+                  <form onSubmit={handleLogin} className="space-y-2 sm:space-y-6">
                     <div className="space-y-2">
                       <Label htmlFor="login-email" className="text-sm font-medium">
                         이메일

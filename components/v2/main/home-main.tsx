@@ -6,11 +6,14 @@ import { cn } from '@/lib/utils';
 import { Rocket, Search } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
 
 export function HomeMain() {
   const { theme, setTheme, systemTheme } = useTheme();
   const { isMobile } = useScreenSize();
+  const [title, setTitle] = useState('');
+  const router = useRouter();
   // 다크 모드 여부 판단
   const isDarkMode = useMemo(() => {
     if (theme === 'system') {
@@ -18,6 +21,14 @@ export function HomeMain() {
     }
     return theme === 'dark' || theme === 'deep-dark';
   }, [theme, systemTheme]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+
+    // URL 인코딩하여 식단 생성 페이지로 이동
+    router.push(`/v2/meal-plan?title=${encodeURIComponent(title.trim())}`);
+  };
 
   return (
     <div className="flex flex-col items-center w-full h-full p-2 mx-auto justify-center sm:p-4 sm:gap-9 isolate mt-16 sm:mt-0 overflow-hidden">
@@ -32,10 +43,15 @@ export function HomeMain() {
           {/* 컨텐츠 */}
           <div className="flex flex-col-reverse items-center justify-between flex-1 w-full gap-0 sm:gap-3 sm:flex-col relative p-2 sm:p-0">
             <div className="w-full mb-3">
-              <form className="w-full text-base flex flex-col gap-2 items-center justify-center relative z-10 mt-2">
+              <form
+                onSubmit={handleSubmit}
+
+                className="w-full text-base flex flex-col gap-2 items-center justify-center relative z-10 mt-2">
                 <div className="flex flex-col gap-0 justify-center w-full relative items-center xl:w-4/5 max-w-breakout">
                   <Rocket className="w-5 h-5 absolute left-4 top-5 z-10" />
                   <Input
+                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
                     placeholder={
                       isMobile
                         ? '식단제목 입력..'
