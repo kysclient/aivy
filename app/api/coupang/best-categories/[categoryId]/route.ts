@@ -3,12 +3,12 @@ import { createCoupangApiClient } from '@/lib/coupang-api';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { categoryId: string } }
+  { params }: { params: Promise<{ categoryId: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get('limit') || '100', 10);
-    const categoryId = params.categoryId;
+    const { categoryId } = await params;
 
     // 쿠팡 API 클라이언트 생성
     const coupangClient = createCoupangApiClient();
