@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createCoupangApiClient } from '@/lib/coupang-api';
 
+// 동적 라우트를 강제로 동적으로 렌더링
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ categoryId: string }> }
