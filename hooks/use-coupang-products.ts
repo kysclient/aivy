@@ -34,7 +34,7 @@ export function useCoupangProducts({
 
     try {
       const response = await fetch(
-        `/api/coupang/best-categories/${categoryId}?limit=${limit}`
+        `/api/coupang/best-category?categoryId=${categoryId}&limit=${limit}`
       );
 
       if (!response.ok) {

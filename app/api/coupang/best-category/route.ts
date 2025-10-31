@@ -5,14 +5,18 @@ import { createCoupangApiClient } from '@/lib/coupang-api';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ categoryId: string }> }
-) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+    const categoryId = searchParams.get('categoryId');
     const limit = parseInt(searchParams.get('limit') || '100', 10);
-    const { categoryId } = await params;
+
+    if (!categoryId) {
+      return NextResponse.json(
+        { error: 'categoryId parameter is required' },
+        { status: 400 }
+      );
+    }
 
     // 쿠팡 API 클라이언트 생성
     const coupangClient = createCoupangApiClient();
