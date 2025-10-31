@@ -241,7 +241,7 @@ export default function ProductsMain() {
                 <AlertCircle className="w-8 h-8 text-destructive" />
                 <div className="space-y-2">
                   <p className="text-destructive font-semibold">
-                    {isSearchMode ? '검색에 실패했습니다' : '상품을 불러오는데 실패했습니다'}
+                    {isSearchMode ? '검색에 실패했습니다.' : '상품을 불러오는데 실패했습니다.'}
                   </p>
                   <p className="text-sm text-muted-foreground">{currentError.message}</p>
                 </div>
