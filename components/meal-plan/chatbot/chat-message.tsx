@@ -5,6 +5,7 @@ import { Bot, User } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AiIcon } from '@/components/icons';
 
 export interface ChatMessage {
   id: string;
@@ -55,7 +56,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
                   repeatDelay: 3,
                 }}
               >
-                <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                <i className='text-white'>
+                  <AiIcon />
+                </i>
+                {/* <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" /> */}
               </motion.div>
             </AvatarFallback>
           </Avatar>

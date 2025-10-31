@@ -15,6 +15,7 @@ import { getMealPlanDates } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useGeneratingMealPlans } from '@/hooks/use-meal-plan';
 import { AuthModal } from '@/components/modal/auth-modal';
+import { AiIcon } from '@/components/icons';
 
 export interface ChatMessage {
   id: string;
@@ -468,7 +469,9 @@ export default function MealPlanChatbot() {
               }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <i className='text-white'>
+                <AiIcon />
+              </i>
             </motion.div>
             <div className="min-w-0 flex-1">
               <h2 className="text-sm sm:text-base font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent truncate">
@@ -498,7 +501,7 @@ export default function MealPlanChatbot() {
         <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-transparent to-muted/5 min-h-0">
           <AnimatePresence mode="popLayout">
             {messages.map((message) => {
-              if(message.content === '') return null
+              if (message.content === '') return null
               return (
                 <ChatMessageComponent key={message.id} message={message} />
               )

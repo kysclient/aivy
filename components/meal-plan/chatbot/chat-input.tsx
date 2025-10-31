@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Send, Plus, X } from 'lucide-react';
+import { Send, Plus, X, MoveUp } from 'lucide-react';
 
 interface Question {
   id: string;
@@ -121,10 +121,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                       className={`
                         w-full justify-between text-left h-auto py-3 px-4 sm:py-4 sm:px-5
                         transition-all duration-300 border
-                        ${
-                          value === option.value
-                            ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg'
-                            : 'hover:border-primary/50 hover:shadow-md hover:bg-primary/5'
+                        ${value === option.value
+                          ? 'bg-gradient-to-r from-primary to-blue-600 border-primary shadow-lg'
+                          : 'hover:border-primary/50 hover:shadow-md hover:bg-primary/5'
                         }
                       `}
                       onClick={() => setValue(option.value)}
@@ -163,7 +162,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 onCompositionStart={() => setIsComposing(true)}
                 onCompositionEnd={() => setIsComposing(false)}
                 disabled={disabled}
-                className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
+                className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm bg-muted"
               />
               <motion.div
                 className="absolute right-2"
@@ -223,7 +222,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               onCompositionEnd={() => setIsComposing(false)}
               disabled={disabled}
               rows={3}
-              className="resize-none pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-2xl text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
+              className="resize-none pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-2xl text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm bg-muted"
             />
             <motion.div
               className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3"
@@ -234,9 +233,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 type="submit"
                 size="sm"
                 disabled={disabled || !canSubmit()}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-foreground text-background shadow-lg"
               >
-                <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                <MoveUp className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </motion.div>
           </div>
@@ -255,7 +254,7 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
               onCompositionStart={() => setIsComposing(true)}
               onCompositionEnd={() => setIsComposing(false)}
               disabled={disabled}
-              className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm"
+              className="flex-1 pr-12 border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 rounded-full text-xs sm:text-sm placeholder:text-xs sm:placeholder:text-sm bg-muted"
             />
             <motion.div
               className="absolute right-2"
@@ -266,9 +265,9 @@ export function ChatInput({ question, onSubmit, disabled }: ChatInputProps) {
                 type="submit"
                 size="sm"
                 disabled={disabled || !canSubmit()}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full p-0 bg-foreground text-background shadow-lg"
               >
-                <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                <MoveUp className="w-3 h-3 sm:w-4 sm:h-4" />
               </Button>
             </motion.div>
           </div>
