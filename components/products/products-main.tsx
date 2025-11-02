@@ -37,7 +37,6 @@ const categories = ['전체', '육류', '수산물', '두부/콩', '곡물', '�
 
 // 쿠팡 상품을 Product 인터페이스로 변환하는 함수
 function transformCoupangProduct(coupangProduct: CoupangProduct, index: number): Product {
- 
   return {
     id: coupangProduct.productId.toString(),
     name: coupangProduct.productName,
@@ -46,10 +45,10 @@ function transformCoupangProduct(coupangProduct: CoupangProduct, index: number):
     rating: 4.5, // 쿠팡 API에서 평점을 제공하지 않으므로 기본값 설정
     category: coupangProduct.categoryName || '신선식품',
     description: '',
-    href: coupangProduct.productUrl,
+    href: coupangProduct.landingUrl,
     isRocket: coupangProduct.isRocket,
     isFreeShipping: coupangProduct.isFreeShipping,
-    rank: coupangProduct.rank
+    rank: coupangProduct.rank,
   };
 }
 
@@ -67,7 +66,12 @@ export default function ProductsMain() {
   const [activeKeyword, setActiveKeyword] = useState('');
 
   // 쿠팡 API 연동 (카테고리 ID 1024 = 신선식품) - 기본 베스트 상품
-  const { products: coupangProducts, loading, error, refetch } = useCoupangProducts({
+  const {
+    products: coupangProducts,
+    loading,
+    error,
+    refetch,
+  } = useCoupangProducts({
     categoryId: '1024',
     limit: isSearchMode ? 10 : 100, // 쿠팡 API limit 제한으로 10개로 설정
     autoFetch: !isSearchMode, // 검색 모드가 아닐 때만 자동 로드
@@ -78,7 +82,10 @@ export default function ProductsMain() {
     const keyword = searchParams.get('keyword');
     if (keyword) {
       // 쉼표로 구분된 키워드들을 배열로 변환
-      const keywordArray = keyword.split(',').map(k => k.trim()).filter(k => k);
+      const keywordArray = keyword
+        .split(',')
+        .map((k) => k.trim())
+        .filter((k) => k);
       setKeywords(keywordArray);
 
       // 첫 번째 키워드로 검색
@@ -98,7 +105,9 @@ export default function ProductsMain() {
     setSearchError(null);
 
     try {
-      const response = await fetch(`/api/coupang/search?keyword=${encodeURIComponent(keyword)}&limit=10`);
+      const response = await fetch(
+        `/api/coupang/search?keyword=${encodeURIComponent(keyword)}&limit=10`
+      );
 
       if (!response.ok) {
         throw new Error('검색에 실패했습니다');
@@ -129,13 +138,10 @@ export default function ProductsMain() {
   };
 
   // 쿠팡 상품을 Product 타입으로 변환
-  const products = useMemo(
-    () => {
-      const productsToTransform = isSearchMode ? searchResults : coupangProducts;
-      return productsToTransform.map((product, index) => transformCoupangProduct(product, index));
-    },
-    [coupangProducts, searchResults, isSearchMode]
-  );
+  const products = useMemo(() => {
+    const productsToTransform = isSearchMode ? searchResults : coupangProducts;
+    return productsToTransform.map((product, index) => transformCoupangProduct(product, index));
+  }, [coupangProducts, searchResults, isSearchMode]);
 
   // 현재 로딩 및 에러 상태
   const currentLoading = isSearchMode ? searchLoading : loading;
@@ -180,7 +186,6 @@ export default function ProductsMain() {
       return 0;
     });
 
-
   return (
     <>
       <SearchHeader onSearch={handleSearch} />
@@ -189,12 +194,17 @@ export default function ProductsMain() {
         <div className="space-y-4">
           {/* 검색 모드 표시 및 초기화 */}
           {isSearchMode && (
-            <div className='p-4 space-y-3'>
+            <div className="p-4 space-y-3">
               <div className="flex items-center justify-between px-4 py-2 bg-muted rounded-lg">
                 <p className="text-sm text-muted-foreground">
                   <span className="font-semibold text-foreground">"{activeKeyword}"</span> 검색 결과
                 </p>
-                <Button onClick={resetSearch} variant="ghost" size="sm" className='hover:text-primary font-bold'>
+                <Button
+                  onClick={resetSearch}
+                  variant="ghost"
+                  size="sm"
+                  className="hover:text-primary font-bold"
+                >
                   베스트 상품 보기
                 </Button>
               </div>
@@ -206,7 +216,7 @@ export default function ProductsMain() {
                   {keywords.map((keyword, index) => (
                     <Badge
                       key={index}
-                      variant={activeKeyword === keyword ? "default" : "outline"}
+                      variant={activeKeyword === keyword ? 'default' : 'outline'}
                       className={`cursor-pointer text-xs transition-colors ${
                         activeKeyword === keyword
                           ? 'bg-primary text-primary-foreground'
@@ -280,11 +290,15 @@ export default function ProductsMain() {
                           {product.category}
                         </Badge>
                         <h3 className="font-semibold text-foreground">{product.name}</h3>
-                        <p className="text-sm text-description line-clamp-2">{product.description}</p>
+                        <p className="text-sm text-description line-clamp-2">
+                          {product.description}
+                        </p>
                         <div className="flex items-center gap-1">
                           <Trophy className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                           <span className="text-sm font-bold text-foreground">{product.rank}</span>
-                          <span className="text-xs text-muted-foreground">{product.isFreeShipping && '무료 배송'}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {product.isFreeShipping && '무료 배송'}
+                          </span>
                         </div>
                         <div className="flex sm:items-center justify-between sm:flex-row flex-col gap-2">
                           <span className="text-xl font-bold text-primary">
@@ -293,7 +307,9 @@ export default function ProductsMain() {
                           <Button
                             size="sm"
                             className="gap-2"
-                            onClick={() => handlePurchase(product.href || '')}
+                            onClick={() => {
+                              window.open(product.href || '', '_blank');
+                            }}
                           >
                             <ShoppingCart className="w-4 h-4" />
                             구매하기

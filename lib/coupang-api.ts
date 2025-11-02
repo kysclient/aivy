@@ -8,6 +8,7 @@ export interface CoupangProduct {
   productPrice: number;
   productImage: string;
   productUrl: string;
+  landingUrl: string;
   categoryName?: string;
   isRocket?: boolean;
   isFreeShipping?: boolean;
@@ -23,6 +24,7 @@ export interface CoupangBestCategoryResponse {
     productPrice: number;
     productImage: string;
     productUrl: string;
+    landingUrl: string;
     categoryName?: string;
     isRocket?: boolean;
     isFreeShipping?: boolean;
