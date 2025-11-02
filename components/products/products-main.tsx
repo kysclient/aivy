@@ -45,7 +45,7 @@ function transformCoupangProduct(coupangProduct: CoupangProduct, index: number):
     rating: 4.5, // 쿠팡 API에서 평점을 제공하지 않으므로 기본값 설정
     category: coupangProduct.categoryName || '신선식품',
     description: '',
-    href: coupangProduct.landingUrl,
+    href: coupangProduct.productUrl,
     isRocket: coupangProduct.isRocket,
     isFreeShipping: coupangProduct.isFreeShipping,
     rank: coupangProduct.rank,
@@ -268,7 +268,7 @@ export default function ProductsMain() {
 
           {/* Products Grid */}
           {!currentLoading && !currentError && (
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1">
               {filteredProducts.map((product, index) => (
                 <motion.div
                   key={product.id + index}
@@ -276,16 +276,16 @@ export default function ProductsMain() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="bg-background h-full rounded-none border-0 border-b border-border transition-shadow transition-colors hover:bg-muted  py-2">
-                    <CardContent className="flex flex-row gap-4 itmes-center">
-                      <div className="aspect-square bg-muted rounded-xl overflow-hidden w-[160px] h-[210px] flex-shrink-0">
+                  <Card className="bg-background h-full rounded-none border-0 border-b border-border py-0">
+                    <CardContent className="flex flex-row gap-4 itmes-center pl-0">
+                      <div className="aspect-square bg-muted overflow-hidden w-[160px] h-[210px] flex-shrink-0">
                         <img
                           src={product.image || '/placeholder.svg'}
                           alt={product.name}
                           className="object-cover w-full h-full"
                         />
                       </div>
-                      <div className="space-y-1 sm:space-y-3 flex flex-col justify-center flex-1">
+                      <div className="ml-2 space-y-1 sm:space-y-3 flex flex-col justify-center flex-1">
                         <Badge variant="outline" className="text-xs">
                           {product.category}
                         </Badge>
