@@ -80,7 +80,7 @@ export function MealPlanDetail({ planId }: MealPlanDetailProps) {
     // 3. 각 항목에서 단위 제거
     const cleanedItems = items.map(item => {
       // 단위 제거 (g, kg, ml, L, 개, 공기, 컵, 큰술, 작은술 등)
-      let cleaned = item.replace(/\s*\d+\.?\d*\s*(g|kg|ml|L|개|공기|컵|큰술|작은술|티스푼|스푼|숟가락|그릇|접시|봉지|팩|조각|half)/gi, '');
+      let cleaned = item.replace(/\s*\d+\.?\d*\s*(g|kg|ml|L|개|공기|컵|큰술|작은술|티스푼|스푼|숟가락|그릇|접시|봉지|팩|조각|half|(|))/gi, '');
 
       // 분수 표현 제거 (예: 1/2)
       cleaned = cleaned.replace(/\s*\d+\/\d+\s*/g, ' ');
