@@ -3,11 +3,11 @@
 import { useUserMealPlans } from '@/hooks/use-meal-plan';
 import { NoPlans } from '../no-plans';
 import { cn } from '@/lib/utils';
-import { Calendar, ChevronRight, Clock } from 'lucide-react';
+import { Calendar, ChevronRight, Clock, Info } from 'lucide-react';
 import { MealPlan, MealPlanData } from '@/repositoires/MealPlanRepository';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loading } from '../loading';
 
@@ -56,6 +56,10 @@ export function PlansMain() {
         return '대기';
     }
   };
+
+  useEffect(() => {
+    console.log('mealPlasn : ', mealPlans)
+  }, [mealPlans])
 
   if (isLoading) {
     return (
@@ -146,6 +150,13 @@ export function PlansMain() {
                           <span className="font-mono">{mealPlan.endDate}</span>
                         </div>
                       </div>
+                      {
+                        mealPlan.notes &&
+                        <div className="flex items-center gap-2 sm:gap-4 text-xs  sm:text-sm text-muted-foreground">
+                          <Notes jsonString={mealPlan.notes} />
+                        </div>
+                      }
+
                     </div>
 
                     {/* Arrow indicator */}
@@ -222,6 +233,25 @@ export function PlansMain() {
       )}
     </>
   );
+}
+
+
+const Notes = ({ jsonString }: { jsonString: string }) => {
+  jsonString = jsonString
+    .replace(/(\w+)\s*:/g, '"$1":') // key에 따옴표
+    .replace(/:\s*([\w-]+)/g, ':"$1"') // value에 따옴표
+    .replace(/:\s*}/g, ':""}'); // value 비어있으면 '' 처리
+
+  const obj = JSON.parse(jsonString);
+
+  console.log(obj);
+
+  return (
+    <div className="flex items-center gap-1.5">
+      <Info className="w-3 h-3 sm:w-4 sm:h-4" />
+      <span className="font-mono">성별:{obj.gender === 'male' ? '남자' : obj.gender === 'female' ? '여자' : '기타'}, 키: {obj.height}, 몸무게: {obj.weight}, 나이: {obj.age}</span>
+    </div>
+  )
 }
 
 const testDatas = [

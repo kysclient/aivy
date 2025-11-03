@@ -14,6 +14,7 @@ export interface MealPlan {
   nutritionSummary?: NutritionSummary;
   createdAt: string;
   updatedAt: string;
+  notes?: string;
 }
 
 export enum MealPlanStatus {
